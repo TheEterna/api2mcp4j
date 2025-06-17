@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 
 
 /**
- * @author: han
+ * @author han
  * time: 2025/04/2025/4/10 15:49
  * des:
  */

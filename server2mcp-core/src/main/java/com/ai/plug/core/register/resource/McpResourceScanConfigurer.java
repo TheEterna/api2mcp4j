@@ -1,7 +1,6 @@
 package com.ai.plug.core.register.resource;
 
 import com.ai.plug.core.annotation.McpResourceScan;
-import com.ai.plug.core.context.ResourceContext;
 import com.ai.plug.core.spring.filter.DeclaredClassExcludeFilter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;

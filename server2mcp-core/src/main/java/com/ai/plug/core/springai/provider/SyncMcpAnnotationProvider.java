@@ -163,6 +163,7 @@ public class SyncMcpAnnotationProvider {
 	public static List<SyncResourceSpecification> createSyncResourceSpecifications(List<Object> resourceObjects) {
 		return new SpringAiSyncMcpResourceProvider(resourceObjects).getSyncResourceSpecifications();
 	}
+
 	public static List<SyncToolSpecification> createSyncToolSpecifications(Map<Object, ToolContext.ToolRegisterDefinition> toolAndDefinitions,
 																		   ToolDefinitionBuilder toolDefinitionBuilder,
 																		   IRootContext rootContext) {

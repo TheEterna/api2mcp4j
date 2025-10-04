@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ai.plug</groupId>
     <artifactId>server2mcp-parent</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>server2mcp-parent</name>
@@ -13,12 +13,12 @@
         <project.version>1.0.0</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>3.4.4</spring-boot.version>
-        <spring-ai.version>1.1.0-SNAPSHOT</spring-ai.version>
+        <spring-ai.version>1.0.2</spring-ai.version>
         <javaparser.version>3.25.5</javaparser.version>
         <victools.module.swagger1-5.version>4.37.0</victools.module.swagger1-5.version>
         <swagger1-5.annotations.version>1.5.20</swagger1-5.annotations.version>
         <mcp-annotations.version>0.2.0-PRIVATE</mcp-annotations.version>
-        <mcp-sdk.version>0.11.0</mcp-sdk.version>
+        <mcp-sdk.version>0.14.0-SNAPSHOT</mcp-sdk.version>
         <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
         <javax.validation-api.version>2.0.1.Final</javax.validation-api.version>
     </properties>
@@ -86,6 +86,77 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- javadoc库 -->
+            <dependency>
+                <groupId>com.github.javaparser</groupId>
+                <artifactId>javaparser-core</artifactId>
+                <version>${javaparser.version}</version>
+            </dependency>
+
+            <!-- victools 的 swagger1.5 插件 -->
+            <dependency>
+                <groupId>com.github.victools</groupId>
+                <artifactId>jsonschema-module-swagger-1.5</artifactId>
+                <version>${victools.module.swagger1-5.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.victools</groupId>
+                <artifactId>jsonschema-module-jakarta-validation</artifactId>
+                <version>${victools.module.swagger1-5.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.victools</groupId>
+                <artifactId>jsonschema-module-javax-validation</artifactId>
+                <version>${victools.module.swagger1-5.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger1-5.annotations.version}</version>
+            </dependency>
+
+            <!-- javax 的校验注解 -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <scope>compile</scope>
+                <version>${javax.validation-api.version}</version>
+            </dependency>
+
+            <!-- jakarta 的校验注解 -->
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <scope>compile</scope>
+                <version>${jakarta.validation-api.version}</version>
+            </dependency>
+            <!-- 覆盖原始低稳定版本mcp -->
+            <dependency>
+                <groupId>io.modelcontextprotocol.sdk</groupId>
+                <artifactId>mcp</artifactId>
+                <version>${mcp-sdk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ai.plug</groupId>
+                <artifactId>server2mcp-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ai.plug</groupId>
+                <artifactId>server2mcp-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ai.plug</groupId>
+                <artifactId>server2mcp-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
 
 
@@ -102,8 +173,12 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <compilerArgs><arg>-parameters</arg></compilerArgs>
+                    <compilerArgs>
+                        <arg>-Xlint:deprecation</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

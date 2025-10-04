@@ -3,6 +3,7 @@ package com.ai.plug.core.spec.utils.elicitation;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
 import io.modelcontextprotocol.spec.McpSchema;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.*;
 
 /**
  * @author han
@@ -44,7 +45,8 @@ public class McpSyncElicitation implements McpElicitation{
     public Mono<McpSchema.ElicitResult> elicitAsync(String message, Class<?> schema) {
 
         // return as Mono
-        return Mono.just(this.elicit(message, schema));
+        return Mono.fromCallable(() -> this.elicit(message, schema))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
 

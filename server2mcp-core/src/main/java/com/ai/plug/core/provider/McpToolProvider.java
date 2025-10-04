@@ -11,12 +11,13 @@ import com.ai.plug.core.spec.callback.tool.McpCallToolResultConverter;
 import com.ai.plug.core.spec.callback.tool.SyncMcpToolMethodCallback;
 import io.modelcontextprotocol.server.McpServerFeatures;
 import io.modelcontextprotocol.spec.McpSchema;
+import io.modelcontextprotocol.spec.McpSchema.*;
 import io.modelcontextprotocol.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.definition.ToolDefinition;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -69,9 +70,22 @@ public class McpToolProvider {
                             .map(mcpToolMethod -> {
                                 McpTool toolAnnotation = mcpToolMethod.getAnnotation(McpTool.class);
 
+                                Map<String, Object> outputSchema = this.toolDefinitionBuilder.buildToolOutputSchema(mcpToolMethod);
+
                                 ToolDefinition toolInfo = this.toolDefinitionBuilder.buildToolDefinition(mcpToolMethod);
-                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), toolInfo.description(),
-                                        toolInfo.inputSchema(), getToolAnnotations(toolAnnotation));
+                                JsonSchema inputSchema = this.toolDefinitionBuilder.buildToolInputSchema(toolInfo.inputSchema());
+
+                                // 机理: default title use value of name
+
+                                String title;
+                                if (toolAnnotation != null) {
+                                    title = StringUtils.hasText(toolAnnotation.title()) ? toolAnnotation.title() : toolInfo.name();
+                                } else {
+                                    title = toolInfo.name();
+                                }
+
+                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
+                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
 
 
                                 AsyncMcpToolMethodCallback methodCallback = AsyncMcpToolMethodCallback.builder()
@@ -82,7 +96,7 @@ public class McpToolProvider {
                                         .rootContext(this.rootContext)
                                         .build();
 
-                                return new McpServerFeatures.AsyncToolSpecification(mcpTool, methodCallback);
+                                return new McpServerFeatures.AsyncToolSpecification(mcpTool, null, methodCallback);
                             })
                             .toList();
 
@@ -112,10 +126,21 @@ public class McpToolProvider {
                             .map(mcpToolMethod -> {
                                 McpTool toolAnnotation = mcpToolMethod.getAnnotation(McpTool.class);
 
-                                ToolDefinition toolInfo = this.toolDefinitionBuilder.buildToolDefinition(mcpToolMethod);
-                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), toolInfo.description(),
-                                        toolInfo.inputSchema(), getToolAnnotations(toolAnnotation));
+                                Map<String, Object> outputSchema = this.toolDefinitionBuilder.buildToolOutputSchema(mcpToolMethod);
 
+                                ToolDefinition toolInfo = this.toolDefinitionBuilder.buildToolDefinition(mcpToolMethod);
+                                JsonSchema inputSchema = this.toolDefinitionBuilder.buildToolInputSchema(toolInfo.inputSchema());
+
+
+                                // 机理: default title use value of name
+                                String title;
+                                if (toolAnnotation != null) {
+                                    title = StringUtils.hasText(toolAnnotation.title()) ? toolAnnotation.title() : toolInfo.name();
+                                } else {
+                                    title = toolInfo.name();
+                                }
+                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
+                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
 
                                 SyncMcpToolMethodCallback methodCallback = SyncMcpToolMethodCallback.builder()
                                         .method(mcpToolMethod)
@@ -126,7 +151,7 @@ public class McpToolProvider {
                                         .build();
 
 
-                                return new McpServerFeatures.SyncToolSpecification(mcpTool, methodCallback);
+                                return new McpServerFeatures.SyncToolSpecification(mcpTool, null, methodCallback);
                             })
                             .toList();
 
@@ -167,10 +192,13 @@ public class McpToolProvider {
         }
         return converter;
     }
+
     protected McpSchema.ToolAnnotations getToolAnnotations(McpTool toolAnnotation) {
         if (toolAnnotation == null) {
             return null;
         }
+
+        // the title is confilicated with the toolAnnotation.name(), so i guess the point will be fixed
         String title = toolAnnotation.title();
         boolean readOnlyHint = toolAnnotation.readOnlyHint();
         boolean destructiveHint = toolAnnotation.destructiveHint();

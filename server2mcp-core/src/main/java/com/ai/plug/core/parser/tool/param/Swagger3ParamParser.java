@@ -39,8 +39,7 @@ public class Swagger3ParamParser extends AbstractParamParser {
         Schema schemaAnnotation = parameter.getAnnotation(Schema.class);
         if (schemaAnnotation != null) {
             return schemaAnnotation.requiredMode() == Schema.RequiredMode.REQUIRED
-                    || schemaAnnotation.requiredMode() == Schema.RequiredMode.AUTO
-                    || schemaAnnotation.required();
+                    || schemaAnnotation.requiredMode() == Schema.RequiredMode.AUTO;
         }
 
         RequestBody requestBodyAnnotation = parameter.getAnnotation(RequestBody.class);

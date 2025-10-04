@@ -3,7 +3,7 @@
 A huge, huge, huge thank you for your stars! This is a project I put an enormous amount of effort into. Though it’s initiated by me personally, I firmly believe the project boasts an excellent architecture and great practical value. Currently, it aligns with the June 18, 2025 version; once a new version is released, all these features will be updated uniformly.
 # 👀Unfinished points
 
-firstly, I should say a sorry, cuz i forget that the latest release version of server2mcp is based on Spring AI SNAPSHOT version  and the mcp-java-sdk SNAPSHOT version
+(√) firstly, I should say a sorry, cuz i forget that the latest release version of server2mcp is based on Spring AI SNAPSHOT version  and the mcp-java-sdk SNAPSHOT version
 So now you cannot directly apply this project, I promise to update it before October 10th
 
 [简体中文](README_zh.md)
@@ -39,7 +39,7 @@ So now you cannot directly apply this project, I promise to update it before Oct
     <dependency>
         <groupId>com.ai.plug</groupId>
         <artifactId>server2mcp-starter-webmvc</artifactId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.4-SNAPSHOT</version>
     </dependency>
 
 Then add the configuration in the configuration file:

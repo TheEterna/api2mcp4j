@@ -5,6 +5,7 @@ import io.modelcontextprotocol.spec.McpSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.*;
 import reactor.util.annotation.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,12 +15,14 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
+ *
  * @author han
  * @time 2025/6/25 22:31
  */
 
 public class AsyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
-        implements BiFunction<McpAsyncServerExchange, Map<String, Object>, Mono<McpSchema.CallToolResult>> {
+//        implements BiFunction<McpAsyncServerExchange, Map<String, Object>, Mono<McpSchema.CallToolResult>> {
+        implements BiFunction<McpAsyncServerExchange, McpSchema.CallToolRequest, Mono<McpSchema.CallToolResult>> {
 
     private final static Logger logger = LoggerFactory.getLogger(AsyncMcpToolMethodCallback.class);
 
@@ -45,16 +48,16 @@ public class AsyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
     /**
      * Applies this function to the given arguments.
      *
-     * @param exchange the first function argument
-     * @param arguments the second function argument
+     * @param exchange Server exchange
+//     * @param arguments the arguments of tool calling  (deprecated)
+     * @param callToolRequest the tool Calling pojo
      * @return the function result
      */
     @Override
-    public Mono<McpSchema.CallToolResult> apply(McpAsyncServerExchange exchange, Map<String, Object> arguments) {
-        return Mono.defer(() -> {
-            try {
+    public Mono<McpSchema.CallToolResult> apply(McpAsyncServerExchange exchange, McpSchema.CallToolRequest callToolRequest) {
+        return Mono.fromCallable(() -> {
                 // Build arguments for the method call
-                Object[] args = super.buildArgs(this.method, exchange, arguments);
+                Object[] args = super.buildArgs(this.method, exchange, callToolRequest.arguments());
 
                 // Invoke the method
                 Object result = this.callMethod(args);
@@ -65,15 +68,44 @@ public class AsyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
                 Type returnType = this.method.getGenericReturnType();
 
                 // Convert the result to a GetPromptResult
-                return Mono.just(this.converter.convertToCallToolResult(result, returnType, this));
-
-            } catch (Exception e) {
-                logger.error("Error invoking prompt method: {}", this.method.getName(), e);
-                return Mono.error(
-                        new McpToolMethodException("Error invoking prompt method: " + this.method.getName(), e));
-            }
-        });
+                return this.converter.convertToCallToolResult(result, returnType, this);
+            }).doOnError(e ->
+                logger.error("Error invoking tool method: {}", this.method.getName(), e)
+            )
+            .onErrorMap(e ->
+                new McpToolMethodException("Error invoking tool method: " + this.method.getName(), e)
+            )
+            .subscribeOn(Schedulers.boundedElastic());
     }
+
+//    @Override
+//    @Deprecated
+//    public Mono<McpSchema.CallToolResult> apply(McpAsyncServerExchange exchange, Map<String, Object> arguments) {
+//        return Mono.defer(() -> {
+//            try {
+//                // Build arguments for the method call
+//                Object[] args = super.buildArgs(this.method, exchange, arguments);
+//
+//                // Invoke the method
+//                Object result = this.callMethod(args);
+//
+//                logger.debug("Successful execution of tool: {}", this.name);
+//
+//                // Get the return type of the method
+//                Type returnType = this.method.getGenericReturnType();
+//
+//                // Convert the result to a GetPromptResult
+//                return Mono.just(this.converter.convertToCallToolResult(result, returnType, this));
+//
+//            } catch (Exception e) {
+//                logger.error("Error invoking prompt method: {}", this.method.getName(), e);
+//                return Mono.error(
+//                        new McpToolMethodException("Error invoking prompt method: " + this.method.getName(), e));
+//            }
+//        });
+//    }
+
+
     @Nullable
     private Object callMethod(Object[] methodArguments) {
         if (isObjectNotPublic() || isMethodNotPublic()) {

@@ -34,6 +34,7 @@ import java.util.Map;
  */
 @Slf4j
 public abstract class AbstractMcpToolMethodCallback {
+
     protected final Method method;
 
     protected final Object bean;

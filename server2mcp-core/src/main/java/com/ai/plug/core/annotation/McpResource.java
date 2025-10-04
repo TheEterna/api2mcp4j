@@ -41,4 +41,10 @@ public @interface McpResource {
 	 */
 	String mimeType() default "text/plain";
 
+
+	/**
+	 * The size of the resource in bytes,.
+	 */
+	long size() default -1L;
+
 }

@@ -77,7 +77,17 @@ public class ConvertImageUtils {
         return bufferedImage;
     }
 
-
+    public static boolean isBase64(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Base64.getDecoder().decode(str);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
 
 
@@ -92,6 +102,10 @@ public class ConvertImageUtils {
     public static String imageToBase64(Object imageSource, String formatName) throws IOException {
         if (imageSource == null) {
             throw new IllegalArgumentException("图片源不能为空");
+        }
+        // if the return String is Base64, return it directly
+        else if (imageSource instanceof String str && isBase64(str)) {
+            return str;
         }
 
         byte[] imageBytes = readImageBytes(imageSource, formatName);
@@ -196,7 +210,9 @@ public class ConvertImageUtils {
      * 将 MIME 类型转换为 ImageIO 支持的 formatName
      */
     public static String mapMimeTypeToFormatName(String mimeType) {
-        if (mimeType == null) return null;
+        if (mimeType == null) {
+            return null;
+        }
 
         return switch (mimeType.toLowerCase()) {
             case "image/png" -> "png";

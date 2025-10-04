@@ -34,6 +34,9 @@ import java.util.stream.Stream;
 
 public class GenSchemaUtils {
     public final static SchemaGenerator TOOL_SCHEMA_GENERATOR;
+
+
+
     static {
         Module springAiSchemaModule = new SpringAiSchemaModule();
         Module mcpSchemaModule = new McpSchemaModule();
@@ -55,7 +58,6 @@ public class GenSchemaUtils {
                         .with(jakartaValidationModule)
                         .with(Option.EXTRA_OPEN_API_FORMAT_VALUES)
                         .with(Option.PLAIN_DEFINITION_KEYS)
-
                 ;
 
         SchemaGeneratorConfig subtypeSchemaGeneratorConfig = schemaGeneratorConfigBuilder.without(Option.SCHEMA_VERSION_INDICATOR).build();
@@ -108,6 +110,10 @@ public class GenSchemaUtils {
         }
         return resultMap;
     }
+    public static Map<String, Object> classNodeToMap(Class<?> clazz) {
+        return objectNodeToMap(TOOL_SCHEMA_GENERATOR.generateSchema(clazz));
+    }
+
     private static Object convertJsonNode(JsonNode node) {
         if (node.isObject()) {
             // 如果是对象节点，递归转换为 Map
@@ -201,7 +207,7 @@ public class GenSchemaUtils {
                         Nullable nullableAnnotation = (Nullable)member.getAnnotationConsideringFieldAndGetter(Nullable.class);
                         return nullableAnnotation != null ? false : this.requiredByDefault;
                     } else {
-                        return schemaAnnotation.requiredMode() == Schema.RequiredMode.REQUIRED || schemaAnnotation.requiredMode() == Schema.RequiredMode.AUTO || schemaAnnotation.required();
+                        return schemaAnnotation.requiredMode() == Schema.RequiredMode.REQUIRED || schemaAnnotation.requiredMode() == Schema.RequiredMode.AUTO;
                     }
                 }
             }

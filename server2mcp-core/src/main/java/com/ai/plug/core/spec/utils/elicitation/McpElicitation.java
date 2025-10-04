@@ -10,7 +10,7 @@ import java.util.Map;
 import static com.ai.plug.core.utils.GenSchemaUtils.MCP_SCHEMA_GENERATOR;
 
 /**
- * 通过 exchange 向 客户端 发起elicitation 请求
+ * 通过 exchange 向 客户端 发起 elicitation 请求
  * @author han
  * @time 2025/7/4 16:04
  */

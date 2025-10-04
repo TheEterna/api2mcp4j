@@ -11,29 +11,45 @@
     <artifactId>server2mcp-test</artifactId>
     <packaging>jar</packaging>
 
+    <repositories>
+        <repository>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>28.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-referencing</artifactId>
+            <version>28.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-epsg-hsql</artifactId>
+            <version>28.3</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>3.5.12</version>
         </dependency>
-<!--        &lt;!&ndash; javax 的校验注解 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>javax.validation</groupId>-->
-<!--            <artifactId>validation-api</artifactId>-->
-<!--            <scope>compile</scope>-->
-<!--            <version>2.0.1.Final</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; jakarta 的校验注解 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>jakarta.validation</groupId>-->
-<!--            <artifactId>jakarta.validation-api</artifactId>-->
-<!--            <scope>compile</scope>-->
-<!--            <version>3.1.0</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -50,7 +66,7 @@
         <dependency>
             <groupId>com.ai.plug</groupId>
             <artifactId>server2mcp-starter-webmvc</artifactId>
-            <version>1.1.0-SNAPSHOT</version>
+            <version>1.1.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -60,6 +76,17 @@
             <scope>compile</scope>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.20</version>
+        </dependency>
 
     </dependencies>
     <build>

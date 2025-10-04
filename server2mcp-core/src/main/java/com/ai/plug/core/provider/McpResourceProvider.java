@@ -3,8 +3,10 @@ package com.ai.plug.core.provider;
 import com.ai.plug.core.annotation.McpResource;
 import com.ai.plug.core.spec.callback.resource.AsyncMcpResourceMethodCallback;
 import com.ai.plug.core.spec.callback.resource.SyncMcpResourceMethodCallback;
+import com.fasterxml.jackson.annotation.*;
 import io.modelcontextprotocol.server.McpServerFeatures;
 import io.modelcontextprotocol.spec.McpSchema;
+import io.modelcontextprotocol.spec.McpSchema.*;
 import io.modelcontextprotocol.util.Assert;
 
 import java.lang.reflect.Method;
@@ -43,7 +45,8 @@ public class McpResourceProvider {
                             String title = getTitle(mcpResourceMethod, resourceAnnotation);
                             String description = resourceAnnotation.description();
                             String mimeType = resourceAnnotation.mimeType();
-                            var mcpResource = new McpSchema.Resource(uri, name, title, description, mimeType,null, null);
+
+                            var mcpResource = new McpSchema.Resource(uri, name, title, description, mimeType,null, null, null);
 
                             AsyncMcpResourceMethodCallback methodCallback = AsyncMcpResourceMethodCallback.builder()
                                     .method(mcpResourceMethod)
@@ -77,7 +80,18 @@ public class McpResourceProvider {
                             String title = getTitle(mcpResourceMethod, resourceAnnotation);
                             String description = resourceAnnotation.description();
                             String mimeType = resourceAnnotation.mimeType();
-                            var mcpResource = new McpSchema.Resource(uri, name, title, description, mimeType,null, null);
+                            Long size = resourceAnnotation.size();
+
+
+                            Resource mcpResource = Resource.builder()
+                                    .uri(uri)
+                                    .name(name)
+                                    .title(title)
+                                    .description(description)
+                                    .mimeType(mimeType)
+                                    .size(size)
+                                    .annotations(null)
+                                    .build();
 
                             SyncMcpResourceMethodCallback methodCallback = SyncMcpResourceMethodCallback.builder()
                                     .method(mcpResourceMethod)

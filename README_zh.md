@@ -3,7 +3,7 @@
 特别特别特别感谢你们的star，这是我非常用心写的一个项目，虽然这由我个人发起，但我相信这个项目的架构及实用性都是极高的，目前对标的是2025-6-18版本，等到新版本出现，会统一更新掉这些功能
 # 👀翻译成中文
 
-首先，我应该说声抱歉，因为我忘记了 server2mcp 的最新发布版本是基于 Spring AI, mcp-java-sdk 的 SNAPSHOT 版本。
+(√) 首先，我应该说声抱歉，因为我忘记了 server2mcp 的最新发布版本是基于 Spring AI, mcp-java-sdk 的 SNAPSHOT 版本。
 所以因为没有该快照版本, 而且这次改动还比较大, 所以开发者个人很难去对项目进行 apply，我承诺在10月10日前更新它。
 [English](README.md)
 
@@ -42,7 +42,7 @@
     <dependency>
         <groupId>com.ai.plug</groupId>
         <artifactId>server2mcp-starter-webmvc</artifactId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.4-SNAPSHOT</version>
     </dependency>
 
 然后在配置文件中添加配置：

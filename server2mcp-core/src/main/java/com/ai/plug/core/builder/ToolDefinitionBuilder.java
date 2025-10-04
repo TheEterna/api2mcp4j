@@ -13,14 +13,19 @@ import com.ai.plug.core.spec.utils.root.McpRoot;
 import com.ai.plug.core.spec.utils.root.McpRootFactory;
 import com.ai.plug.core.spec.utils.sampling.McpSampling;
 import com.ai.plug.core.spec.utils.sampling.McpSamplingFactory;
+import com.ai.plug.core.utils.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.victools.jsonschema.generator.SchemaVersion;
+import io.modelcontextprotocol.json.*;
+import io.modelcontextprotocol.json.jackson.*;
 import io.modelcontextprotocol.server.McpAsyncServerExchange;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
+import io.modelcontextprotocol.spec.McpSchema.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ToolContext;
+import org.springframework.ai.model.*;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.definition.DefaultToolDefinition;
 import org.springframework.ai.tool.definition.ToolDefinition;
@@ -31,13 +36,14 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
+import static com.ai.plug.common.utils.JsonParser.getObjectMapper;
+import static com.ai.plug.core.utils.GenSchemaUtils.MCP_SCHEMA_GENERATOR;
 import static com.ai.plug.core.utils.GenSchemaUtils.TOOL_SCHEMA_GENERATOR;
 
 
@@ -250,5 +256,14 @@ public class ToolDefinitionBuilder {
     }
 
 
+    // question : why inputSchema and OutputSchema use two data structure
+    public JsonSchema buildToolInputSchema(String inputSchemaString) {
+        return ModelOptionsUtils.jsonToObject(inputSchemaString, JsonSchema.class);
+    }
 
+    public Map<String, Object> buildToolOutputSchema(Method outputClass) {
+        ObjectNode jsonNodes = MCP_SCHEMA_GENERATOR.generateSchema(outputClass.getGenericReturnType());
+
+        return GenSchemaUtils.objectNodeToMap(jsonNodes);
+    }
 }

@@ -20,7 +20,6 @@ import java.util.Optional;
  * time: 2025/5/13 2:05
  * JAVADOC 还是一种很有用的注解方式, 不能够废弃, 后面会给他提供一种可用的方式改造
  */
-@Deprecated
 @Slf4j
 public class JavaDocParamParser extends AbstractParamParser {
 

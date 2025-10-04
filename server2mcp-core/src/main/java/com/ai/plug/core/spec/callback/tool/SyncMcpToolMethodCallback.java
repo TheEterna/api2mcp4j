@@ -4,7 +4,7 @@ import io.modelcontextprotocol.server.McpSyncServerExchange;
 import io.modelcontextprotocol.spec.McpSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.*;
 import reactor.util.annotation.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +19,8 @@ import java.util.function.BiFunction;
  */
 
 public class SyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
-        implements BiFunction<McpSyncServerExchange, Map<String, Object>, McpSchema.CallToolResult>  {
+        implements BiFunction<McpSyncServerExchange, McpSchema.CallToolRequest, McpSchema.CallToolResult>  {
+//        implements BiFunction<McpSyncServerExchange, Map<String, Object>, McpSchema.CallToolResult>  {
 
     private final Logger logger = LoggerFactory.getLogger(SyncMcpToolMethodCallback.class);
 
@@ -44,26 +45,51 @@ public class SyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
     /**
      * Applies this function to the given arguments.
      *
-     * @param exchange the first function argument
-     * @param arguments the second function argument
+     * @param exchange the server exchange
+//     * @param arguments the arguments of tool calling
+     * @param callToolRequest the call tool request
      * @return the function result
      */
+//    @Override
+//    public McpSchema.CallToolResult apply(McpSyncServerExchange exchange, Map<String, Object> arguments) {
+//
+//        try {
+//            // Build arguments for the method call
+//            Object[] args = this.buildArgs(this.method, exchange, arguments);
+//
+//            // Invoke the method
+//            Object result = this.callMethod(args);
+//
+//            logger.info("Successful execution of tool: {}", this.name);
+//
+//            if (result instanceof Mono<?>) {
+//                // If the result is already a Mono, map it to a GetPromptResult
+//                result = ((Mono<?>) result).block();
+//            }
+//            // Get the return type of the method
+//            Type returnType = this.method.getGenericReturnType();
+//
+//            // Convert the result to a GetPromptResult
+//            return this.converter.convertToCallToolResult(result, returnType, this);
+//        }
+//        catch (Exception e) {
+//            logger.error("Error invoking prompt method: {}", this.method.getName(), e);
+//            throw new McpToolMethodException("Error invoking prompt method: " + this.method.getName(), e);
+//        }
+//    }
+
     @Override
-    public McpSchema.CallToolResult apply(McpSyncServerExchange exchange, Map<String, Object> arguments) {
+    public McpSchema.CallToolResult apply(McpSyncServerExchange exchange, McpSchema.CallToolRequest callToolRequest) {
 
         try {
             // Build arguments for the method call
-            Object[] args = this.buildArgs(this.method, exchange, arguments);
+            Object[] args = this.buildArgs(this.method, exchange, callToolRequest.arguments());
 
             // Invoke the method
             Object result = this.callMethod(args);
 
             logger.info("Successful execution of tool: {}", this.name);
 
-            if (result instanceof Mono<?>) {
-                // If the result is already a Mono, map it to a GetPromptResult
-                result = ((Mono<?>) result).block();
-            }
             // Get the return type of the method
             Type returnType = this.method.getGenericReturnType();
 
@@ -71,8 +97,8 @@ public class SyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
             return this.converter.convertToCallToolResult(result, returnType, this);
         }
         catch (Exception e) {
-            logger.error("Error invoking prompt method: {}", this.method.getName(), e);
-            throw new McpToolMethodException("Error invoking prompt method: " + this.method.getName(), e);
+            logger.error("Error invoking tool method: {}", this.method.getName(), e);
+            throw new McpToolMethodException("Error invoking tool method: " + this.method.getName(), e);
         }
     }
 

@@ -1,10 +1,10 @@
 package com.ai.plug.autoconfigure.conditional;
 
-import com.ai.plug.autoconfigure.PluginProperties;
+import com.ai.plug.autoconfigure.*;
 import com.ai.plug.core.parser.tool.des.AbstractDesParser;
 import com.ai.plug.core.parser.tool.param.AbstractParamParser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.mcp.server.autoconfigure.McpServerProperties;
+import org.springframework.ai.mcp.server.common.autoconfigure.properties.*;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
@@ -45,16 +45,16 @@ public class Conditions {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             Environment environment = context.getEnvironment();
-            McpServerProperties.ServerType type = environment.getProperty(SPRING_AI_VARIABLE_PREFIX + "." + VARIABLE_TYPE, McpServerProperties.ServerType.class, McpServerProperties.ServerType.SYNC);
-            return type.equals(McpServerProperties.ServerType.SYNC);
+            McpServerProperties.ApiType type = environment.getProperty(SPRING_AI_VARIABLE_PREFIX + "." + VARIABLE_TYPE, McpServerProperties.ApiType.class, McpServerProperties.ApiType.SYNC);
+            return type.equals(McpServerProperties.ApiType.SYNC);
         }
     }
     public static class IsAsyncCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             Environment environment = context.getEnvironment();
-            McpServerProperties.ServerType type = environment.getProperty(SPRING_AI_VARIABLE_PREFIX + "." + VARIABLE_TYPE, McpServerProperties.ServerType.class, McpServerProperties.ServerType.SYNC);
-            return type.equals(McpServerProperties.ServerType.ASYNC);
+            McpServerProperties.ApiType type = environment.getProperty(SPRING_AI_VARIABLE_PREFIX + "." + VARIABLE_TYPE, McpServerProperties.ApiType.class, McpServerProperties.ApiType.SYNC);
+            return type.equals(McpServerProperties.ApiType.ASYNC);
         }
     }
 

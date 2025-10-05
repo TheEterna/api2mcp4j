@@ -31,6 +31,7 @@ public class MineTypeConstants {
 
 
     public static final String APPLICATION_MIME_TYPE = "application/*";
+    public static final String JSON_MIME_TYPE = "application/json";
     public static final String ANY_MIME_TYPE = "*/*";
     public static final String DEFAULT_MIME_TYPE = "application/octet-stream";
 
@@ -53,6 +54,14 @@ public class MineTypeConstants {
      */
     public static boolean isImageMimeType(String mimeType) {
         return mimeType != null && mimeType.startsWith("image/") && isAnyMimeType(mimeType);
+    }
+     /**
+     * 判断是否是JSON类型
+     * @param mimeType
+     * @return
+     */
+    public static boolean isJsonMimeType(String mimeType) {
+        return mimeType != null && mimeType.equals(JSON_MIME_TYPE);
     }
 
     /**

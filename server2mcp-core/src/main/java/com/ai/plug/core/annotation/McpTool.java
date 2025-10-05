@@ -1,6 +1,7 @@
 package com.ai.plug.core.annotation;
 
 
+import com.ai.plug.common.constants.*;
 import com.ai.plug.core.spec.callback.tool.DefaultMcpCallToolResultConverter;
 import com.ai.plug.core.spec.callback.tool.McpCallToolResultConverter;
 
@@ -37,7 +38,7 @@ public @interface McpTool {
      * annotations: optional properties describing tool behavior
      */
 
-    String mineType() default "";
+    String mineType() default MineTypeConstants.JSON_MIME_TYPE;
 
 
     /**

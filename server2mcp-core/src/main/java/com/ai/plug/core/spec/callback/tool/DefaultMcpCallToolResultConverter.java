@@ -75,7 +75,7 @@ public class DefaultMcpCallToolResultConverter implements McpCallToolResultConve
         }
         if (mineType == null) {
             return new McpSchema.CallToolResult("Done", false);
-        } else if (isTextMimeType(mineType)) {
+        } else if (isJsonMimeType(mineType) || isTextMimeType(mineType)) {
             String json = null;
             try {
                 json = JsonParser.toJson(result);
@@ -141,20 +141,7 @@ public class DefaultMcpCallToolResultConverter implements McpCallToolResultConve
             return new McpSchema.CallToolResult("sorry, 目前不支持该mineType的返回类型, 要想返回该mineType, 请自行使用CallToolResult或ResourceLink或EmbeddedResource封装", false);
         }
 
-        /*
 
-        // 接入 resource 无法通过returnType来推断
-        else if (result instanceof McpSchema.ResourceLink) {
-
-            // todo :sdk 少一个目前最新协议里title字段, 为了版本统一, 不再fork sdk, 后面需要补上
-            new McpSchema.ResourceLink(McpSchema.Annotations, McpSchema.ResourceContents)
-        }
-        else if (result instanceof McpSchema.EmbeddedResource) {
-            // todo :sdk 少一个目前最新协议里title字段, 为了版本统一, 不再fork sdk, 后面需要补上
-
-            new McpSchema.EmbeddedResource(McpSchema.Annotations, McpSchema.ResourceContents)
-        }
-        */
     }
 
 
@@ -177,7 +164,7 @@ public class DefaultMcpCallToolResultConverter implements McpCallToolResultConve
             return AUDIO_MIME_TYPE;
         }
 
-        return TEXT_MIME_TYPE;
+        return JSON_MIME_TYPE;
 
 
     }

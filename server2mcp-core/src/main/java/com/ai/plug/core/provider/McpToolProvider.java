@@ -84,8 +84,11 @@ public class McpToolProvider {
                                     title = toolInfo.name();
                                 }
 
+//                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
+//                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
+
                                 McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
-                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
+                                        inputSchema, null, getToolAnnotations(toolAnnotation), null);
 
 
                                 AsyncMcpToolMethodCallback methodCallback = AsyncMcpToolMethodCallback.builder()
@@ -139,8 +142,12 @@ public class McpToolProvider {
                                 } else {
                                     title = toolInfo.name();
                                 }
+
+//                                McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
+//                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
+
                                 McpSchema.Tool mcpTool = new McpSchema.Tool(toolInfo.name(), title, toolInfo.description(),
-                                        inputSchema, outputSchema, getToolAnnotations(toolAnnotation), null);
+                                        inputSchema, null, getToolAnnotations(toolAnnotation), null);
 
                                 SyncMcpToolMethodCallback methodCallback = SyncMcpToolMethodCallback.builder()
                                         .method(mcpToolMethod)

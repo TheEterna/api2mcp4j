@@ -41,6 +41,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Stream;
+import org.springframework.core.ResolvableType;
 
 import static com.ai.plug.common.utils.JsonParser.getObjectMapper;
 import static com.ai.plug.core.utils.GenSchemaUtils.MCP_SCHEMA_GENERATOR;
@@ -261,9 +262,95 @@ public class ToolDefinitionBuilder {
         return ModelOptionsUtils.jsonToObject(inputSchemaString, JsonSchema.class);
     }
 
-    public Map<String, Object> buildToolOutputSchema(Method outputClass) {
-        ObjectNode jsonNodes = MCP_SCHEMA_GENERATOR.generateSchema(outputClass.getGenericReturnType());
+    public Map<String, Object> buildToolOutputSchema(Method method) {
+        Assert.notNull(method, "方法不能为空");
 
-        return GenSchemaUtils.objectNodeToMap(jsonNodes);
+        try {
+            // 使用更精确的类型解析方式，尽量保留泛型信息
+            Type returnType = getEnhancedReturnType(method);
+            ObjectNode jsonNodes = MCP_SCHEMA_GENERATOR.generateSchema(returnType);
+
+            // 将 ObjectNode 转换为 Map
+            Map<String, Object> schemaMap = GenSchemaUtils.objectNodeToMap(jsonNodes);
+
+            // 确保返回的 schema 是 object 类型，如果不是则进行包装
+            return ensureObjectSchema(schemaMap, method);
+
+        } catch (Exception e) {
+            log.warn("生成输出 Schema 时出现异常，方法: {}, 错误: {}",
+                    CommonUtil.getFullyQualifiedName(method), e.getMessage(), e);
+
+            // 返回一个基本的 object schema 作为降级方案
+            return createFallbackObjectSchema();
+        }
+    }
+
+    /**
+     * 获取增强的返回类型，尽量保留泛型信息
+     */
+    private Type getEnhancedReturnType(Method method) {
+        try {
+            // 首先尝试使用 ResolvableType 来获取更准确的类型信息
+            ResolvableType resolvableType = ResolvableType.forMethodReturnType(method);
+            if (resolvableType.hasGenerics()) {
+                // 如果有泛型信息，尝试获取完整的类型
+                return resolvableType.getType();
+            }
+        } catch (Exception e) {
+            log.debug("使用 ResolvableType 解析返回类型失败，降级使用原始方式: {}", e.getMessage());
+        }
+
+        // 降级使用原来的方式
+        return method.getGenericReturnType();
+    }
+
+    /**
+     * 确保返回的 schema 是 object 类型
+     * 如果原始 schema 不是 object 类型，则将其包装成 object
+     */
+    private Map<String, Object> ensureObjectSchema(Map<String, Object> originalSchema, Method method) {
+        Object typeValue = originalSchema.get("type");
+
+        // 如果已经是 object 类型，直接返回
+        if ("object".equals(typeValue)) {
+            return originalSchema;
+        }
+
+        // 如果不是 object 类型，进行包装
+        log.debug("方法 {} 的返回类型不是 object，进行包装。原始类型: {}",
+                CommonUtil.getFullyQualifiedName(method), typeValue);
+
+        Map<String, Object> wrappedSchema = new HashMap<>();
+        wrappedSchema.put("type", "object");
+
+        // 创建 properties 对象
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("result", originalSchema);
+        wrappedSchema.put("properties", properties);
+
+        // 设置 required 字段
+        List<String> required = new ArrayList<>();
+        required.add("result");
+        wrappedSchema.put("required", required);
+
+        // 添加描述信息
+        String description = String.format("包装的返回结果，原始类型: %s", typeValue);
+        wrappedSchema.put("description", description);
+
+        return wrappedSchema;
+    }
+
+    /**
+     * 创建降级的 object schema
+     */
+    private Map<String, Object> createFallbackObjectSchema() {
+        Map<String, Object> fallbackSchema = new HashMap<>();
+        fallbackSchema.put("type", "object");
+        fallbackSchema.put("description", "通用返回对象 schema（降级方案）");
+
+        Map<String, Object> properties = new HashMap<>();
+        fallbackSchema.put("properties", properties);
+
+        return fallbackSchema;
     }
 }

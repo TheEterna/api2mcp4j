@@ -7,6 +7,7 @@ import com.ai.plug.core.annotation.McpPrompt;
 import com.ai.plug.core.annotation.McpResource;
 import com.ai.plug.core.context.root.IRootContext;
 import com.ai.plug.core.spec.utils.elicitation.McpElicitation;
+import io.modelcontextprotocol.server.McpAsyncServer;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
 import io.modelcontextprotocol.spec.McpSchema;
 import io.swagger.annotations.*;
@@ -63,7 +64,7 @@ public class TestController {
 
     @PostMapping("/test/elicitation")
     @ApiOperation(value = "测试 elicit")
-    public String testElicitation(McpElicitation elicitation) {
+    public String testElicitation(McpElicitation elicitation, McpSyncServerExchange exchange) {
 
         elicitation.elicit("我是一条Elicitation测试消息", String.class);
         return "我是一条Elicitation测试消息";

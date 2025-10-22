@@ -50,36 +50,10 @@ public class SyncMcpToolMethodCallback extends AbstractMcpToolMethodCallback
      * @param callToolRequest the call tool request
      * @return the function result
      */
-//    @Override
-//    public McpSchema.CallToolResult apply(McpSyncServerExchange exchange, Map<String, Object> arguments) {
-//
-//        try {
-//            // Build arguments for the method call
-//            Object[] args = this.buildArgs(this.method, exchange, arguments);
-//
-//            // Invoke the method
-//            Object result = this.callMethod(args);
-//
-//            logger.info("Successful execution of tool: {}", this.name);
-//
-//            if (result instanceof Mono<?>) {
-//                // If the result is already a Mono, map it to a GetPromptResult
-//                result = ((Mono<?>) result).block();
-//            }
-//            // Get the return type of the method
-//            Type returnType = this.method.getGenericReturnType();
-//
-//            // Convert the result to a GetPromptResult
-//            return this.converter.convertToCallToolResult(result, returnType, this);
-//        }
-//        catch (Exception e) {
-//            logger.error("Error invoking prompt method: {}", this.method.getName(), e);
-//            throw new McpToolMethodException("Error invoking prompt method: " + this.method.getName(), e);
-//        }
-//    }
 
     @Override
     public McpSchema.CallToolResult apply(McpSyncServerExchange exchange, McpSchema.CallToolRequest callToolRequest) {
+
 
         try {
             // Build arguments for the method call

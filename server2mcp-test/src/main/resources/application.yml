@@ -11,20 +11,25 @@ spring:
         type: SYNC
         tool-response-mime-type:
           readJPEGImage: image/jpg
+#        protocol: streamable
+        request-timeout: 6000s
 
+#        streamable-http:
+#          mcp-endpoint: /api/mcp
+#          keep-alive-interval: 600s
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yizi?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://62.234.92.252:3306/yizi?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     username: root
     password: hfy
 plugin:
   mcp:
     enabled: true
     parser:
-#      param: MCPTOOL, JAVADOC, TOOL,
-#      des: MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2:
-      param: JAVADOC
-      des: JAVADOC
+      param: MCPTOOL, JAVADOC, TOOL,
+      des: MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2
+#      param: JAVADOC
+#      des: JAVADOC
     scope: interface
     resource:
       enabled: true
@@ -40,7 +45,7 @@ logging:
     org.springframework.ai: DEBUG
     io.modelcontextprotocol: DEBUG
     com.ai.plug: DEBUG
-
-
+server:
+  port: 8888
 
 

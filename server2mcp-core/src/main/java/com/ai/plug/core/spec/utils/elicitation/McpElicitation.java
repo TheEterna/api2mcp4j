@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.modelcontextprotocol.spec.McpSchema;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.ai.plug.core.utils.GenSchemaUtils.MCP_SCHEMA_GENERATOR;
@@ -32,6 +33,33 @@ public interface McpElicitation {
         // 2.2 convert ObjectNode to map
         // 2.2 进行转换
         Map<String, Object> mapSchema = GenSchemaUtils.objectNodeToMap(jsonSchema);
+        
+        System.out.println("[DEBUG] Original schema for " + schema.getSimpleName() + ": " + mapSchema);
+        
+        // 2.3 检查并确保schema符合MCP协议要求
+        // 2.3 Check and ensure schema conforms to MCP protocol requirements
+        // MCP协议要求requestedSchema必须是object类型且包含properties字段
+        // MCP protocol requires requestedSchema to be object type with properties field
+        if (!"object".equals(mapSchema.get("type"))) {
+            // 如果不是object类型,需要包装成object类型
+            // If not object type, wrap it as object type
+            Map<String, Object> wrappedSchema = new HashMap<>();
+            wrappedSchema.put("type", "object");
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("value", mapSchema);
+            wrappedSchema.put("properties", properties);
+            wrappedSchema.put("required", java.util.Collections.singletonList("value"));
+            mapSchema = wrappedSchema;
+            System.out.println("[DEBUG] Wrapped schema: " + mapSchema);
+        } else if (!mapSchema.containsKey("properties")) {
+            // 如果是object类型但没有properties字段,添加空的properties
+            // If object type but no properties field, add empty properties
+            mapSchema.put("properties", new HashMap<>());
+            System.out.println("[DEBUG] Added empty properties to object schema");
+        }
+        
+        System.out.println("[DEBUG] Final schema: " + mapSchema);
+        
         builder.requestedSchema(mapSchema);
         // 3.0 进行构建获取 ElicitRequest
         // 3.0 Build to Obtain ElicitRequest

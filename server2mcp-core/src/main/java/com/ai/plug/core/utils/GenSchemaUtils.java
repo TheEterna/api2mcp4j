@@ -1,6 +1,7 @@
 package com.ai.plug.core.utils;
 
 import com.ai.plug.core.annotation.McpArg;
+import com.fasterxml.classmate.ResolvedType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -22,6 +23,7 @@ import org.springframework.ai.util.json.schema.SpringAiSchemaModule;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -84,6 +86,7 @@ public class GenSchemaUtils {
                         .with(jakartaValidationModule)
                         .with(Option.EXTRA_OPEN_API_FORMAT_VALUES)
                         .with(Option.PLAIN_DEFINITION_KEYS);
+
 
         SchemaGeneratorConfig subtypeSchemaGeneratorConfig = schemaGeneratorConfigBuilder.without(Option.SCHEMA_VERSION_INDICATOR).build();
         MCP_SCHEMA_GENERATOR = new SchemaGenerator(subtypeSchemaGeneratorConfig);
@@ -237,4 +240,6 @@ public class GenSchemaUtils {
             }
         }
     }
+
+
 }

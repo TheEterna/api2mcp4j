@@ -1,4 +1,4 @@
-# Server2MCP
+# api2mcp4j
 
 A huge, huge, huge thank you for your stars! This is a project I put an enormous amount of effort into. Though it’s initiated by me personally, I firmly believe the project boasts an excellent architecture and great practical value. Currently, it aligns with the June 18, 2025 version; once a new version is released, all these features will be updated uniformly.
 # 👀Unfinished points

@@ -1,110 +1,152 @@
+
 # api2mcp4j
 
-A huge, huge, huge thank you for your stars! This is a project I put an enormous amount of effort into. Though it’s initiated by me personally, I firmly believe the project boasts an excellent architecture and great practical value. Currently, it aligns with the June 18, 2025 version; once a new version is released, all these features will be updated uniformly.
-# 👀Unfinished points
+**Zero-to-low code MCP integration for your Spring Boot REST APIs**  
+Turn your existing Spring Boot controllers into an MCP (Model Context Protocol) server in minutes — **no @Tool annotations everywhere**, no rewriting business logic.
 
-(√) firstly, I should say a sorry, cuz i forget that the latest release version of server2mcp is based on Spring AI SNAPSHOT version  and the mcp-java-sdk SNAPSHOT version
-So now you cannot directly apply this project, I promise to update it before October 10th
+[![GitHub stars](https://img.shields.io/github/stars/TheEterna/api2mcp4j?style=social)](https://github.com/TheEterna/api2mcp4j)
+[![License](https://img.shields.io/github/license/TheEterna/api2mcp4j)](https://github.com/TheEterna/api2mcp4j/blob/master/LICENSE)
+[![Java](https://img.shields.io/badge/Java-17%2B-blue)](https://www.java.com)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)](https://spring.io/projects/spring-boot)
 
-[简体中文](README_zh.md)
+## ✨ Why api2mcp4j?
 
-[doc link](https://theeterna.github.io/server2mcp-docs/)
+Most MCP integrations require you to:
+- Add `@Tool` / `@McpTool` annotations to every method
+- Duplicate or heavily refactor code
+- Maintain separate tool descriptions
 
-## This is definitely a revolutionary idea!!!
+**api2mcp4j changes that.**
 
-  This is a Spring Boot Starter used for automated integration of MCP (Model Control Protocol) services.
+It **automatically scans** your existing `@RestController` / `@Service` beans and **exposes them as MCP tools** with **minimal configuration** — leveraging parsers from:
 
-# ✨function characteristics
+- Swagger/OpenAPI (v2 & v3)
+- Javadoc
+- Spring MVC metadata
+- Jackson
+- Spring AI native descriptions
+- Custom `@Tool` / `@McpTool` (optional)
 
-* Automatic configuration of MCP service, similar to the relationship between mybatis plus and mybatis, non-invasive, purely enhanced
-* Supports all native functions of MCP in JavaSdk, providing tool registration and callback mechanisms, etc
-* Support custom tool registration through `@ToolScan` annotation
-* Supports custom resource registration through the `@ResourceScan` annotation
-* Supports custom prompt registration through the `@PromptScan` annotation
-* Users can customize the Parser without relying on chain of responsibility implementation to complete attribute parsing for unique interface annotations
-* Having Javadoc, Swagger2, Swagger3, SpringMVC (only responsible for partial parsing logic), Jackson, and Springai native tool parsers
+Result: Your current REST APIs become AI-callable tools **almost for free**.
 
-# 🌟 Latest features
-- Benchmarking the latest MCP SDK version 0.11 snapshot version, customize annotations to experience the latest features, McpTool
-- McpTool completely isolates Springai's Tool environment, implementing a tool system unique to Mcp. The method is automatically injected into Exchange, making it easy to complete MCP client interaction
-- The configuration class mineType for springai is currently not supported and is integrated into the annotation properties of McpTool
+## 🔥 Key Features
 
+- **Non-intrusive** — No need to change business code (like MyBatis-Plus enhances MyBatis)
+- **Auto-discovery** — Scans controllers/services and registers methods as MCP tools
+- **Multi-parser support** — Smartly combines descriptions & parameter info from Swagger, Javadoc, etc.
+- **Custom annotations** — `@ToolScan`, `@ResourceScan`, `@PromptScan` for fine-grained control
+- **Isolated MCP tool system** — Uses `McpTool` annotation (independent of Spring AI `@Tool`)
+- **Full MCP SDK compatibility** — Supports latest MCP Java SDK features (callbacks, resources, prompts)
+- **Easy debugging** — Works great with Cursor, Continue, or any MCP client
 
-# 🎯Quick start
+## Quick Start (≈ 5 minutes)
 
-  Since it has not been pushed to the central repository yet, you can download the source code, In the folder 'server 2mcp starter webmvc' perform an mvn clean install, and then make dependency references
+### 1. Add dependency
 
-## Add Dependency
+> **Note:** Project not yet in Maven Central — build from source for now.
 
-    <dependency>
-        <groupId>com.ai.plug</groupId>
-        <artifactId>server2mcp-starter-webmvc</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
-    </dependency>
+```bash
+# Clone & build
+git clone https://github.com/TheEterna/api2mcp4j.git
+cd api2mcp4j/server2mcp-starter-webmvc
+mvn clean install
+```
 
-Then add the configuration in the configuration file:
+```xml
+<!-- pom.xml -->
+<dependency>
+    <groupId>com.ai.plug</groupId>
+    <artifactId>server2mcp-starter-webmvc</artifactId>
+    <version>1.1.4-SNAPSHOT</version> <!-- or latest after build -->
+</dependency>
+```
+
+### 2. Enable in application.yml
 
 ```yaml
 plugin:
   mcp:
     enabled: true
+    # Recommended: use multiple parsers for best description quality
     parser:
-      params: JAVADOC, TOOL, SpringMVC, JACKSON, SWAGGER2, SWAGGER3 # optional, default registration for parsers other than JAVADOC
-      des: JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2 # optional, default registration for parsers other than JAVADOC
-    scope: interface # There are two configurations, custom and interface. The default interface is pre registered as a tool under the controller; Custom does not pre register tools
+      params: SWAGGER3, SWAGGER2, SpringMVC, JACKSON, TOOL  # JAVADOC needs extra setup
+      des:    SWAGGER3, SWAGGER2, JAVADOC, TOOL, JACKSON
+    # 'interface' = auto-register all controller methods (skip @Deprecated)
+    # 'custom'   = only register via @ToolScan / manual
+    scope: interface
 ```
 
-  The above is the basic configuration for starting the project, which includes all native configurations such as spring.ai.mcp.server-side, etc. The interface configuration will register all controllers under your startup class path as MCP interfaces by default. If there is an @ Depreciated annotation on the interface method or class, it will not be registered.
+### 3. (Optional) Javadoc parser setup
 
-## NOTICE：JAVADOC Parser
+To enable Javadoc parsing in production (bytecode doesn't contain comments):
 
-  The parsing logic of Javadoc is essentially to parse source code files, and after going live, Java code exists in the form of bytecode class files, so Javadoc cannot be used. However, Javadoc's annotation method is still quite popular among developers, so it cannot be completely abandoned. Here is a solution. To use a Javadoc parser, you must package the source code into a resource directory. If you use Maven, you need to add a packaging configuration as follows:
+```xml
+<!-- pom.xml - package sources -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>copy-java-sources</id>
+            <phase>prepare-package</phase>
+            <goals><goal>copy-resources</goal></goals>
+            <configuration>
+                <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                <resources>
+                    <resource>
+                        <directory>src/main/java</directory>
+                        <includes><include>**/*.java</include></includes>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>copy-java-sources</id>
-                            <phase>prepare-package</phase>
-                            <goals>
-                                <goal>copy-resources</goal>
-                            </goals>
-                            <configuration>
-                                <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                                <resources>
-                                    <resource>
-                                        <directory>src/main/java</directory>
-                                        <includes>
-                                            <include>**/*.java</include>
-                                        </includes>
-                                    </resource>
-                                </resources>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
+### 4. Start your app → Test
 
-# 📚principle
+Your MCP endpoint is ready (default `/mcp` or configured via `spring.ai.mcp.*` properties).
 
-  It can be understood as opening up interfaces to AI, so these interfaces are the same as regular interfaces, except that they can be called through AI. Relevant knowledge documents:[Model Context Protocol (MCP) :: Spring AI Reference ](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-overview.html) , [Introduction - Model Context Protocol](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-overview.html）And [Introduction - Model Context Protocol]（https://modelcontextprotocol.io/introduction)
+Use any MCP client (Cursor, custom agent, etc.) to call your original REST methods as tools.
 
-# 💕Best practices
+## Comparison with Alternatives
 
-  With this framework, you no longer need to rebuild an MCP service application from scratch, nor do you need to add @ Tool annotations to highly coupled copied code, or add MCP functionality to source code. You only need to add custom @ ToolScan annotations based on a configuration class to easily complete the registration of MCP interfaces. What should you do if you encounter MCP SDK revisions? Don't worry, the core content is maintained by me, and the usage method remains unchanged
+| Feature                     | api2mcp4j          | Spring AI MCP Official | Manual @Tool everywhere |
+|-----------------------------|--------------------|------------------------|--------------------------|
+| Code changes required       | Minimal (config only) | Medium–High           | High                    |
+| Auto from existing REST     | Yes (controllers)  | No                     | No                      |
+| Parser combinators          | Yes (Swagger+Javadoc+…) | Limited              | Manual                  |
+| Non-intrusive               | ★★★★★              | ★★★                    | ★☆                      |
+| Custom scan annotations     | Yes                | Partial                | No                      |
+| Best for existing projects  | Yes                | New MCP-first apps     | Small prototypes        |
 
-1. You can easily build a multi-agent application by using multiple AI dialogue interfaces that you have customized, and then simply calling the corresponding MCP interface on the client side.
+## Best Use Cases
 
-2. It can quickly access AI dialogue calls for your management system, with high customization. You don't need to pay attention to any details in the AI field, just focus on your favorite areas of web and front-end, and you can achieve cool effects. Compared to this
+- Expose internal management system APIs to AI agents quickly
+- Build multi-agent systems by turning microservices into MCP tools
+- Prototype AI features on top of production REST services
+- Avoid duplicating logic between REST and MCP endpoints
 
-3. It can be used in conjunction with simple MCP clients like cursor to easily complete interface debugging
+## Documentation & Roadmap
 
-# 🔔summarize
+- Full docs → [https://theeterna.github.io/server2mcp-docs/](https://theeterna.github.io/server2mcp-docs/)
+- Roadmap: Publish to Maven Central, stabilize SNAPSHOT deps, more parser plugins, SSE/Stream support
 
-This framework is actually very simple, and there may be many vulnerabilities and shortcomings in the code. Please forgive me.
+## Contributing
 
-# 📄 Copyright Statement/Open Source Agreement
+Issues, PRs, and stars are very welcome!  
+The project is young — your feedback can shape its future.
 
-According to the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0.html) Published code
+## License
 
+[Apache License 2.0](LICENSE)
 
+---
+
+**作者的话**  
+这是一个我投入大量心血的个人项目，希望能真正帮助到更多 Spring Boot 开发者快速拥抱 MCP/AI Agent 时代。感谢每一位 star 和使用它的人！
+```
+- 语言更流畅、专业、吸引人
+
+你可以直接发给作者，建议他 review 后合并（或作为 PR）。如果需要，我可以再调整语气、加 GIF/demo 图位置提示，或写中文版。

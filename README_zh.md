@@ -19,7 +19,7 @@
 [![End-to-End](https://img.shields.io/badge/Curl%20verify-21%2F21-success)](#-一行-curl-验证)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)
 
-[English](README.md) · [中文](README_zh.md) · [文档站](https://theeterna.github.io/server2mcp-docs/) · [集成矩阵](docs/mcp-2026-07-28-INTEGRATION-MATRIX.md)
+[English](README.md) · [中文](README_zh.md) · [文档站](https://docs.xiaohan.chat/) · [集成矩阵](docs/mcp-2026-07-28-INTEGRATION-MATRIX.md)
 
 ---
 

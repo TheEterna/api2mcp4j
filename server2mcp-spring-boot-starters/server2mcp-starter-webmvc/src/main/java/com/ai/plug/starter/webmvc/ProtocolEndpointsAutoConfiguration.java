@@ -20,49 +20,48 @@
  * @layer: starter
  * @since: 2026/8/3
  * @author: han
- * @updated: 2026-08-03
+ * @updated: 2026-10-27 14:42
  *
  * Spring Boot auto-configuration that mounts the framework's protocol-2026-07-28
- * HTTP contracts (Discover, Tasks, Notifications, AugmentedPrompts) at
- * {@code /mcp/...} endpoints.
+ * HTTP contracts (Discover, Tasks, Notifications, AugmentedPrompts, JSON-RPC, SSE)
+ * at {@code /mcp/...} endpoints.
  *
  * <p>This bridges the gap between Java SDK 2.0 (no JSON-RPC schema for the
  * new RPC routes) and the MCP 2026-07-28 protocol. When Java SDK ≥ 3.0.0
  * ships native routes, the controllers remain as a fallback for older
  * clients — no business-code change required.
+ *
+ * <h2>与 Web 栈无关的协议 bean 归属</h2>
+ *
+ * <p>任务存储 / 增强提示存储 / 通知记录器 / 能力快照 / JSON-RPC 路由表等
+ * <b>协议层</b> bean 已下沉到
+ * {@code com.ai.plug.autoconfigure.ProtocolCoreAutoConfiguration}，由 Servlet 与
+ * Reactive 两个 starter 共用同一份注册定义，避免同一份协议契约在两处各建一套
+ * 而出现「注册面与暴露面脱钩」。
+ *
+ * <p>本类只负责 <b>Web 栈特有</b>的装配：Controller 挂载与 SSE 长连接形态。
  */
 
 package com.ai.plug.starter.webmvc;
 
+import com.ai.plug.autoconfigure.ProtocolCoreAutoConfiguration;
 import com.ai.plug.core.spec.change.NotificationsPollingEndpoint;
 import com.ai.plug.core.spec.discover.DiscoverEndpoint;
 import com.ai.plug.core.spec.jsonrpc.JsonRpcRouter;
-import com.ai.plug.core.spec.jsonrpc.JsonRpcRoutes;
-import com.ai.plug.core.spec.mrtr.InMemoryMrtrSessionStore;
-import com.ai.plug.core.spec.mrtr.MrtrSessionStore;
 import com.ai.plug.core.spec.tasks.AugmentedPromptEndpoint;
-import com.ai.plug.core.spec.tasks.AugmentedPromptStore;
-import com.ai.plug.core.spec.tasks.InMemoryAugmentedPromptStore;
-import com.ai.plug.core.spec.tasks.InMemoryTaskStore;
-import com.ai.plug.core.spec.tasks.TaskStore;
 import com.ai.plug.core.spec.tasks.TasksEndpoint;
-import io.modelcontextprotocol.spec.McpSchema;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Map;
-import java.util.function.Supplier;
-
 /**
- * Auto-configuration for the MCP protocol HTTP endpoints.
+ * Auto-configuration for the MCP protocol HTTP endpoints (Servlet stack).
  *
- * <p>Wires the four framework-layer endpoints into Spring's application
- * context as singletons, then exposes them through dedicated MVC
- * controllers under {@code /mcp/...}.
+ * <p>Wires the framework-layer endpoints into Spring's application context as
+ * singletons, then exposes them through dedicated MVC controllers under
+ * {@code /mcp/...}.
  *
  * <h2>Endpoints exposed</h2>
  * <ul>
@@ -72,117 +71,24 @@ import java.util.function.Supplier;
  *   <li>{@code GET /mcp/tasks/{id}/augmented-prompts} / {@code POST /mcp/tasks/{id}/augmented-prompts/drain}
  *       → {@link AugmentedPromptsController}</li>
  *   <li>{@code GET /mcp/notifications} → {@link NotificationsController}</li>
+ *   <li>{@code POST /mcp/jsonrpc} → {@link JsonRpcController}</li>
+ *   <li>{@code GET /mcp/sse} → {@link SseNotificationsController}</li>
  * </ul>
  *
- * <p>All four backing stores are exposed as Spring beans; user code can
- * replace them with Redis / JDBC implementations by registering a
- * {@code @Primary} bean of the corresponding type.
+ * <p>All backing stores are exposed as Spring beans by
+ * {@link ProtocolCoreAutoConfiguration}; user code can replace them with
+ * Redis / JDBC implementations by registering a {@code @Primary} bean of the
+ * corresponding type.
  */
-@AutoConfiguration
+@AutoConfiguration(after = ProtocolCoreAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class ProtocolEndpointsAutoConfiguration {
-
-    /** Default in-memory task store. Override via {@code @Primary @Bean}. */
-    @Bean
-    @ConditionalOnMissingBean(TaskStore.class)
-    public TaskStore inMemoryTaskStore() {
-        return new InMemoryTaskStore();
-    }
-
-    /** Default in-memory augmented-prompt store. Override via {@code @Primary @Bean}. */
-    @Bean
-    @ConditionalOnMissingBean(AugmentedPromptStore.class)
-    public AugmentedPromptStore inMemoryAugmentedPromptStore() {
-        return new InMemoryAugmentedPromptStore();
-    }
-
-    /** Shared notifications polling endpoint (mutable). */
-    @Bean
-    @ConditionalOnMissingBean(NotificationsPollingEndpoint.class)
-    public NotificationsPollingEndpoint notificationsPollingEndpoint() {
-        return new NotificationsPollingEndpoint();
-    }
-
-    /** Tasks endpoint backed by the configured {@link TaskStore}. */
-    @Bean
-    @ConditionalOnMissingBean(TasksEndpoint.class)
-    public TasksEndpoint tasksEndpoint(TaskStore taskStore) {
-        return new TasksEndpoint(taskStore);
-    }
-
-    /** Augmented-prompts endpoint backed by the configured store. */
-    @Bean
-    @ConditionalOnMissingBean(AugmentedPromptEndpoint.class)
-    public AugmentedPromptEndpoint augmentedPromptEndpoint(AugmentedPromptStore store) {
-        return new AugmentedPromptEndpoint(store);
-    }
-
-    /**
-     * Discover endpoint — needs a server name + version + capability source.
-     * Defaults to the framework's own {@link WireServerCapabilities}
-     * (protocol-2026-07-28 wire shape: tools.subscription /
-     * completions.listChanged / experimental.io.modelcontextprotocol/tasks).
-     * Override by registering a custom bean.
-     */
-    @Bean
-    @ConditionalOnMissingBean(DiscoverEndpoint.class)
-    public DiscoverEndpoint discoverEndpoint(
-            ObjectProvider<McpSchema.ServerCapabilities> capabilitiesProvider,
-            com.ai.plug.core.spec.capabilities.WireServerCapabilities wireServerCapabilities) {
-        Supplier<Object> capsSupplier = () -> wireServerCapabilities;
-        Supplier<Map<String, Object>> extSupplier = () -> Map.of();
-        return new DiscoverEndpoint("server2mcp", "1.1.4-SNAPSHOT",
-            capsSupplier, extSupplier);
-    }
-
-    /**
-     * Default 2026-07-28 server capabilities — overridable via a custom
-     * {@code @Primary @Bean WireServerCapabilities}.
-     */
-    @Bean
-    @ConditionalOnMissingBean(com.ai.plug.core.spec.capabilities.WireServerCapabilities.class)
-    public com.ai.plug.core.spec.capabilities.WireServerCapabilities wireServerCapabilities() {
-        return com.ai.plug.core.spec.capabilities.WireServerCapabilities.full();
-    }
 
     /** MVC configurer marker so Spring Boot picks up our controllers. */
     @Bean
     @ConditionalOnMissingBean
     public WebMvcConfigurer mcpProtocolEndpointsConfigurer() {
         return new WebMvcConfigurer() { };
-    }
-
-    /** Default in-memory MRTR session store — override via {@code @Primary @Bean}. */
-    @Bean
-    @ConditionalOnMissingBean(MrtrSessionStore.class)
-    public MrtrSessionStore inMemoryMrtrSessionStore() {
-        return new InMemoryMrtrSessionStore();
-    }
-
-    /**
-     * JSON-RPC router pre-loaded with all 8 protocol-2026-07-28 routes
-     * ({@code server/discover}, {@code tasks/*}, {@code subscriptions/listen},
-     * {@code input_required/respond}). Mounted by {@link JsonRpcController}
-     * at {@code POST /mcp/jsonrpc}.
-     */
-    @Bean
-    @ConditionalOnMissingBean(JsonRpcRouter.class)
-    public JsonRpcRouter jsonRpcRouter(
-            DiscoverEndpoint discoverEndpoint,
-            TaskStore taskStore,
-            TasksEndpoint tasksEndpoint,
-            AugmentedPromptEndpoint augmentedPromptEndpoint,
-            NotificationsPollingEndpoint notificationsEndpoint,
-            MrtrSessionStore mrtrStore) {
-        JsonRpcRouter router = new JsonRpcRouter();
-        JsonRpcRoutes.registerAll(router,
-            discoverEndpoint,
-            taskStore,
-            tasksEndpoint,
-            augmentedPromptEndpoint,
-            notificationsEndpoint,
-            mrtrStore);
-        return router;
     }
 
     /**

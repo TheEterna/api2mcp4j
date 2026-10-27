@@ -45,9 +45,17 @@
             <optional>true</optional>
         </dependency>
 
+        <!--
+          只引基础 starter，不引任何 Web 栈 starter。
+          原先引 spring-ai-starter-mcp-server-webmvc 会把 Servlet 栈拖进
+          Reactive 用户 —— server2mcp-starter-webflux 因此被迫继承 MVC 传输层。
+          Web 栈由各 starter 自行引入（webmvc → spring-ai-starter-mcp-server-webmvc，
+          webflux → spring-ai-starter-mcp-server-webflux）。
+          变更日：2026-10-27
+        -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+            <artifactId>spring-ai-starter-mcp-server</artifactId>
             <optional>true</optional>
         </dependency>
 

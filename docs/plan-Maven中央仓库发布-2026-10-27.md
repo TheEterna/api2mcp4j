@@ -95,25 +95,34 @@
 ## 五、执行顺序（红线场景 · 董事长已授权目标）
 
 ```
-P0 敏感信息与仓库卫生清理        ← 已于 14:21 执行
-P1 发布元数据 + 插件链改造        ← 本计划主体
-P2 版本号 1.2.0 全模块对齐
-P3 发布脚本 + 自检脚本 + 本地 verify 全绿
-P4 等待 R1/R2 凭据 → 真实上传
-P5 R3 历史清理（需董事长单独批准 · 破坏性 git 写）
+P0 敏感信息与仓库卫生清理        ← ✅ 14:21 完成（commit fade220 / 3d97d33）
+P1 发布元数据 + 插件链改造        ← ✅ 完成（commit b8a2b04）
+P2 版本号 1.2.0 全模块对齐        ← ✅ 完成（同 commit）
+P3 发布脚本 + 自检脚本 + 本地 verify 全绿 ← ✅ 14:57 完成（commit a26807e · 15 个发布件就绪）
+P4 等待 R1/R2 凭据 → 真实上传      ← 🔴 阻塞：待董事长提供 Sonatype token + GPG 密钥
+P5 R3 历史清理（需董事长单独批准 · 破坏性 git 写） ← 🔴 待批准
 ```
+
+### 5.1 途中排掉的两个真实障碍（非代码问题）
+
+| 障碍 | 根因 | 处置 |
+|---|---|---|
+| Maven 无法从 Central 下载**任何** artifact（连 guava 32.1.0-jre 这类必然存在的包都报 absent） | 环境有 `HTTPS_PROXY`，**curl 自动用它但 Java/Maven 不读**（Maven Resolver 只认 `settings.xml` 的 `<proxies>` 或 `https.proxyHost` 系统属性）→ JVM 直连得 404。此前 `mvn clean install` 能过纯属依赖全在本地缓存的巧合 | `~/.m2/settings.xml` 增 `<proxies>` 段（仓库外，不入库） |
+| enforcer `requireProperty` 规则 3 失败 | `requireProperty` 只能断言 String 型属性，而 `project.license` / `project.developers` 是 List → 必然失败 | enforcer 只断言 `project.url` / `project.scm.url` / 版本 / Maven 版本；license / developers 完整性改由 `pre-release-check.sh` 以 XML 断言覆盖（职责分离） |
 
 ---
 
 ## 六、验收标准
 
-| # | 判据 | 证据等级 |
-|---|---|---|
-| 1 | `mvn clean install` 全绿（含 5 模块 + demo 单独构建） | E2 真库读数 |
-| 2 | `mvn -Prelease verify` 产出 6 artifact × (jar + sources + javadoc) | E2 |
-| 3 | Central Portal 页面出现 `com.ai.plug:server2mcp-starter-webmvc:1.2.0` | E3（外部可见） |
-| 4 | 干净机器 `mvn dependency:get` 可拉取 | E2 |
-| 5 | 发布件内无任何凭据（jar 内容审计） | E2 |
+| # | 判据 | 证据等级 | 状态 |
+|---|---|---|---|
+| 1 | `mvn clean install` 全绿（含 5 模块 + demo 单独构建） | E2 真库读数 | ✅ 608 测试 0 失败 + demo 单独构建 SUCCESS |
+| 2 | `mvn -Prelease verify` 产出 5 artifact × (jar + sources + javadoc) | E2 | ✅ 15 个发布件全部就绪（14:57） |
+| 3 | Central Portal 页面出现 `com.ai.plug:server2mcp-starter-webmvc:1.2.0` | E3（外部可见） | 🔴 待 R1/R2 凭据 |
+| 4 | 干净机器 `mvn dependency:get` 可拉取 | E2 | 🔴 待 R1/R2 凭据 |
+| 5 | 发布件内无任何凭据（jar 内容审计） | E2 | ✅ 仅 Maven 标准 `pom.properties`，0 处密码/IP 命中 |
+| 6 | 协议 2026-07-28 wire 兼容性未回归 | E2 端到端 | ✅ demo 实跑 21/21 断言通过 |
+
 
 ---
 

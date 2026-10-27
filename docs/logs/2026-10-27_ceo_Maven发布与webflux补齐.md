@@ -132,6 +132,26 @@ core 575 + webmvc 22 + webflux 11 = 608 个测试，0 失败
 
 bean 下沉对既有 webmvc 行为**零回归**（`ProtocolEndpointsIntegrationTest` 8 个 / `JsonRpcIntegrationTest` 6 个 / `SseNotificationsControllerTest` 7 个 全绿）。
 
+**端到端实证（E2 · 真实 HTTP 服务 + 21 项协议断言）**：
+
+```
+$ mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=18888
+$ bash scripts/verify-protocol-2026-07-28.sh http://localhost:18888
+
+== 1. server/discover ==        ✓ preferredVersion=2026 / tools.listChanged / tools.subscription
+                                  ✓ completions.listChanged / experimental.tasks / _meta.traceparent
+== 2. tasks/* (JSON-RPC) ==     ✓ create / get / list / cancel 全部通过
+== 3. tasks/augmented-prompt ==  ✓ returns taskId
+== 4. subscriptions/listen ==    ✓ JSON-RPC + GET /mcp/sse text/event-stream + initial comment
+== 5. input_required/respond ==  ✓ accepted + echoes state
+== 6. HTTP legacy endpoints ==   ✓ GET /mcp/discover + GET /mcp/notifications
+== summary ==  passed: 21  failed: 0
+ALL ASSERTIONS PASSED — protocol 2026-07-28 wire verified
+```
+
+> 端口说明：8888 被本机既有服务（`volod` daemon / OrbStack / real-agent vite）占用，故改用 18888 验证，**未擅自杀任何既有进程**。
+
+
 ---
 
 ## 四、顺带修正的文档债

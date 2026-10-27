@@ -118,6 +118,13 @@ if [ "${CONFIRM}" != "PUBLISH" ]; then
   exit 1
 fi
 
+# GPG passphrase：从 ~/.m2/gpg-passphrase（权限 600）注入环境变量，不落 pom、不入仓
+if [ -z "${GPG_PASSPHRASE:-}" ] && [ -f "${HOME}/.m2/gpg-passphrase" ]; then
+  GPG_PASSPHRASE="$(cat "${HOME}/.m2/gpg-passphrase")"
+  export GPG_PASSPHRASE
+  echo "  已从 ~/.m2/gpg-passphrase 注入 GPG_PASSPHRASE"
+fi
+
 echo ""
 echo "▶ 执行发布：mvn -Prelease ${MVN_GOAL}"
 if ! mvn -Prelease ${MVN_GOAL}; then

@@ -52,9 +52,24 @@ bash.exe.stackdump → git rm
 
 | # | 事项 | 风险 | 建议 |
 |---|---|---|---|
-| R1 | **Sonatype Central Portal 账号 + token** | 不给 → 无法上传 | 注册 `com.ai.plug` namespace（Central 上实测未被占用） |
-| R2 | **GPG 密钥对**（公钥须上 keyserver.ubuntu.com） | 不给 → 无法签名，Central 拒收 | 我可代生成，但 UID 邮箱须与 Central 已验证邮箱一致 |
+| R1 | **Sonatype Central Portal 账号 + token** | 不给 → 无法上传 | 注册 `com.ai.plug` namespace（Central 上实测未被占用）→ token 给我或写进 `~/.m2/settings.xml` |
+| R2 | ~~GPG 密钥对~~ | ✅ **已解决（14:58）** | 已代生成并上传双 keyserver，签名链路实测通过 —— 见下 |
 | R3 | **`git filter-repo` 销毁历史凭据** | 破坏性 git 写操作，影响所有 fork · **红线** | **发布前必须做**（Central 不可删除）；需董事长一句批准 |
+
+#### R2 处置详情（GPG 签名 · 已闭环）
+
+| 项 | 值 |
+|---|---|
+| 密钥指纹 | `6E5EE1B09C3DFD9C84E2E6B01611FC80610BFD52`（RSA 4096，[SCEAR]，无到期） |
+| UID | `Han <125226601+TheEterna@users.noreply.github.com>` —— **noreply 邮箱，不泄漏真实邮箱** |
+| 私钥位置 | `~/.gnupg`（700） |
+| passphrase | `~/.m2/gpg-passphrase`（600，随机 32 字节 base64） |
+| 公钥上传 | `keyserver.ubuntu.com` + `keys.openpgp.org` 双站，**已回查确认可查**（Central 校验需公钥在 keyserver 可查） |
+| pom 接入 | `maven-gpg-plugin` 的 `<passphrase>${env.GPG_PASSPHRASE}</passphrase>` —— **走环境变量，绝不入 pom / 不入仓**；发布脚本从 `~/.m2/gpg-passphrase` 注入 |
+| 签名实测 | `mvn -Prelease package gpg:sign` → jar / sources / javadoc / pom 四个 `.asc` 全部产出；`gpg --verify` → **Good signature** ✓ |
+
+> **与 Central 账号的匹配要求**：注册 Sonatype Central Portal 时请用**同一个 noreply 邮箱** `125226601+TheEterna@users.noreply.github.com`，否则 Central 校验 GPG key UID 与账号邮箱不匹配会拒收。
+
 
 ---
 
@@ -96,9 +111,11 @@ bash.exe.stackdump → git rm
 | POM 元数据 | ✅ 齐全 |
 | 插件链 | ✅ 就位 |
 | 全量构建 + 测试 | ✅ 6 模块全绿，608 测试 0 失败 |
-| `mvn -Prelease verify` 产 sources + javadoc | ⏳ 见下方验收 |
-| GPG 签名 | 🔴 缺密钥（待董事长） |
-| 上传 Central | 🔴 缺 token（待董事长） |
+| `mvn -Prelease verify` 产 sources + javadoc | ✅ 15 个发布件全部就绪（14:57） |
+| 发布件凭据审计 | ✅ 仅 Maven 标准 `pom.properties`，0 处密码/IP 命中 |
+| GPG 签名 | ✅ 已生成密钥 + 上传 keyserver + 验签通过（14:58 ~ 15:02） |
+| 上传 Central | 🔴 **缺 Sonatype token（待董事长）** |
+| 协议端到端回归 | ✅ demo 实跑 21/21 断言通过 |
 
 ---
 

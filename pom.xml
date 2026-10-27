@@ -362,6 +362,13 @@
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
                                     </gpgArguments>
+                                    <!--
+                                      passphrase 走环境变量 GPG_PASSPHRASE，绝不入 pom / 不入仓。
+                                      未设置时保持字面量 ${env.GPG_PASSPHRASE}，签名会失败而不会误签。
+                                      scripts/publish-to-central.sh 会从 ~/.m2/gpg-passphrase
+                                      （权限 600）注入该环境变量。
+                                    -->
+                                    <passphrase>${env.GPG_PASSPHRASE}</passphrase>
                                 </configuration>
                             </execution>
                         </executions>

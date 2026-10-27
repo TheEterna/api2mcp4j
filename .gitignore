@@ -50,3 +50,10 @@ id_rsa*
 id_dsa*
 id_ecdsa*
 id_ed25519*
+
+### OMC local state (machine-local HUD cache) ###
+.omc/
+
+### Security probing scripts (kept outside repo — never commit) ###
+brute_mysql.py
+find_mysql_server.py

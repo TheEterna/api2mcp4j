@@ -5,8 +5,13 @@
     <parent>
         <groupId>com.ai.plug</groupId>
         <artifactId>server2mcp-parent</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.2.0</version>
     </parent>
+
+    <name>server2mcp-autoconfigure</name>
+    <description>
+        server2mcp Spring Boot 自动配置模块 —— 按 plugin.mcp.* 配置装配 MCP Server 与解析器责任链。
+    </description>
 
     <artifactId>server2mcp-autoconfigure</artifactId>
     <packaging>jar</packaging>

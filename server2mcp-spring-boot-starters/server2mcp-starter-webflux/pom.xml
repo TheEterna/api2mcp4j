@@ -6,9 +6,14 @@
     <parent>
         <groupId>com.ai.plug</groupId>
         <artifactId>server2mcp-parent</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.2.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
+
+    <name>server2mcp-starter-webflux</name>
+    <description>
+        server2mcp Spring WebFlux 接入 Starter —— 响应式场景下零改动暴露 Controller 为 MCP 实体。
+    </description>
 
     <artifactId>server2mcp-starter-webflux</artifactId>
     <packaging>jar</packaging>

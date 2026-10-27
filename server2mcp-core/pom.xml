@@ -5,9 +5,14 @@
     <parent>
         <groupId>com.ai.plug</groupId>
         <artifactId>server2mcp-parent</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.2.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
+    <name>server2mcp-core</name>
+    <description>
+        server2mcp 核心引擎 —— MCP 注解体系、双层解析器链（描述/参数）、扫描注册、回调模板与 Provider 桥接。
+    </description>
 
     <artifactId>server2mcp-core</artifactId>
     <packaging>jar</packaging>

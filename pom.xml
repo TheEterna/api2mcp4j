@@ -3,15 +3,68 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ai.plug</groupId>
     <artifactId>server2mcp-parent</artifactId>
-    <version>1.1.4-SNAPSHOT</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
 
     <name>server2mcp-parent</name>
+    <description>
+        server2mcp — 非侵入式地把 Spring Boot Controller 接口暴露为 MCP Tool / Resource / Prompt / Complete 的
+        Spring Boot Starter 框架。设计理念类似 MyBatis-Plus 之于 MyBatis：现有 @RestController 零改动即成为 MCP 工具。
+    </description>
+    <url>https://github.com/TheEterna/api2mcp4j</url>
+    <inceptionYear>2025</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <!--
+          邮箱使用 GitHub noreply 而非真实邮箱：2026-08-05 隐私审计发现真实 QQ 邮箱曾随 commit
+          泄漏进公开 git history（commit 9c8be8b），发布到 Maven Central 后元数据同样会被永久公开索引。
+          来源：docs/logs/2026-08-05_ceo_隐私审计.md §三·发现 2
+        -->
+        <developer>
+            <id>theeterna</id>
+            <name>Han</name>
+            <email>125226601+TheEterna@users.noreply.github.com</email>
+            <url>https://github.com/TheEterna</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/TheEterna/api2mcp4j</url>
+        <connection>scm:git:https://github.com/TheEterna/api2mcp4j.git</connection>
+        <developerConnection>scm:git:https://github.com/TheEterna/api2mcp4j.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/TheEterna/api2mcp4j/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <!--
+          Sonatype Central Portal（2024+ 新标准）。老 OSSRH 已停止新 namespace 注册，
+          nexus-staging-maven-plugin 仅作为回退路径保留在 release profile 中。
+          上传凭据写入 ~/.m2/settings.xml 的 <server><id>central</id>，仓库内不落任何明文。
+        -->
+        <repository>
+            <id>central</id>
+            <name>Sonatype Central Portal</name>
+            <url>https://central.sonatype.com/api/v1/publisher</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <java.version>17</java.version>
-        <project.version>1.0.0</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>4.1.0</spring-boot.version>
         <spring-ai.version>2.0.0</spring-ai.version>
         <javaparser.version>3.25.5</javaparser.version>
@@ -20,6 +73,13 @@
         <mcp-sdk.version>2.0.0</mcp-sdk.version>
         <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
         <javax.validation-api.version>2.0.1.Final</javax.validation-api.version>
+
+        <!-- 发布插件版本（2026-10-27 实测 Central 最新） -->
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
+        <central-publishing-plugin.version>0.12.0</central-publishing-plugin.version>
     </properties>
 
 
@@ -185,5 +245,157 @@
 
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+          发布 profile：只在发布时激活，日常 `mvn clean install` 不受影响。
+          阶段划分：
+            verify  → enforcer 断言 + sources jar + javadoc jar（本地可全量验证）
+            deploy  → GPG 签名 + Sonatype Central Portal 上传（需凭据）
+          激活方式：mvn -Prelease clean deploy
+          来源：docs/plan-Maven中央仓库发布-2026-10-27.md
+        -->
+        <profile>
+            <id>release</id>
+
+            <build>
+                <plugins>
+                    <!-- 发布前置断言：禁 SNAPSHOT、禁 missing POM 元数据、禁旧 Maven -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>${maven-enforcer-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-release-pom</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseVersion>
+                                            <message>禁止发布 SNAPSHOT 版本。发布前请用 release:prepare 或手工改版本号。</message>
+                                        </requireReleaseVersion>
+                                        <requireMavenVersion>
+                                            <version>[3.9.0,)</version>
+                                        </requireMavenVersion>
+                                        <requireProperty>
+                                            <property>project.url</property>
+                                            <message>Central 要求 POM 必须含 url</message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>project.license</property>
+                                            <message>Central 要求 POM 必须含 license</message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>project.developers</property>
+                                            <message>Central 要求 POM 必须含 developers</message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>project.scm.url</property>
+                                            <message>Central 要求 POM 必须含 scm.url</message>
+                                        </requireProperty>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- sources jar（Central 强制） -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- javadoc jar（Central 强制）。本项目中文 javadoc 需关闭 doclint -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <doclint>none</doclint>
+                                    <charset>UTF-8</charset>
+                                    <encoding>UTF-8</encoding>
+                                    <docencoding>UTF-8</docencoding>
+                                    <notimestamp>true</notimestamp>
+                                    <quiet>true</quiet>
+                                    <detectJavaApiLink>false</detectJavaApiLink>
+                                    <detectOfflineLinks>false</detectOfflineLinks>
+                                    <additionalOptions>
+                                        <additionalOption>-Xdoclint:none</additionalOption>
+                                        <additionalOption>-encoding UTF-8</additionalOption>
+                                    </additionalOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GPG 签名：绑到 deploy 阶段，本地 verify 不触发（无密钥也能验证） -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--
+                      maven-deploy-plugin 在 release profile 下禁用：
+                      上传由 central-publishing-maven-plugin 独家负责，避免重复发布。
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>3.1.4</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Sonatype Central Portal 上传（凭据来自 ~/.m2/settings.xml 的 central server） -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>false</autoPublish>
+                            <waitUntil>published</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

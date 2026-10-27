@@ -280,17 +280,16 @@
                                         <requireMavenVersion>
                                             <version>[3.9.0,)</version>
                                         </requireMavenVersion>
+                                        <!--
+                                          requireProperty 只能断言 String 型属性。
+                                          project.url / project.scm.url 是 String，可直接断言；
+                                          project.licenses / project.developers 是 List<License> /
+                                          List<Developer>，走 requireProperty 必然失败，
+                                          改由 scripts/pre-release-check.sh 以 XML 断言覆盖。
+                                        -->
                                         <requireProperty>
                                             <property>project.url</property>
                                             <message>Central 要求 POM 必须含 url</message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>project.license</property>
-                                            <message>Central 要求 POM 必须含 license</message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>project.developers</property>
-                                            <message>Central 要求 POM 必须含 developers</message>
                                         </requireProperty>
                                         <requireProperty>
                                             <property>project.scm.url</property>

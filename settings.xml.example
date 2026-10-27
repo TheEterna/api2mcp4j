@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  server2mcp · Maven Central 发布凭据模板
+
+  用法：
+    1. cp settings.xml.example ~/.m2/settings.xml
+    2. 把 <username> / <password> 的占位替换为 Sonatype Central Portal 的 User Token
+       （Central Portal → Account → Generate User Token · 勾选 "Publishing Tokens"）
+    3. 或保留 ${env.CENTRAL_PORTAL_TOKEN} 形式，用环境变量注入，勿把 token 落盘
+
+  ⚠️ 本文件是【模板】，仓库内绝不存放真实 token。
+     生成物 ~/.m2/settings.xml 不在仓库范围内（由 .gitignore 的 credentials* / secrets* 规则及
+     仓库外位置共同保证）。
+
+  GPG 签名所需密钥不在此处配置 —— 由 gpg-agent / ~/.gnupg 持有，
+  密钥公钥须上传至 keyserver.ubuntu.com 否则 Central 校验不通过。
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <!--
+          <id>central</id> 必须与根 pom.xml 中
+          central-publishing-maven-plugin 的 <publishingServerId>central</publishingServerId>
+          严格一致。
+        -->
+        <server>
+            <id>central</id>
+            <username>${env.CENTRAL_PORTAL_TOKEN}</username>
+            <password>${env.CENTRAL_PORTAL_TOKEN}</password>
+        </server>
+    </servers>
+
+    <!--
+      可选：若使用 Maven 镜像加速，构建时保留此段；发布时中央仓库直连不受影响。
+      <mirrors>
+        <mirror>
+          <id>central-mirror</id>
+          <mirrorOf>central</mirrorOf>
+          <url>https://repo1.maven.org/maven2</url>
+        </mirror>
+      </mirrors>
+    -->
+</settings>

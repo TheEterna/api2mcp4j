@@ -57,3 +57,11 @@ id_ed25519*
 ### Security probing scripts (kept outside repo — never commit) ###
 brute_mysql.py
 find_mysql_server.py
+
+### Runtime log directories (never commit) ###
+# 任意层级的 logs/ 目录一律不入库（应用运行日志、临时输出等）
+logs/
+# 例外：以下三处是规范要求的【工作留痕】与【文档站路由页】，必须继续跟踪
+!docs/logs/
+!docs-site/logs/
+!docs-site/docs/logs/

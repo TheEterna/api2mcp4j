@@ -196,6 +196,30 @@ else
   git status --porcelain | head -10 | sed 's/^/      /'
 fi
 
+# ---------------------------------------------------------------- 9. 文档版本一致性
+sec "9. 文档版本一致性"
+if [ -f "CHANGELOG.md" ]; then
+  ok "CHANGELOG.md 存在"
+  if grep -qF "[${VERSION}]" CHANGELOG.md; then
+    ok "CHANGELOG 含 ${VERSION} 条目"
+  else
+    bad "CHANGELOG 缺 ${VERSION} 条目"
+  fi
+else
+  bad "CHANGELOG.md 缺失 —— 发版库应带变更记录"
+fi
+
+for doc in README.md README_zh.md; do
+  if [ -f "${doc}" ]; then
+    DOC_VER=$(grep -oE "<version>[^<]+</version>" "${doc}" | head -1 | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
+    if [ "${DOC_VER}" = "${VERSION}" ]; then
+      ok "${doc} 依赖坐标版本与项目一致：${VERSION}"
+    else
+      bad "${doc} 依赖坐标版本=${DOC_VER}，与项目版本 ${VERSION} 不一致 —— 用户按 README 拉不到包"
+    fi
+  fi
+done
+
 # ---------------------------------------------------------------- 汇总
 echo ""
 echo "=============================================="

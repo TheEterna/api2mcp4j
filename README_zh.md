@@ -4,7 +4,7 @@
 
 ```xml
 <dependency>
-  <groupId>com.ai.plug</groupId>
+  <groupId>io.github.theeterna</groupId>
   <artifactId>server2mcp-starter-webmvc</artifactId>
   <version>1.2.0</version>
 </dependency>
@@ -75,7 +75,7 @@ mvn clean install -DskipTests
 
 ```xml
 <dependency>
-  <groupId>com.ai.plug</groupId>
+  <groupId>io.github.theeterna</groupId>
   <artifactId>server2mcp-starter-webmvc</artifactId>
   <version>1.2.0</version>
 </dependency>
@@ -85,7 +85,7 @@ mvn clean install -DskipTests
 
 ```xml
 <dependency>
-  <groupId>com.ai.plug</groupId>
+  <groupId>io.github.theeterna</groupId>
   <artifactId>server2mcp-starter-webflux</artifactId>
   <version>1.2.0</version>
 </dependency>

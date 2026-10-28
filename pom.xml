@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ai.plug</groupId>
+    <groupId>io.github.theeterna</groupId>
     <artifactId>server2mcp-parent</artifactId>
     <version>1.2.0</version>
     <packaging>pom</packaging>
@@ -178,17 +178,17 @@
             </dependency>
 
             <dependency>
-                <groupId>com.ai.plug</groupId>
+                <groupId>io.github.theeterna</groupId>
                 <artifactId>server2mcp-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ai.plug</groupId>
+                <groupId>io.github.theeterna</groupId>
                 <artifactId>server2mcp-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ai.plug</groupId>
+                <groupId>io.github.theeterna</groupId>
                 <artifactId>server2mcp-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -395,8 +395,19 @@
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
+                            <!--
+                              autoPublish=false：上传与校验通过后停在 Portal，由董事长到
+                              https://central.sonatype.com/publishing/deployments 人工点 Publish。
+                              Maven Central 发布不可撤回，这道人工闸保留。
+
+                              waitUntil 必须是 validated（官方默认值）：官方对 waitUntil=published 的
+                              描述是「This requires Automatic Publishing」——与 autoPublish=false 直接冲突。
+                              该路径只在 deploy 阶段触发，此前所有验证（verify / dry-run）都走不到，
+                              从未被实测过；conflict 时的具体行为官方页未描述。
+                              来源：https://central.sonatype.org/publish/publish-portal-maven/
+                            -->
                             <autoPublish>false</autoPublish>
-                            <waitUntil>published</waitUntil>
+                            <waitUntil>validated</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>

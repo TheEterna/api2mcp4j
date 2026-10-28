@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.ai.plug</groupId>
+        <groupId>io.github.theeterna</groupId>
         <artifactId>server2mcp-parent</artifactId>
         <version>1.2.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -73,7 +73,7 @@
 
 
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-common</artifactId>
             <optional>true</optional>
         </dependency>

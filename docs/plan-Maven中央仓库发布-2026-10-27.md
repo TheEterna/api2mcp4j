@@ -118,11 +118,91 @@ P5 R3 历史清理（需董事长单独批准 · 破坏性 git 写） ← 🔴 �
 |---|---|---|---|
 | 1 | `mvn clean install` 全绿（含 5 模块 + demo 单独构建） | E2 真库读数 | ✅ 608 测试 0 失败 + demo 单独构建 SUCCESS |
 | 2 | `mvn -Prelease verify` 产出 5 artifact × (jar + sources + javadoc) | E2 | ✅ 15 个发布件全部就绪（14:57） |
-| 3 | Central Portal 页面出现 `com.ai.plug:server2mcp-starter-webmvc:1.2.0` | E3（外部可见） | 🔴 待 R1/R2 凭据 |
+| 3 | Central Portal 页面出现 `io.github.theeterna:server2mcp-starter-webmvc:1.2.0` | E3（外部可见） | 🔴 待 R1/R2 凭据 |
 | 4 | 干净机器 `mvn dependency:get` 可拉取 | E2 | 🔴 待 R1/R2 凭据 |
 | 5 | 发布件内无任何凭据（jar 内容审计） | E2 | ✅ 仅 Maven 标准 `pom.properties`，0 处密码/IP 命中 |
 | 6 | 协议 2026-07-28 wire 兼容性未回归 | E2 端到端 | ✅ demo 实跑 21/21 断言通过 |
 
+> 2026-10-28 更正：验收 #3/#4 的阻塞不止「凭据」——命名空间 `com.ai.plug` 本身无法由董事长认领。详见 §七。
+
+---
+
+## 七、2026-10-28 复核：发布路径上三处此前未发现的问题
+
+> 触发：董事长答复「没 token」。借机把发布路径逐条对照 Sonatype 官方文档，发现此前「代码侧 100% 就绪，唯一阻塞是 token」的判断**不成立**。
+> 核实方式：官方文档（WebFetch 抓取）+ 本仓代码 + 公共 DNS/GitHub 查询；每条标来源。
+
+### 7.1 阻塞项（新）· 命名空间 `com.ai.plug` 无法由董事长认领 🔴
+
+| 事实 | 来源 |
+|---|---|
+| 认领命名空间须证明拥有其反向域名。官方原话：`com.example` → 检查 `example.com`，「不检查 com.example.com 或任何其他变体」 | https://central.sonatype.org/register/namespace/ |
+| `com.ai.plug` 的反向域名落在 `ai.com`（`plug.ai.com`）名下。官方页**未写明**三段式具体查哪一级，但无论哪一级都要求控制 `ai.com` 的 DNS | 同上 + 推断（推断部分未经 Sonatype 书面确认） |
+| 本仓内无董事长持有 `ai.com` 的任何迹象。已知持有 `xiaohan.chat`（文档站 `docs.xiaohan.chat`，NS = `junade.ns.cloudflare.com` / `reza.ns.cloudflare.com`） | `scripts/deploy-cf-pages.sh`；dns.google DoH 实测 2026-10-28 |
+
+**前提假设**：董事长不持有 `ai.com`。若实际持有，本节作废，方案 A 立即成立。
+
+**对此前文档的更正**：§一「`com.ai.plug` 在 Central 未被占用」只证明**无人发布过**（search.maven.org numFound=0），不证明**可被认领**。
+
+### 7.2 可选命名空间
+
+| 方案 | groupId | 认领方式 | 评价 |
+|---|---|---|---|
+| **B（采用）** | `io.github.theeterna`（大小写以注册页实际显示为准） | 用 GitHub 账号 `TheEterna` 登录 Portal。官方：「Sonatype can, in most cases, automatically verify and provision publishing access to a namespace that looks like `io.github.<your GitHub username>`」；未自动开通则按页面指引或邮件 Central Support | 无需 DNS，约 5–10 分钟；坐标与仓库 URL 一致；仓库 `TheEterna/api2mcp4j` 已确认为 public、owner 即该账号 |
+| C | `chat.xiaohan`（或其子段） | 在 Cloudflare 为 `xiaohan.chat` 加一条 DNS TXT（官方：「if you control example.com, you can use any groupId starting with com.example」） | 域名自有；坐标偏冷门 |
+| A | 保持 `com.ai.plug` | 须控制 `ai.com` 的 DNS | 判定不可行 |
+
+两点说明：
+- **Java 包名 `com.ai.plug` 不动**，仅换 Maven groupId（二者本就无需一致）。因此 logger 名 `com.ai.plug: DEBUG`、源码路径 `com/ai/plug/**`、`import com.ai.plug.core.*` 全部不变。
+- 此前从未发布到 Central → Central 上无既有下游；仅本地 `mvn install` 的使用者需改坐标。按 minor 处理，但必须写入 CHANGELOG。
+
+### 7.3 配置缺陷（新）· token 是两段独立值，模板却共用一个变量 🔴
+
+官方 Maven 发布页的 `settings.xml` 片段：`<username>` 与 `<password>` 分别是 token 的 username 与 password 两个独立值（来源：https://central.sonatype.org/publish/publish-portal-maven/ ）。
+
+本仓 `settings.xml.example` 却把两处都写成 `${env.CENTRAL_PORTAL_TOKEN}`，`scripts/pre-release-check.sh` §7 与 `scripts/publish-to-central.sh` 头部注释也只认这一个变量 → 即使拿到 token，上传必然鉴权失败（username = password = 同一串）。
+
+**修法**：拆为 `CENTRAL_PORTAL_USERNAME` / `CENTRAL_PORTAL_PASSWORD` 两个变量，三处同步。
+
+### 7.4 配置缺陷（新）· `autoPublish=false` 与 `waitUntil=published` 自相矛盾 🟡
+
+根 pom `central-publishing-maven-plugin` 当前配置 `<autoPublish>false</autoPublish>` + `<waitUntil>published</waitUntil>`（pom.xml:398-399）。官方页对 `waitUntil=published` 的描述为「This requires Automatic Publishing」。两项互相冲突；冲突时插件的具体行为官方页**未描述**（可能快速报错、可能空等 `waitMaxTime`=1800 秒、也可能放行）。
+
+该路径只在 `deploy` 阶段触发，而此前所有验证（`mvn -Prelease clean verify`、`--dry-run`）都走不到它 → **从未被实测过**。
+
+**修法**：`waitUntil` 改为 `validated`（官方默认值）。保留 `autoPublish=false` 不变：上传并通过校验后停在 Portal，由董事长到 https://central.sonatype.com/publishing/deployments 点 Publish——Maven Central 发布不可撤回，这一步人工闸应当保留。
+
+### 7.5 另：此前一条记忆性结论无官方依据
+
+此前记录「注册 Central 时必须用同一个 noreply 邮箱，否则 Central 校验 GPG UID 与账号邮箱不匹配会拒收」。官方 GPG 要求页（https://central.sonatype.org/publish/requirements/gpg/）**未见**任何 UID/邮箱须与账号或 POM 开发者邮箱一致的要求；仅要求公钥分发到 keyserver（支持 keyserver.ubuntu.com、keys.openpgp.org、pgp.mit.edu）并用主密钥签名。该说法已更正，不再作为约束。
+
+### 7.6 groupId 迁移影响面（2026-10-28 实测，非估计）
+
+**总计 32 处 / 12 个文件**：
+
+| 类别 | 处数 | 文件 |
+|---|---|---|
+| pom.xml | 21 | `pom.xml`（自身 groupId + dependencyManagement×3）、`server2mcp-common/pom.xml`、`server2mcp-core/pom.xml`、`server2mcp-autoconfigure/pom.xml`、两个 starter 的 `pom.xml`、`server2mcp-test/pom.xml` |
+| 非 pom 的 XML 坐标 | 8 | `README.md`×3、`README_zh.md`×3、`docs/reference/onboarding.md`×1、`scripts/verify-downstream-consumption.sh`×1 |
+| 脚本内坐标与仓库路径 | 2 | `scripts/verify-downstream-consumption.sh`（printf 坐标、`~/.m2/repository/com/ai/plug/` 路径） |
+| 文本坐标 | 1 | `CHANGELOG.md`（版本坐标说明） |
+
+**明确不改**（非 Maven 坐标）：
+- `server2mcp-test/src/main/resources/application.yml` 的 `com.ai.plug: DEBUG` —— 这是 logger 名 = **Java 包名**
+- `scripts/verify-downstream-consumption.sh` 的 `import com.ai.plug.core.context.tool.IToolContext` —— **Java 包名**
+- 全部 `com/ai/plug/**` 源码路径
+- 历史日志 `docs/logs/2026-10-27_ceo_Maven发布与webflux补齐.md`、`docs/logs/2026-10-28_ceo_*.md` —— 记录的是当时事实，不回改
+
+### 7.7 行动计划
+
+| # | 动作 | 负责 | 前置 |
+|---|---|---|---|
+| 1 | 登录 https://central.sonatype.com（GitHub 账号 `TheEterna`）→ 确认/认领命名空间 → https://central.sonatype.com/usertoken 生成 User Token（**username + password 两段**，关闭弹窗后无法找回）→ 写入本机环境变量或 `~/.m2/settings.xml`，**不经聊天** | 董事长 | — |
+| 2 | 回报页面上命名空间的原样字符串 | 董事长 | 1 |
+| 3 | [RED] `pre-release-check.sh` 新增断言：settings 模板用两个变量；`central-publishing` 配置自洽（`autoPublish=false` 时 `waitUntil` 不得为 `published`）；全仓 groupId 一致 → 先红 | CEO | — |
+| 4 | [GREEN] 改 groupId 与 32 处坐标引用；`waitUntil` 改 `validated`；拆 token 变量；同步 README×2 / CHANGELOG / onboarding / 验证脚本 / 发布脚本 / settings 模板 | CEO | 2 |
+| 5 | `mvn clean install` + `scripts/verify-downstream-consumption.sh --run` + `scripts/publish-to-central.sh --dry-run` | CEO | 4 |
+| 6 | `bash scripts/publish-to-central.sh --publish`，董事长亲自输入 `PUBLISH`，再到 Portal Deployments 页点 Publish | 董事长 | 5 |
 
 ---
 

@@ -165,11 +165,18 @@ SETTINGS="${HOME}/.m2/settings.xml"
 if [ -f "${SETTINGS}" ]; then
   if grep -q "<id>central</id>" "${SETTINGS}"; then
     ok "settings.xml 含 id=central 的 server"
-    if [ "${REQUIRE_CREDENTIALS}" = "1" ] && grep -qE "<password>\\\$\{env\." "${SETTINGS}"; then
-      if [ -z "${CENTRAL_PORTAL_TOKEN:-}" ]; then
-        bad "settings.xml 引用了 \${env.CENTRAL_PORTAL_TOKEN} 但环境变量未设置"
-      else
-        ok "CENTRAL_PORTAL_TOKEN 环境变量已设置"
+    # Sonatype User Token 是两段独立值（username + password），官方 settings.xml 片段分别填入
+    # <username> 与 <password>。来源：https://central.sonatype.org/publish/publish-portal-maven/
+    if [ "${REQUIRE_CREDENTIALS}" = "1" ]; then
+      if grep -qE "<password>\\\$\{env\." "${SETTINGS}"; then
+        MISSING_TOKEN=""
+        [ -z "${CENTRAL_PORTAL_USERNAME:-}" ] && MISSING_TOKEN="${MISSING_TOKEN} CENTRAL_PORTAL_USERNAME"
+        [ -z "${CENTRAL_PORTAL_PASSWORD:-}" ] && MISSING_TOKEN="${MISSING_TOKEN} CENTRAL_PORTAL_PASSWORD"
+        if [ -n "${MISSING_TOKEN}" ]; then
+          bad "settings.xml 引用了 \${env.*} 但环境变量未设置：${MISSING_TOKEN}"
+        else
+          ok "CENTRAL_PORTAL_USERNAME / CENTRAL_PORTAL_PASSWORD 环境变量均已设置"
+        fi
       fi
     fi
   else

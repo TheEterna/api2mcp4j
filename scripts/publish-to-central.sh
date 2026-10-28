@@ -11,7 +11,10 @@
 #
 # 前置条件：
 #   - ~/.m2/settings.xml 含 id=central 的 server（参考 settings.xml.example）
-#   - 环境变量 CENTRAL_PORTAL_TOKEN 已设置（或 settings.xml 内直接写 token）
+#   - 环境变量 CENTRAL_PORTAL_USERNAME 与 CENTRAL_PORTAL_PASSWORD 均已设置
+#     （Sonatype User Token 是【两段独立值】：username 与 password，
+#       分别填入 settings.xml 的 <username> 与 <password>；
+#       来源：https://central.sonatype.org/publish/publish-portal-maven/）
 #   - 本机 gpg 已有私钥，且公钥已上传 keyserver.ubuntu.com
 #
 # Usage:

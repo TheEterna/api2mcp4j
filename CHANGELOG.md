@@ -4,7 +4,7 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-> **版本坐标**：`com.ai.plug:server2mcp-*`，Java 17+，Spring Boot 4.1.0 / Spring AI 2.0.0 / MCP Java SDK 2.0.0。
+> **版本坐标**：`io.github.theeterna:server2mcp-*`，Java 17+，Spring Boot 4.1.0 / Spring AI 2.0.0 / MCP Java SDK 2.0.0。
 
 ---
 
@@ -17,6 +17,16 @@
 ## [1.2.0] - 2026-10-28
 
 首个面向 Maven Central 发布的正式版本。1.1.x 期间为 `1.1.4-SNAPSHOT` 开发态，未对外发布。
+
+### 坐标
+
+发布坐标为 **`io.github.theeterna:server2mcp-*`**。
+
+来由：Sonatype Central 认领命名空间须证明拥有其反向域名。`com.ai.plug` 的反向域名落在 `ai.com` 名下，无法由本项目认领；故改用官方支持免 DNS 验证的 `io.github.<username>` 形式（GitHub 账号 `TheEterna`，仓库 `github.com/TheEterna/api2mcp4j` 已公开）。
+
+- **Java 包名不变**：仍为 `com.ai.plug.*`（Maven 坐标与 Java 包名本就无需一致）
+- **影响面**：本项目此前从未发布到 Central，Central 上无既有下游；仅本地 `mvn install` 过旧坐标的使用者需改坐标
+- ⚠️ 若 Portal 实际认领的 namespace 大小写与此处不同，只需全局替换这一段字符串（`pom.xml` 与文档各一处）
 
 ### Added — 协议 2026-07-28 兼容层
 

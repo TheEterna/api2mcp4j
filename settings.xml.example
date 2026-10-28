@@ -4,16 +4,22 @@
 
   用法：
     1. cp settings.xml.example ~/.m2/settings.xml
-    2. 把 <username> / <password> 的占位替换为 Sonatype Central Portal 的 User Token
-       （Central Portal → Account → Generate User Token · 勾选 "Publishing Tokens"）
-    3. 或保留 ${env.CENTRAL_PORTAL_TOKEN} 形式，用环境变量注入，勿把 token 落盘
+    2. 打开 https://central.sonatype.com/usertoken 点 "Generate User Token"，
+       记下弹窗给出的【两段】值：username 与 password（关闭弹窗后无法找回）
+    3. 分别设环境变量：
+         export CENTRAL_PORTAL_USERNAME="<token username>"
+         export CENTRAL_PORTAL_PASSWORD="<token password>"
+
+  ⚠️ User Token 是两段独立值 —— 官方 settings.xml 片段把 token 的 username 填入
+     <username>、password 填入 <password>。共用一个变量必然鉴权失败。
+     来源：https://central.sonatype.org/publish/publish-portal-maven/
 
   ⚠️ 本文件是【模板】，仓库内绝不存放真实 token。
      生成物 ~/.m2/settings.xml 不在仓库范围内（由 .gitignore 的 credentials* / secrets* 规则及
      仓库外位置共同保证）。
 
   GPG 签名所需密钥不在此处配置 —— 由 gpg-agent / ~/.gnupg 持有，
-  密钥公钥须上传至 keyserver.ubuntu.com 否则 Central 校验不通过。
+  密钥公钥须上传至 keyserver.ubuntu.com / keys.openpgp.org / pgp.mit.edu 之一。
 -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,8 +33,8 @@
         -->
         <server>
             <id>central</id>
-            <username>${env.CENTRAL_PORTAL_TOKEN}</username>
-            <password>${env.CENTRAL_PORTAL_TOKEN}</password>
+            <username>${env.CENTRAL_PORTAL_USERNAME}</username>
+            <password>${env.CENTRAL_PORTAL_PASSWORD}</password>
         </server>
     </servers>
 

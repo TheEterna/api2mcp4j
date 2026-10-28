@@ -30,13 +30,13 @@ trap cleanup EXIT
 
 printf '==============================================\n'
 printf ' 下游消费冒烟验证\n'
-printf ' 坐标：com.ai.plug:%s:%s\n' "${STARTER}" "${VERSION}"
+printf ' 坐标：io.github.theeterna:%s:%s\n' "${STARTER}" "${VERSION}"
 printf ' 临时工程：%s\n' "${WORK_DIR}"
 printf '==============================================\n'
 
 # ---------------------------------------------------------------- 0. 前置：发布件已入本地仓库
 sec "0. 本地仓库中的发布件"
-JAR_PATH="${HOME}/.m2/repository/com/ai/plug/${STARTER}/${VERSION}/${STARTER}-${VERSION}.jar"
+JAR_PATH="${HOME}/.m2/repository/io/github/theeterna/${STARTER}/${VERSION}/${STARTER}-${VERSION}.jar"
 if [ -f "${JAR_PATH}" ]; then
   ok "本地仓库已存在 ${STARTER}-${VERSION}.jar"
 else
@@ -71,7 +71,7 @@ cat > "${WORK_DIR}/pom.xml" <<POM
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>${STARTER}</artifactId>
             <version>${VERSION}</version>
         </dependency>

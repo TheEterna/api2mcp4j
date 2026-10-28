@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.ai.plug</groupId>
+        <groupId>io.github.theeterna</groupId>
         <artifactId>server2mcp-parent</artifactId>
         <version>1.2.0</version>
         <relativePath>../../pom.xml</relativePath>
@@ -20,20 +20,20 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-autoconfigure</artifactId>
             <version>${project.version}</version>
         </dependency>
 
 
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-core</artifactId>
             <version>${project.version}</version>
         </dependency>

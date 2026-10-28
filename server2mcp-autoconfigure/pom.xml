@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.ai.plug</groupId>
+        <groupId>io.github.theeterna</groupId>
         <artifactId>server2mcp-parent</artifactId>
         <version>1.2.0</version>
     </parent>
@@ -61,14 +61,14 @@
 
         <!-- 内部依赖 -->
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-core</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
-            <groupId>com.ai.plug</groupId>
+            <groupId>io.github.theeterna</groupId>
             <artifactId>server2mcp-common</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>

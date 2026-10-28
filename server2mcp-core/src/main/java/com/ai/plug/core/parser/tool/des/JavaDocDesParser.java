@@ -17,7 +17,7 @@ import java.util.Objects;
  * @module JavaDocDesParser
  * @keywords 描述解析器 责任链 Javadoc解析 JavaParser StaticJavaParser 源码加载 已废弃
  *           AbstractDesParser 类路径资源 源代码目录 @Deprecated
- * @updated 2026-10-28 12:20
+ * @updated 2026-10-28 12:45
  * @purpose 解析方法 Javadoc 注释作为工具描述，jar 运行时无源码故已标记废弃
  * @layer core
  * @author han
@@ -70,7 +70,9 @@ public class JavaDocDesParser extends AbstractDesParser {
         }
 
         if (cu == null) {
-            log.warn("无法加载类 {} 的源代码及资源路径，JavaDoc解析失败", toolClass.getName());
+            // jar 部署时 .java 源码不在 classpath 属【预期状态】而非失败——本解析器已标记 @Deprecated。
+            // 降为 debug，避免每个工具方法给下游刷 WARN。
+            log.debug("跳过 Javadoc 解析：类 {} 的源码不在 classpath（jar 部署常态）", toolClass.getName());
             return null;
         }
 

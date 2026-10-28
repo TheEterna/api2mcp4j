@@ -17,7 +17,7 @@ import java.util.Objects;
  * @module JavaDocDesParser
  * @keywords 描述解析器 责任链 Javadoc解析 JavaParser StaticJavaParser 源码加载 已废弃
  *           AbstractDesParser 类路径资源 源代码目录 @Deprecated
- * @updated 2026-10-28 12:45
+ * @updated 2026-10-28 14:05
  * @purpose 解析方法 Javadoc 注释作为工具描述，jar 运行时无源码故已标记废弃
  * @layer core
  * @author han
@@ -40,6 +40,13 @@ public class JavaDocDesParser extends AbstractDesParser {
 
     @Override
     public String doDesParse(Method method, Class<?> toolClass) {
+        // 源码不可读时零开销短路：jar 部署下 .java 源码不在 classpath，
+        // 继续走下去只会白跑一次 classloader 资源查找（fat-jar 嵌套结构下并不廉价）后必然失败。
+        if (!isSourceReadable(toolClass)) {
+            log.debug("跳过 Javadoc 解析：类 {} 不在源码目录中（jar 部署常态）", toolClass.getName());
+            return null;
+        }
+
         // 尝试多种方式获取源代码
         CompilationUnit cu = null;
         
@@ -93,6 +100,37 @@ public class JavaDocDesParser extends AbstractDesParser {
         return null;
     }
 
+    /**
+     * 判定该类的源码是否可读。
+     *
+     * <p>判据：类的加载位置是否来自 jar。jar 部署时 {@code .java} 源码不可能在 classpath 中，
+     * 因此 Javadoc 解析必然失败 —— 直接短路，避免白跑一次 classloader 资源查找。
+     *
+     * <p>这是<b>启发式</b>判据：依据的是类的加载位置，而非逐字节探测源码是否存在。
+     * 极端情况下（把源码一并打进 jar）会判为不可读 —— 那种场景下 Javadoc 解析本就不该被依赖。
+     *
+     * @param clazz 待判定的类
+     * @return 源码可读返回 true；无法判定时保守返回 false（宁可跳过，不可误报）
+     */
+    static boolean isSourceReadable(Class<?> clazz) {
+        try {
+            URI classUri = clazz.getProtectionDomain().getCodeSource().getLocation().toURI();
+            File classLocation = new File(classUri);
+            return !classLocation.getName().endsWith(".jar");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 定位并返回该类在源码目录中的 {@code .java} 文件路径。
+     *
+     * <p>开发环境（类从 {@code target/classes} 加载）下按 Maven 标准布局回推源码路径；
+     * jar 部署时直接返回 null。
+     *
+     * @param clazz 待定位源码的类
+     * @return 源码文件路径；jar 部署或无法定位时返回 null
+     */
     private static File getJavaSourceFile(Class<?> clazz) throws Exception {
 
         // 获取当前类的class文件位置

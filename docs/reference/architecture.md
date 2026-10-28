@@ -17,17 +17,19 @@
 ## 二、模块依赖流向
 
 ```
-server2mcp-parent (根 pom, v1.1.4-SNAPSHOT)
+server2mcp-parent (根 pom, v1.2.0)
 │
 ├── server2mcp-common          常量、工具类（ConvertUtil / JacksonUtils / GenSchemaUtils / JsonParser）
 │        ▲
 ├── server2mcp-core            核心引擎：注解 / 解析器 / 扫描器 / 回调 / Context / Provider
+│        │                     + spec/ 协议兼容层（协议 2026-07-28 自建 wire，见 §六）
 │        ▲
-├── server2mcp-autoconfigure   Spring Boot 自动配置（Server2McpAutoConfiguration / McpConfig / PluginProperties / Conditions）
+├── server2mcp-autoconfigure   Spring Boot 自动配置（Server2McpAutoConfiguration / ProtocolCoreAutoConfiguration
+│        │                     / McpConfig / PluginProperties / Conditions）
 │        ▲
 ├── server2mcp-spring-boot-starters/
-│   ├── server2mcp-starter-webmvc     Spring MVC 应用 Starter
-│   └── server2mcp-starter-webflux    WebFlux 应用 Starter
+│   ├── server2mcp-starter-webmvc     Spring MVC 应用 Starter（Servlet 端点装配）
+│   └── server2mcp-starter-webflux    WebFlux 应用 Starter（响应式端点装配，与 WebMVC 协议面对齐）
 │
 └── server2mcp-test            演示应用（⚠️ 不在根 pom modules 中，需单独构建）
 ```
@@ -250,8 +252,61 @@ spring.ai.mcp.server.type = ASYNC  →  Conditions.IsAsyncCondition →  AsyncSp
 
 ---
 
-## 六、延伸阅读
+## 六、协议兼容层架构（`core/spec/*`）
+
+> 立宪日：2026-10-28 补录 · 该层为 2026-08-03「协议 2026-07-28 兼容战役」新增，约 40 个包 / 100+ 文件，
+> 是本框架**绕过 MCP Java SDK 2.0 上限（只实现到协议 2025-11-25）**的自建 wire 层。
+
+### 6.1 为什么存在这一层
+
+MCP Java SDK 2.0 与 Spring AI 2.0 均只实现到协议 `2025-11-25`，而协议 `2026-07-28` 是 MCP 诞生以来最大改版
+（无状态核心、移除 initialize 握手与 `Mcp-Session-Id`、MRTR 取代 server-initiated 请求、新增 `server/discover`、
+`subscriptions/listen`、`resultType`、CacheableResult，并弃用 Roots / Sampling / Logging）。
+
+本框架**不实现协议传输层**，因此做法是：在 SDK 之上叠一层自建 wire 表达 —— 控制器保持为 SDK 升级后的 fallback，
+协议新特性由 `core/spec/*` 直接落地。
+
+### 6.2 十二个能力域
+
+| 包 | 能力域 | 核心类 |
+|---|---|---|
+| `spec/jsonrpc/` | JSON-RPC 2.0 真路由（绕过 SDK 的请求分发） | `JsonRpcRouter` · `JsonRpcRequest` · `JsonRpcResponse` |
+| `spec/discover/` | `server/discover` 能力发现 | `DiscoverEndpoint` · `VersionNegotiator` |
+| `spec/tasks/` | `tasks/create`·`get`·`list`·`cancel` + 增强提示 | `TaskStore` · `TasksEndpoint` · `AugmentedPromptEndpoint` |
+| `spec/mrtr/` | 多轮工具响应（跨轮合并 + 8 轮护栏） | `MrtrDriver` · `MrtrSessionStore` · `MrtrToolCallbackWrapper` |
+| `spec/capabilities/` | ServerCapabilities 2026-07-28 wire schema | `WireServerCapabilities` · `WireSchemaExporter` · `CapabilitiesHealth` |
+| `spec/change/` | 能力变更通知与推送 | `McpToolChangeNotifier` · `CapabilityChangePushEndpoint` |
+| `spec/meta/` | `_meta` 读写与 W3C traceparent 自动 mint | `MetaUtils` |
+| `spec/resulttype/` | `_meta.resultType` 与 wire 校验 | `McpResultWriter` · `WireSchemaValidator` |
+| `spec/pagination/` | 游标分页（`nextCursor` / `totalItems`） | `McpPaging` · `PageCache` · `PageList` |
+| `spec/dedup/` | 幂等与重试 | `IdempotentCache` · `RetryPolicy` |
+| `spec/headers/` · `spec/request/` | 请求头与请求 ID | `McpRequestHeaders` · `McpRequestId` |
+| `spec/integration/` | Spring AI 侧集成与导出 | `WireSchemaExporter` · `ServerAnnounce` · `McpServerCustomizers` |
+| `spec/utils/` | 特殊参数类型工厂（Elicitation / Logging / Progress / Root / Sampling） | `Mcp*Factory` |
+| `spec/cacheable/` · `spec/implementation/` · `spec/inspection/` | 缓存提示 / 服务端信息 / 快照巡检 | `CacheHints` · `ServerInfoFactory` · `ToolsSnapshotFileWriter` |
+
+### 6.3 与 starter 的关系
+
+```
+core/spec/*  （协议契约，与 Web 栈无关）
+      ▲
+autoconfigure/ProtocolCoreAutoConfiguration   ← 协议层 bean 的【单一装配源】
+      ▲                        ▲
+starter-webmvc           starter-webflux       ← 各自挂载 Controller / SSE 形态
+```
+
+> **单一装配源铁律**：同一份协议契约不得在两个 starter 里各建一套 —— 否则改了 core 的契约只在一个 starter 生效，
+> 即「注册面与暴露面脱钩」。
+
+### 6.4 逐字段合规快照
+
+完整的「协议字段 → 实装入口」矩阵见 `docs/mcp-2026-07-28-INTEGRATION-MATRIX.md`（✅ 已实装 / 🟡 间接表达 / ❌ 物理不可达 三档标注）。
+
+---
+
+## 七、延伸阅读
 
 - 扩展点（自定义解析器 / 转换器 / 过滤器 / Context）：见 `docs/reference/extension-points.md`
 - 新人/新 AI 上手：见 `docs/reference/onboarding.md`
+- 协议 2026-07-28 合规矩阵：`docs/mcp-2026-07-28-INTEGRATION-MATRIX.md`
 - 架构权威事实源：项目根 `CLAUDE.md`

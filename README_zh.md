@@ -6,7 +6,7 @@
 <dependency>
   <groupId>com.ai.plug</groupId>
   <artifactId>server2mcp-starter-webmvc</artifactId>
-  <version>1.1.4-SNAPSHOT</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ public class OrderController {
     public Order getOrder(@PathVariable Long id) { ... }
 }
 
-// 自动变成 MCP 工具：orders_get_order
+// 自动变成 MCP 工具：OrderController_getOrder
 // 工具描述自动从 Swagger / Javadoc / Spring MVC / Jackson / Spring AI 提取最佳
 ```
 
@@ -77,7 +77,17 @@ mvn clean install -DskipTests
 <dependency>
   <groupId>com.ai.plug</groupId>
   <artifactId>server2mcp-starter-webmvc</artifactId>
-  <version>1.1.4-SNAPSHOT</version>
+  <version>1.2.0</version>
+</dependency>
+```
+
+响应式（Spring WebFlux）应用改用 WebFlux starter —— 协议面完全一致，传输层走响应式：
+
+```xml
+<dependency>
+  <groupId>com.ai.plug</groupId>
+  <artifactId>server2mcp-starter-webflux</artifactId>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -89,7 +99,7 @@ plugin:
     enabled: true
     scope: interface   # 'interface' = 自动注册所有 Controller；'custom' = 仅 @ToolScan
     parser:
-      des:    SWAGGER3, JAVADOC, TOOL, JACKSON, SWAGGER2
+      des:    MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2
       param:  MCPTOOL, JAVADOC, TOOL, SpringMVC, JACKSON, SWAGGER2, SWAGGER3
 ```
 
@@ -245,7 +255,7 @@ api2mcp4j/
 ├── server2mcp-autoconfigure           # Spring Boot 自动配置
 ├── server2mcp-spring-boot-starters/
 │   ├── server2mcp-starter-webmvc      # ✅ 完整端点装配（JSON-RPC + SSE + HTTP）
-│   └── server2mcp-starter-webflux     # ⚠️ 仅框架核心（端点未装配）
+│   └── server2mcp-starter-webflux     # ✅ 响应式端点装配 —— 与 WebMVC 协议面完全对齐
 └── server2mcp-test                    # ✅ Demo 应用 + 21/21 e2e 验证
 ```
 
@@ -315,8 +325,8 @@ Issue、PR、⭐ 都非常欢迎。
 - [x] MRTR 多轮状态机 + 8 轮护栏
 - [x] SSE 长连接 + Last-Event-ID 断线续传
 - [x] W3C traceparent 自动 mint
-- [ ] WebFlux starter 端点装配（对齐 WebMVC）
-- [ ] 发布到 Maven Central
+- [x] WebFlux starter 端点装配（对齐 WebMVC）（2026-10-27）
+- [ ] 发布到 Maven Central —— 发布件已构建、签名、审计，待 Central Portal 凭据
 - [ ] OTel SDK 真实接入（目前仅 wire 格式）
 - [ ] 多租户隔离（`@McpTool(tenant = "...")`）
 - [ ] SDK ≥ 3.0.0 native router 迁移（由 `scripts/trigger-phase3.sh` 跟踪）

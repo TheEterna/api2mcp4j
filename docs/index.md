@@ -61,6 +61,11 @@
 
 | 日期 | 主题 |
 |---|---|
+| 2026-10-28 | [自有云主机安全取证与恢复](logs/2026-10-28_ceo_主机安全取证与恢复.md) |
+| 2026-10-28 | [宝塔移除、凭据轮换终态与密钥事故复盘](logs/2026-10-28_ceo_宝塔移除与密钥事故复盘.md) |
+| 2026-10-27 | [Git 历史净化 + MySQL 资产归属判定](logs/2026-10-27_ceo_历史净化与MySQL归属判定.md) |
+| 2026-10-27 | [Maven 发布准备 + WebFlux 补齐](logs/2026-10-27_ceo_Maven发布与webflux补齐.md) |
+| 2026-08-05 | [隐私审计](logs/2026-08-05_ceo_隐私审计.md) |
 | 2026-08-03 | [协议 2026-07-28 100% 兼容战役盘点](logs/2026-08-03_ceo_protocol-2026-07-28-100pct-compat.md) |
 | 2026-08-03 | [Demo 端到端 21/21 验证凭据](logs/2026-08-03_ceo_demo-end-to-end-21of21.md) |
 | 2026-08-03 | [MRTR 装饰器 + 安全护栏](logs/2026-08-03_ceo_mrtr-callback-wrapper-safety-limits.md) |
@@ -70,6 +75,11 @@
 
 | 文档 | 内容 |
 |---|---|
+| [plan-文件头回填Sprint-2026-10-28.md](plan-文件头回填Sprint-2026-10-28.md) | 文件头回填 Sprint（全仓 317 文件 + 审计门禁） |
+| [plan-R2启动断言-2026-10-28.md](plan-R2启动断言-2026-10-28.md) | R2 启动断言方案（注册纪律 V-2 缺口）— **待董事长批准** |
+| [plan-Maven中央仓库发布-2026-10-27.md](plan-Maven中央仓库发布-2026-10-27.md) | Maven Central 发布计划 |
+| [plan-MCP协议全面集成-2026-07-30.md](plan-MCP协议全面集成-2026-07-30.md) | MCP 协议全面集成战役 |
+| [plan-继承real-agent开发心法-2026-06-24.md](plan-继承real-agent开发心法-2026-06-24.md) | 继承 real-agent 开发心法（方案 B） |
 | [plans/.gitkeep](plans/.gitkeep) | 历史战役计划（占位） |
 
 ---

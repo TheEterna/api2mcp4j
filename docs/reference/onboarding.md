@@ -13,7 +13,8 @@
 
 ### Step 1 · 构建（mvn clean install）
 
-⚠️ **关键前提**：本项目依赖 Spring AI 与 MCP Java SDK 的 **SNAPSHOT 版本**，尚未推送 Maven Central，**必须本地安装**才能解析依赖。
+⚠️ **关键前提**：本项目**自身的 5 个模块之间**靠本地仓库互相引用，**必须本地安装**才能解析。
+（Spring AI / MCP Java SDK 等外部依赖已于 2026-07-30 全部落到 Maven Central 正式版，不再是 SNAPSHOT。）
 
 ```bash
 # 在仓库根目录，按依赖流向（common→core→autoconfigure→starters）一次性安装全部模块
@@ -77,6 +78,7 @@ cd /Users/ls/code/api2mcp4j/server2mcp-core && mvn test -Dtest=GenSchemaUtilsTes
 | ★★☆ | `docs/rules/global/` | 全局工作纪律（删除纪律、重构顺序、会话连续性、工作留痕等） |
 | ★★☆ | `docs/specs/` | 工程规范（文件头规范、注册纪律规范、工作日志规范） |
 | ★☆☆ | `README.md` / `README_zh.md` | 项目对外说明、快速开始、Javadoc 解析器配置 |
+| ★☆☆ | `docs/mcp-2026-07-28-INTEGRATION-MATRIX.md` | 协议 2026-07-28 逐字段合规快照（✅/🟡/❌ 三档） |
 
 > `docs/logs/`、`docs/todos/`、`docs/plans/` 为团队工作留痕目录（计划/待办/日志），开工前先扫一眼有无相关在途项。
 
@@ -84,9 +86,14 @@ cd /Users/ls/code/api2mcp4j/server2mcp-core && mvn test -Dtest=GenSchemaUtilsTes
 
 ## 三、易踩坑清单（务必先读）
 
-### 坑 1 · SNAPSHOT 依赖必须本地 install
+### 坑 1 · 依赖已全落正式版，但多模块仍需本地 install
 
-Spring AI、MCP Java SDK 均为 SNAPSHOT，未上中央仓库。**不先 `mvn clean install` 直接引用会拉不到依赖**。这也意味着这些 API 预期会有破坏性变更。
+> 2026-07-30 更新：Spring AI / MCP Java SDK 的 SNAPSHOT 依赖**已全部迁移到 Maven Central 正式版**
+> （Spring Boot 4.1.0 · Spring AI 2.0.0 · MCP Java SDK 2.0.0 · Jackson 3 · victools 5.0.0），
+> 不再有「拉不到依赖」的问题，API 也不会随时破坏性变更。
+
+但本项目**自身的 5 个模块之间**仍靠本地仓库互相引用（`common ← core ← autoconfigure ← starters`），
+所以 clone 后第一次使用仍需在根目录执行一次 `mvn clean install`，否则 `server2mcp-core` 找不到 `server2mcp-common` 等。
 
 ### 坑 2 · Javadoc 解析器需要拷贝 .java 源到 classpath
 
@@ -133,9 +140,20 @@ cd /Users/ls/code/api2mcp4j/server2mcp-test && mvn clean package
 
 在 `interface` 作用域下，带 `@Deprecated` 或 `@ToolNotScanForAuto` 的类/方法**不会**被自动注册为工具。调试「为什么我的接口没暴露」时先查这两个注解。
 
-### 坑 6 · OutputSchema 当前不发送
+### 坑 6 · OutputSchema 已实装（历史坑，已修复）
 
-`outputSchema` 已被解析，但在 `McpToolProvider` 构建 Specification 时被注释、改传 `null`（推测 MCP SDK 当时未支持）。不要误以为是 bug——这是已知的临时状态，待 SDK 支持后放开。
+> 2026-08-03 更新：早期版本中 `outputSchema` 虽被解析，但在 `McpToolProvider` 构建 Specification 时被注释、改传 `null`
+> （推测当时 MCP SDK 未支持）。**现已真实发送** —— `McpToolProvider` 中 `.outputSchema(outputSchema)` 生效，
+> 出口为 `ToolDefinitionBuilder.buildToolOutputSchema()`。若你发现客户端收不到 `outputSchema`，先查工具方法的返回类型是否为空。
+
+### 坑 7 · 协议新特性不在 SDK 里，而在 `core/spec/*`
+
+MCP Java SDK 2.0 只实现到协议 `2025-11-25`，而本框架对外声明支持协议 `2026-07-28`。
+差异部分由 `server2mcp-core` 的 `spec/` 层**自建 wire 表达**实现（JSON-RPC 路由、`server/discover`、`tasks/*`、
+`subscriptions/listen`、MRTR、`_meta` 注入、capabilities schema 等）。
+
+**因此：查协议 2026-07-28 新字段，先去 `core/spec/` 找，不要只在 SDK 里找。**
+逐字段合规快照见 `docs/mcp-2026-07-28-INTEGRATION-MATRIX.md`，架构说明见 `docs/reference/architecture.md` §六。
 
 ---
 
@@ -162,9 +180,11 @@ plugin:
 <dependency>
     <groupId>com.ai.plug</groupId>
     <artifactId>server2mcp-starter-webmvc</artifactId>
-    <version>1.1.4-SNAPSHOT</version>
+    <version>1.2.0</version>
 </dependency>
 ```
+
+响应式（WebFlux）应用改用 `server2mcp-starter-webflux`，协议面完全一致。
 
 ---
 

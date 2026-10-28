@@ -220,6 +220,101 @@ for doc in README.md README_zh.md; do
   fi
 done
 
+# ---------------------------------------------------------------- 10. 发布配置自洽
+sec "10. 发布配置自洽"
+
+# 10.1 groupId 全仓一致（Maven 坐标面；Java 包名不受影响）
+GROUP_ID=$(mvn -q -N help:evaluate -Dexpression=project.groupId -DforceStdout 2>/dev/null | tail -1)
+if [ -z "${GROUP_ID}" ]; then
+  bad "无法解析根 pom 的 groupId"
+else
+  ok "权威 groupId：${GROUP_ID}"
+
+  # 子模块 pom 的 <parent> groupId 必须与之一致
+  PARENT_MISMATCH=0
+  while IFS= read -r pom; do
+    if ! grep -A3 "<parent>" "${pom}" | grep -q "server2mcp-parent"; then
+      continue
+    fi
+    g=$(grep -A3 "<parent>" "${pom}" | grep -m1 "<groupId>" | sed -E 's/.*<groupId>([^<]+)<\/groupId>.*/\1/')
+    if [ -n "${g}" ] && [ "${g}" != "${GROUP_ID}" ]; then
+      bad "${pom} → parent groupId=${g}（应为 ${GROUP_ID}）"
+      PARENT_MISMATCH=1
+    fi
+  done < <(find . -name pom.xml -not -path "*/target/*" | sort)
+  [ "${PARENT_MISMATCH}" = "0" ] && ok "全部模块 parent groupId 一致：${GROUP_ID}"
+
+  # 旧 groupId 残留检查 —— 只针对【本项目自己的 artifactId】，避免误伤第三方依赖
+  #   ① pom 内：<artifactId>server2mcp*</artifactId> 所属的 <groupId> 必须等于 GROUP_ID
+  #   ② 文档/脚本内：<groupId>X</groupId>、X:server2mcp-*、repository/X/server2mcp-* 中的 X 必须等于 GROUP_ID
+  # 历史日志（docs/logs/）记录的是当时事实，不回改，故排除。
+  POM_STALE=$(awk -v GID="${GROUP_ID}" '
+    /<groupId>/ { g=$0; sub(/.*<groupId>/,"",g); sub(/<\/groupId>.*/,"",g); gsub(/^[ \t]+|[ \t]+$/,"",g); cur=g; pend=1 }
+    /<artifactId>/ { if (pend && $0 ~ /<artifactId>server2mcp/ && cur != GID) print FILENAME":"FNR": "cur; pend=0; cur="" }
+  ' $(find . -name pom.xml -not -path "*/target/*" | sort) 2>/dev/null)
+
+  DOC_STALE=$({
+    # ① 与本项目 artifactId 紧邻的 <groupId>（排除本脚本自身 —— 其注释与示例文本含这些字面量）
+    awk -v GID="${GROUP_ID}" '
+      /<groupId>/ { g=$0; sub(/.*<groupId>/,"",g); sub(/<\/groupId>.*/,"",g); gsub(/^[ \t]+|[ \t]+$/,"",g); cur=g; pend=1 }
+      /<artifactId>/ { if (pend && $0 ~ /<artifactId>server2mcp/ && cur != GID) print FILENAME":"FNR": "cur; pend=0; cur="" }
+    ' $(grep -rl "<artifactId>server2mcp" --include="*.md" --include="*.example" --include="*.sh" --include="*.mjs" --include="*.yml" \
+          --exclude-dir=target --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=docs-site --exclude-dir=logs \
+          --exclude="pre-release-check.sh" . 2>/dev/null) 2>/dev/null
+    # ② 完整坐标 X:server2mcp-*
+    grep -rInE '[a-zA-Z0-9_.-]+:server2mcp-' \
+      --include="*.md" --include="*.example" --include="*.sh" --include="*.mjs" --include="*.yml" \
+      --exclude-dir=target --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=docs-site --exclude-dir=logs \
+      --exclude="pre-release-check.sh" . 2>/dev/null \
+      | grep -v "${GROUP_ID}:server2mcp-"
+    # ③ 本地仓库路径 repository/X/server2mcp-*
+    GROUP_PATH=$(printf '%s' "${GROUP_ID}" | tr '.' '/')
+    grep -rInE 'repository/[a-zA-Z0-9_.-]+/server2mcp-' \
+      --include="*.md" --include="*.example" --include="*.sh" --include="*.mjs" --include="*.yml" \
+      --exclude-dir=target --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=docs-site --exclude-dir=logs \
+      --exclude="pre-release-check.sh" . 2>/dev/null \
+      | grep -v "repository/${GROUP_PATH}/server2mcp-"
+  })
+
+  STALE_HITS="${POM_STALE}${DOC_STALE}"
+  if [ -z "${STALE_HITS}" ]; then
+    ok "无旧 groupId 残留（Maven 坐标面）"
+  else
+    bad "存在与 ${GROUP_ID} 不一致的 Maven 坐标："
+    echo "${STALE_HITS}" | head -10 | sed 's/^/      /'
+  fi
+fi
+
+# 10.2 Central token 是两段独立值（username + password），不可共用一个变量
+if [ -f "settings.xml.example" ]; then
+  TOKEN_USER=$(grep -oE "<username>[^<]*</username>" settings.xml.example | head -1 | sed -E 's/.*<username>([^<]*)<\/username>.*/\1/')
+  TOKEN_PASS=$(grep -oE "<password>[^<]*</password>" settings.xml.example | head -1 | sed -E 's/.*<password>([^<]*)<\/password>.*/\1/')
+  if [ -z "${TOKEN_USER}" ] || [ -z "${TOKEN_PASS}" ]; then
+    bad "settings.xml.example 缺 <username> / <password> 配置"
+  elif [ "${TOKEN_USER}" = "${TOKEN_PASS}" ]; then
+    bad "settings.xml.example 的 <username> 与 <password> 指向同一变量（${TOKEN_USER}）"
+    echo "      Sonatype User Token 是【两段独立值】：username 与 password 各自填入 <username> 与 <password>。"
+    echo "      共用一个变量必然鉴权失败。拆分示例：\${env.CENTRAL_PORTAL_USERNAME} / \${env.CENTRAL_PORTAL_PASSWORD}"
+  else
+    ok "token 两段分离：<username>=${TOKEN_USER} · <password>=${TOKEN_PASS}"
+  fi
+else
+  bad "settings.xml.example 缺失"
+fi
+
+# 10.3 central-publishing 插件配置自洽
+AUTO_PUBLISH=$(grep -oE "<autoPublish>[^<]*</autoPublish>" pom.xml | head -1 | sed -E 's/.*<autoPublish>([^<]*)<\/autoPublish>.*/\1/')
+WAIT_UNTIL=$(grep -oE "<waitUntil>[^<]*</waitUntil>" pom.xml | head -1 | sed -E 's/.*<waitUntil>([^<]*)<\/waitUntil>.*/\1/')
+if [ -z "${AUTO_PUBLISH}" ] || [ -z "${WAIT_UNTIL}" ]; then
+  bad "根 pom 缺 central-publishing-maven-plugin 的 autoPublish / waitUntil 配置"
+elif [ "${AUTO_PUBLISH}" = "false" ] && [ "${WAIT_UNTIL}" = "published" ]; then
+  bad "autoPublish=false 与 waitUntil=published 互相冲突"
+  echo "      官方文档：waitUntil=published 'requires Automatic Publishing'。"
+  echo "      保留人工闸（autoPublish=false）时，waitUntil 应为 validated（官方默认值）。"
+else
+  ok "发布插件配置自洽：autoPublish=${AUTO_PUBLISH} · waitUntil=${WAIT_UNTIL}"
+fi
+
 # ---------------------------------------------------------------- 汇总
 echo ""
 echo "=============================================="

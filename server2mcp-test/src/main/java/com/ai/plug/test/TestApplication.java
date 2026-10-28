@@ -36,6 +36,18 @@ import org.springframework.context.annotation.FilterType;
         }
     )
 )
+/**
+ * @header-start
+ * @module TestApplication
+ * @keywords 演示应用入口 SpringBootConfiguration 组件扫描过滤 MyBatisPlus排除 H2内存库
+ *           协议2026-07-28 验证 demo.full
+ * @updated 2026-10-28 12:20
+ * @purpose 演示应用启动入口，默认排除 MyBatis-Plus 组件以便无外部依赖启动
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 public class TestApplication {
     public static void main(String[] args) {
         SpringApplication.run(TestApplication.class, args);

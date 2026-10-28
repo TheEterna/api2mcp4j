@@ -16,6 +16,17 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module CapabilitiesHealthTest
+ * @keywords 能力健康 必填标志集合 自定义要求 缺失标志 布尔置false toString 健康报告
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康判定的核心规则：默认必填标志与自定义必填集合
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilitiesHealthTest {
 
     @Test

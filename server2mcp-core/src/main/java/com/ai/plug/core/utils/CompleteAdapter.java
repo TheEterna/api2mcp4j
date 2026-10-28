@@ -7,6 +7,18 @@ import io.modelcontextprotocol.util.Assert;
 import java.lang.reflect.Method;
 
 /**
+ * @header-start
+ * @module CompleteAdapter
+ * @keywords 补全适配 CompleteReference PromptReference ResourceReference McpComplete注解
+ *           prompt uri 互斥校验 补全请求 工具类 静态适配
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpComplete 注解转成 SDK 的 CompleteReference，校验 prompt/uri 互斥
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Utility class for adapting between McpComplete annotations and
  * McpSchema.CompleteReference objects.
  *

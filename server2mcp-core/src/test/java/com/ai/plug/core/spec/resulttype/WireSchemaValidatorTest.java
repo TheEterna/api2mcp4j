@@ -20,6 +20,18 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module WireSchemaValidatorTest
+ * @keywords wire校验器 resultType缺失 未知类型 负TTL 未知cacheScope 独立meta校验
+ *           报告toString
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 校验器对各类非法 meta 字段的判报规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WireSchemaValidatorTest {
 
     @Test

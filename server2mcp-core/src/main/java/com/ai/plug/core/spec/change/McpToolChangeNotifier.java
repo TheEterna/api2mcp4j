@@ -12,6 +12,18 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module McpToolChangeNotifier
+ * @keywords 变更通知器 工具集快照 diffAndNotify listChanged SEP-2567 同步异步回调
+ *           ContextRefreshedEvent 反射调用 getRawTools 轮询比对
+ * @updated 2026-10-28 12:20
+ * @purpose 比对工具容器快照，检测到工具集变化时触发 MCP 的 listChanged 变更通知
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Bridges {@link com.ai.plug.core.context.tool.IToolContext} mutation events
  * to MCP server change notifications (protocol 2025-11-25 SEP-2567 listChanged).
  * <p>

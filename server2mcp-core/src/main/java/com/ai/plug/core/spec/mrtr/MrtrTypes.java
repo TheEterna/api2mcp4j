@@ -7,6 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module MrtrTypes
+ * @keywords MRTR线格式 SEP-2322 InputRequiredResult InputRequest InputResponses
+ *           ElicitationInputRequest SamplingInputRequest RootsInputRequest JsonSchemaInputRequest
+ *           resultType input_required 密封接口
+ * @updated 2026-10-28 12:20
+ * @purpose 自持 SDK 缺失的 MRTR 线格式类型，定义多轮往返的请求与回执数据结构
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Multi Round-Trip Requests (MRTR) wire-format types — MCP protocol 2026-07-28 SEP-2322.
  * <p>
  * SDK 2.0 ships <b>no</b> MRTR schema (verified by grep over shipped bytecode —

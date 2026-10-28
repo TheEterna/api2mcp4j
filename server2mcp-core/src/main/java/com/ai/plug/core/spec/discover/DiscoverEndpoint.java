@@ -8,6 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module DiscoverEndpoint
+ * @keywords 服务发现端点 server/discover 协议版本声明 能力声明 serverInfo
+ *           CapabilitiesJsonExporter wire形状 版本协商 HTTP层暴露
+ * @updated 2026-10-28 12:20
+ * @purpose 定义 server/discover 的 HTTP 层端点契约，输出协议版本、服务身份与能力声明
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Framework-layer HTTP endpoint contract for {@code server/discover}.
  *
  * <p>SDK 2.0 has no JSON-RPC schema for {@code server/discover}, so this

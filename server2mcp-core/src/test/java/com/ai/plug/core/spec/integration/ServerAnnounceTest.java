@@ -20,6 +20,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ServerAnnounceTest
+ * @keywords 服务通告 不可变扩展 Builder 构建校验 服务端信息 能力集 序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 断言服务通告对象的构建校验、不可变性与序列化形状
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ServerAnnounceTest {
 
     @Test

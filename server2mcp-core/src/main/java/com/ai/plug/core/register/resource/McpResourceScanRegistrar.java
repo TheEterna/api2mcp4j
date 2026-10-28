@@ -17,6 +17,23 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpResourceScanRegistrar
+ * @keywords 资源扫描 注册链路 ImportBeanDefinitionRegistrar BeanFactoryAware McpResourceScan
+ *           McpResourceScans basePackages includeFilters excludeFilters 注解属性读取
+ *           IResourceContext McpResourceScanConfigurer Bean定义注册
+ * @updated 2026-10-28 12:20
+ * @purpose 读取 @McpResourceScan/@McpResourceScans 注解属性并注册 McpResourceScanConfigurer 的 Bean 定义
+ * @layer core
+ * @affects 改动影响 @McpResourceScan 全部属性（包范围与过滤器）的读取与向 Configurer 的装配
+ * @see McpResourceScanConfigurer — 被注册的执行体
+ * @see IResourceContext — 资源注册定义的容器
+ * @constraint 注册链路四件套之一；属性名与 @McpResourceScan 注解定义强耦合，须同步修改
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/6/3 8:38
  */

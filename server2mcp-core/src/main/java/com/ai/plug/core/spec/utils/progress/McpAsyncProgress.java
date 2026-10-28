@@ -6,6 +6,20 @@ import org.jspecify.annotations.Nullable;
 import reactor.core.publisher.Mono;
 
 /**
+ * @header-start
+ * @module McpAsyncProgress
+ * @keywords 进度上报 notifications/progress progressToken 异步实现 McpProgress Reactive Mono
+ *           no-op 无token 进度通知 协议2025-11-25 进度百分比 链式订阅
+ * @updated 2026-10-28 12:20
+ * @purpose 异步版进度上报器，无 progressToken 时退化为 no-op
+ * @layer core
+ * @see McpProgress — 进度抽象接口
+ * @see McpProgressFactory — 进度实例工厂
+ * @author han
+ * @header-end
+ */
+
+/**
  * 异步版 {@link McpProgress}，通过 {@code McpAsyncServerExchange.progressNotification} 发
  * （返回 {@link Mono}）。{@link #report(double)} 内部 subscribe；上游链式工具方法通常不
  * 直接调本接口，而是经 callback 处理 subscribe。

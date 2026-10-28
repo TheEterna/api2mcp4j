@@ -20,6 +20,17 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ServerAnnounceEventBridgeTest
+ * @keywords 服务通告 事件桥接 应用就绪 sink异常吞掉 空sink 空构造参数
+ * @updated 2026-10-28 12:20
+ * @purpose 断言服务端通告事件桥在就绪触发与异常场景下的行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ServerAnnounceEventBridgeTest {
 
     @Test

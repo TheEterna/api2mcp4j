@@ -4,6 +4,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module McpRequestHeaders
+ * @keywords 请求头常量 SEP-2243 Mcp-Method Mcp-Name x-mcp-header 会话ID 协议版本头
+ *           forJsonRpcCall 头构造 SDK2.0缺失头
+ * @updated 2026-10-28 12:20
+ * @purpose 定义协议 2026-07-28 要求的 MCP HTTP 请求头常量并提供构造助手
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Standard MCP HTTP request headers (MCP protocol 2026-07-28 SEP-2243) and a
  * helper for emitting them on every Streamable HTTP POST request.
  * <p>

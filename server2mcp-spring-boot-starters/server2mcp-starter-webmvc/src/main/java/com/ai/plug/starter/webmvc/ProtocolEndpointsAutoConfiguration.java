@@ -57,6 +57,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * @header-start
+ * @module ProtocolEndpointsAutoConfiguration
+ * @keywords 自动配置 starter装配 协议端点挂载 Servlet栈 ConditionalOnWebApplication
+ *           ConditionalOnMissingBean ProtocolCoreAutoConfiguration SSE心跳线程
+ *           协议2026-07-28 HTTP契约 WebMvcConfigurer
+ * @updated 2026-10-28 12:20
+ * @purpose 把框架的协议 HTTP 契约挂载到 Servlet 栈的 /mcp 端点上
+ * @layer starter
+ * @affects 改动影响 Servlet 栈暴露的全部协议端点与 SSE 装配，须与 webflux 版保持 wire 对称
+ * @see ProtocolCoreAutoConfiguration — 协议层 bean 的统一注册来源
+ * @see com.ai.plug.starter.webflux.ProtocolEndpointsAutoConfiguration — Reactive 栈对称实现
+ * @constraint 协议层 bean 归属 autoconfigure 层，本类只做 Web 栈特有装配，不得另建协议存储
+ * @author han
+ * @header-end
+ */
+
+/**
  * Auto-configuration for the MCP protocol HTTP endpoints (Servlet stack).
  *
  * <p>Wires the framework-layer endpoints into Spring's application context as

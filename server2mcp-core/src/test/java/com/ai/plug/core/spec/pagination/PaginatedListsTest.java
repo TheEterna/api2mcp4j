@@ -20,6 +20,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module PaginatedListsTest
+ * @keywords 分页列表工厂 游标解析格式化 页长钳制 切片边界 列表工具资源提示分页
+ * @updated 2026-10-28 12:20
+ * @purpose 断言分页列表工具类的游标解析、页长钳制与切片边界
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link PaginatedLists}. Covers cursor parsing/formatting, page-size
  * clamping, slicing boundary conditions, and the SDK-aware factory methods for
  * ListToolsResult / ListResourcesResult / ListPromptsResult.

@@ -5,6 +5,20 @@ import io.modelcontextprotocol.spec.McpSchema;
 import org.jspecify.annotations.Nullable;
 
 /**
+ * @header-start
+ * @module McpSyncProgress
+ * @keywords 进度上报 notifications/progress progressToken 同步实现 McpProgress
+ *           no-op 无token 进度通知 协议2025-11-25 进度百分比
+ * @updated 2026-10-28 12:20
+ * @purpose 同步版进度上报器，无 progressToken 时退化为 no-op
+ * @layer core
+ * @see McpProgress — 进度抽象接口
+ * @see McpProgressFactory — 进度实例工厂
+ * @author han
+ * @header-end
+ */
+
+/**
  * 同步版 {@link McpProgress}，通过 {@code McpSyncServerExchange.progressNotification} 发。
  * 当请求未带 progressToken 时构造为 no-op，所有 report 调用直接吞掉。
  *

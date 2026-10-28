@@ -24,6 +24,21 @@ import java.util.stream.Collectors;
 import static com.ai.plug.common.constants.ConfigConstants.*;
 
 /**
+ * @header-start
+ * @module SyncSpecMcpConfig
+ * @keywords 同步模式配置 IsSyncCondition SyncToolSpecification SyncResourceSpecification
+ *           SyncPromptSpecification SyncCompletionSpecification 条件装配 Servlet
+ * @updated 2026-10-28 12:20
+ * @purpose 在同步（Servlet）模式下装配四类 MCP 实体的同步 Specification Bean
+ * @layer autoconfigure
+ * @affects 改动影响 spring.ai.mcp.server.type=SYNC 时的全部暴露面 Bean
+ * @see AsyncSpecMcpConfig — 异步模式的对应配置（两者条件互斥）
+ * @constraint 双模式配置：与 AsyncSpecMcpConfig 通过 Conditions 互斥激活，改动须保持对称
+ * @author han
+ * @header-end
+ */
+
+/**
  * Sync MCP function configuration class
  * 同步 MCP 功能配置类
  * @author han

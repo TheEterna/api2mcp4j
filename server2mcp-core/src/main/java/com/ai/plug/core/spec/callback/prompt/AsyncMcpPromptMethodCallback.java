@@ -13,6 +13,18 @@ import reactor.core.publisher.Mono;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module AsyncMcpPromptMethodCallback
+ * @keywords 提示词回调 异步 BiFunction McpAsyncServerExchange GetPromptRequest Mono
+ *           AbstractMcpPromptMethodCallback 参数注入 结果转换 McpPrompt
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpPrompt 方法包装成异步提示词回调，完成参数注入与方法调用
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Class for creating BiFunction callbacks around prompt methods with asynchronous
  * processing.
  *

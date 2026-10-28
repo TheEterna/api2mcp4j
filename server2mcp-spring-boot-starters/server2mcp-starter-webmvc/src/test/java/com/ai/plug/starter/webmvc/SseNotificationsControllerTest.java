@@ -20,6 +20,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module SseNotificationsControllerTest
+ * @keywords SSE测试 SseEmitter 订阅者注册表 广播投递 Last-Event-ID重放 活跃连接数
+ *           通知推送 Servlet栈
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 Servlet 版 SSE 控制器的订阅登记、广播投递与重放契约
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Unit tests for the SSE notifications controller — verify the
  * subscription registry, the broadcast hook delivery to live clients,
  * and the replay-on-Last-Event-ID contract.

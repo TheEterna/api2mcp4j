@@ -6,6 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module WireServerCapabilities
+ * @keywords wire协议 ServerCapabilities tools resources prompts completions experimental
+ *           协议2026-07-28 独立于SDK record 嵌套子结构 任务扩展
+ * @updated 2026-10-28 12:20
+ * @purpose 以独立于 SDK 的 record 承载协议 2026-07-28 的服务端能力线格式
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Protocol-2026-07-28 {@code ServerCapabilities} wire schema — a 1:1 mirror
  * of the protocol's advertised fields, independent of any SDK record type.
  *

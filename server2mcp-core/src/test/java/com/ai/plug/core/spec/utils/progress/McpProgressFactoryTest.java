@@ -18,6 +18,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpProgressFactoryTest
+ * @keywords 进度工厂 无token返回noOp progressToken保留 空请求noOp
+ *           progressToken提取 进度上报
+ * @updated 2026-10-28 12:20
+ * @purpose 断言进度工厂对有无 progressToken 的实例化差异
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpProgressFactory#getProgress(Object, McpSchema.CallToolRequest)}.
  * Verifies the no-op fallback when (a) the request has no progressToken in its
  * _meta, and (b) the exchange type is unrecognized — both paths must avoid NPE

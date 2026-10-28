@@ -18,6 +18,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module ServerCapabilitiesFactoryTest
+ * @keywords 能力工厂 ServerCapabilities tools resources prompts listChanged experimental透传
+ * @updated 2026-10-28 12:20
+ * @purpose 断言服务端能力工厂的各分桶构造与 experimental 透传语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link ServerCapabilitiesFactory}. Verifies that all factory
  * variants produce a {@link McpSchema.ServerCapabilities} with the expected
  * listChanged / subscribe flags wired through the SDK 2.0 Builder.

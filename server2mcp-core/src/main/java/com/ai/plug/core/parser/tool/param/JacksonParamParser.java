@@ -8,6 +8,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * @header-start
+ * @module JacksonParamParser
+ * @keywords 参数解析器 责任链 Jackson JsonProperty JsonPropertyDescription 参数必填
+ *           参数描述 AbstractParamParser 解析器优先级
+ * @updated 2026-10-28 12:20
+ * @purpose 从 Jackson 系列注解提取参数必填标记与参数描述，是参数解析链的一环
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/27 8:57
  */

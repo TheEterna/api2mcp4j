@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpResourceScans @keywords 可重复注解容器 资源扫描 RepeatingRegistrar @Import McpResourceScan value 组合扫描 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * @author 韩
  * time: 2025/6/3 3:18

@@ -24,6 +24,21 @@ import java.util.stream.Collectors;
 import static com.ai.plug.common.constants.ConfigConstants.*;
 
 /**
+ * @header-start
+ * @module AsyncSpecMcpConfig
+ * @keywords 异步模式配置 IsAsyncCondition AsyncToolSpecification AsyncResourceSpecification
+ *           AsyncPromptSpecification AsyncCompletionSpecification 条件装配 Reactive
+ * @updated 2026-10-28 12:20
+ * @purpose 在异步（Reactive）模式下装配四类 MCP 实体的异步 Specification Bean
+ * @layer autoconfigure
+ * @affects 改动影响 spring.ai.mcp.server.type=ASYNC 时的全部暴露面 Bean
+ * @see SyncSpecMcpConfig — 同步模式的对应配置（两者条件互斥）
+ * @constraint 双模式配置：与 SyncSpecMcpConfig 通过 Conditions 互斥激活，改动须保持对称
+ * @author han
+ * @header-end
+ */
+
+/**
  * Async MCP function configuration class
  * 异步 MCP 功能配置类
  * @author han

@@ -4,6 +4,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * @header-start
+ * @module CommonUtil
+ * @keywords 工具类 方法全限定名 getFullyQualifiedName 反射 Method Parameter 签名拼接
+ *           类名 方法名 参数类型列表 唯一标识
+ * @updated 2026-10-28 12:20
+ * @purpose 拼接方法的全限定签名（类名+方法名+参数类型），用于唯一标识一个工具方法
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/5/7 22:59
  */

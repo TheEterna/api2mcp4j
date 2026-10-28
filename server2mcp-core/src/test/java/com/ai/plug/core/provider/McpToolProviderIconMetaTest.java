@@ -22,6 +22,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module McpToolProviderIconMetaTest
+ * @keywords 图标 icons meta _meta JSON解析 空白过滤 注解元数据 ToolAnnotations 契约测试
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具图标与 meta 元数据的构造规则（空值/空白/非法 JSON）
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpToolProvider#buildIcons(McpTool)} and
  * {@link McpToolProvider#buildMeta(McpTool)} — the Tool.icons / Tool.meta
  * population introduced for MCP protocol 2025-11-25 (SEP-973).

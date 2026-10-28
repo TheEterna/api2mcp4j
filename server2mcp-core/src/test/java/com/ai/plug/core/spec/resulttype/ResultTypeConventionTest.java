@@ -15,6 +15,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ResultTypeConventionTest
+ * @keywords resultType 约定 常量 complete inputRequired 非法值拒绝 空值拒绝
+ *           结果类型规约
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 resultType 约定的常量取值与取值校验规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ResultTypeConventionTest {
 
     @Test

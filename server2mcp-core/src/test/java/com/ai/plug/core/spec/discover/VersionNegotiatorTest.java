@@ -17,6 +17,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module VersionNegotiatorTest
+ * @keywords 版本协商 协议版本匹配 主次版本 patch剥离 客户端偏好 服务端支持列表
+ * @updated 2026-10-28 12:20
+ * @purpose 断言协议版本协商的匹配规则、优先级与 patch 处理
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class VersionNegotiatorTest {
 
     @Test

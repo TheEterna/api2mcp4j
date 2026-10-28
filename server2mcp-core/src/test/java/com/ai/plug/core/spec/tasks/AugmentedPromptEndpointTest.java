@@ -18,6 +18,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module AugmentedPromptEndpointTest
+ * @keywords 增强提示 任务级提示存储 排空 drain 游标 任务隔离 活跃计数
+ * @updated 2026-10-28 12:20
+ * @purpose 断言增强提示端点的添加、列举、排空与任务隔离行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class AugmentedPromptEndpointTest {
 
     @Test

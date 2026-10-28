@@ -14,6 +14,18 @@ import java.nio.file.Path;
 import java.util.Base64;
 
 /**
+ * @header-start
+ * @module ConvertImageUtils
+ * @keywords 图片转换 工具类 imageToBase64 Base64编码 BufferedImage ImageIO 多来源图片读取
+ *           readImageBytes mapMimeTypeToFormatName MIME转格式名 isBase64 格式名探测 图片资源编码
+ * @updated 2026-10-28 12:20
+ * @purpose 把各类图片源统一转成 Base64 字符串，为 MCP 图片内容块提供编码能力
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/28 1:13
  */

@@ -14,6 +14,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module MigrationShimTest
+ * @keywords 迁移垫片 SDK能力探测 resultType ttlMs cacheScope extensions SDK2.0
+ *           meta包装路径 版本兼容
+ * @updated 2026-10-28 12:20
+ * @purpose 断言迁移垫片对 MCP SDK 2.0 侧 wire 字段支持度的探测结果
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class MigrationShimTest {
 
     @Test

@@ -6,6 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module TaskTypes
+ * @keywords 任务扩展 SEP-2663 Status生命周期 TaskHandle TaskStatus TaskError TaskUpdate
+ *              保留错误码区间 自持SDK缺失schema 线格式
+ * @updated 2026-10-28 12:20
+ * @purpose 自持 SDK 缺失的任务扩展线格式，定义任务句柄、状态、错误与更新负载
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tasks extension (MCP protocol 2026-07-28 SEP-2663, namespace
  * {@code io.modelcontextprotocol/tasks}).
  * <p>

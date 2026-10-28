@@ -18,6 +18,17 @@ import java.lang.reflect.Method;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpResourceProviderConsistencyTest
+ * @keywords 资源 一致性 @McpResource注解 mimeType uri 注解契约 反射断言 资源模板
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 @McpResource 注解字段语义与默认 mimeType 保持稳定
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Smoke tests for {@link McpResourceProvider}'s @McpResource annotation
  * processing. Resource tools follow the same @McpTool meta/icon/annotations
  * pattern as the tool provider — we just verify the annotation contract is

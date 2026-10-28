@@ -10,6 +10,18 @@ import java.util.List;
 
 
 /**
+ * @header-start
+ * @module AddStarter
+ * @keywords 解析编排 多解析器累加 已废弃 @Deprecated runDesParse 描述拼接
+ *           AbstractStarter 解析器链 兜底默认解析
+ * @updated 2026-10-28 12:20
+ * @purpose 把全部描述解析器的结果累加拼接，因语义不佳已废弃，仅作兼容保留
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/29 17:02
  */

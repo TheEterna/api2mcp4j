@@ -6,6 +6,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import reactor.core.publisher.Mono;
 
 /**
+ * @header-start
+ * @module ChangeNotifications
+ * @keywords 变更通知 listChanged resources.updated 通知包装 McpSyncServer McpAsyncServer
+ *           tools prompts 客户端订阅 协议2025-11-25
+ * @updated 2026-10-28 12:20
+ * @purpose 提供类型安全的变更通知包装，让业务代码可在任意位置触发 listChanged 通知
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-side change notification helpers (protocol 2025-11-25 notifications/*
  * listChanged / updated).
  * <p>

@@ -19,6 +19,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CapabilityChangePushSchedulerTest
+ * @keywords 调度器 Runnable包装 定时任务 差异比对推送 强制推送 空通知器拒绝
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力变更推送调度器对通知器调用的包装行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilityChangePushSchedulerTest {
 
     @Test

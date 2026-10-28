@@ -4,6 +4,18 @@ import com.ai.plug.core.annotation.McpTool;
 import reactor.util.annotation.Nullable;
 
 /**
+ * @header-start
+ * @module RetryPolicy
+ * @keywords 重试策略 幂等标记 idempotentHint destructiveHint 最大重试次数
+ *           shouldAutoRetry 安全默认值 非幂等不重试
+ * @updated 2026-10-28 12:20
+ * @purpose 依据工具注解的幂等与破坏性标记推导自动重试策略，默认对非幂等工具不重试
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Per-tool retry policy derived from {@link McpTool} annotation flags.
  *
  * <h2>规则</h2>

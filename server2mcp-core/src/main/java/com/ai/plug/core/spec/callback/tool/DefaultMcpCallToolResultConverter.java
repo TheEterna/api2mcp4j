@@ -26,6 +26,19 @@ import java.util.Map;
 import static com.ai.plug.common.constants.MineTypeConstants.*;
 
 /**
+ * @header-start
+ * @module DefaultMcpCallToolResultConverter
+ * @keywords 结果转换器 默认实现 CallToolResult MIME类型分支 mineType 图片Base64 音频Base64
+ *           文本JSON包装 structuredContent meta提示 resultType ttlMs cacheScope
+ *           OpenTelemetry追踪透传 分页切片 PageList MRTR InputRequiredResult TaskHandle
+ * @updated 2026-10-28 12:20
+ * @purpose 按 MIME 类型把工具返回值归一化为 CallToolResult，并注入协议提示与追踪上下文
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Default implementation of McpCallToolResultConverter
  * @author han
  * @time 2025/6/27 14:05

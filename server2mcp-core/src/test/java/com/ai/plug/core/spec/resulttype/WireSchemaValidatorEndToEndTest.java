@@ -21,6 +21,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module WireSchemaValidatorEndToEndTest
+ * @keywords wire校验器 端到端 resultType非法 负TTL 未知cacheScope 字符串TTL
+ *           协议2026-07-28 全字段
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言 wire 校验器对协议 2026-07-28 全字段的判报行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end coverage of {@link WireSchemaValidator} over the full
  * protocol 2026-07-28 wire field set.
  */

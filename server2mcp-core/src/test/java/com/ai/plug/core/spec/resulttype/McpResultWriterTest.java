@@ -20,6 +20,18 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpResultWriterTest
+ * @keywords 结果写出 resultType cacheable inputRequired 列表工具资源提示 nextCursor保留
+ *           非法类型抛错 自定义缓存键
+ * @updated 2026-10-28 12:20
+ * @purpose 断言结果写出器对工具/列表结果写入的 meta 字段行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpResultWriter} — verifies the wire-level JSON carries
  * the protocol 2026-07-28 fields SDK 2.0 cannot express natively.
  */

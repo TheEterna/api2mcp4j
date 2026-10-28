@@ -20,6 +20,17 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module CapabilitiesHealthReportTest
+ * @keywords 健康报告 健康态 问题列表 序列化字段 扩展能力 defaults of空报告 断言
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康报告的构造、问题承载与序列化字段名
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilitiesHealthReportTest {
 
     @Test

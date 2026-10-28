@@ -17,6 +17,17 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module MetaUtilsTest
+ * @keywords meta工具 链路上下文透传 traceparent铸造 保留键 合并优先级 traceId spanId
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 _meta 工具的追踪上下文透传、合并优先级与 traceparent 铸造
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class MetaUtilsTest {
 
     @Test

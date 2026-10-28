@@ -6,6 +6,18 @@ import org.slf4j.LoggerFactory;
 import reactor.util.annotation.Nullable;
 
 /**
+ * @header-start
+ * @module WireSchemaValidationFilter
+ * @keywords 校验过滤器 传输无关 严格模式 宽松告警 Builder
+ *             WireSchemaValidator 结果检查 契约
+ * @updated 2026-10-28 12:20
+ * @purpose 以传输无关的过滤器校验出站结果的线格式元数据，可选严格抛错或宽松告警
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Lightweight, framework-agnostic request/response filter that validates
  * wire-layer metadata on outgoing {@link McpSchema.CallToolResult} payloads.
  *

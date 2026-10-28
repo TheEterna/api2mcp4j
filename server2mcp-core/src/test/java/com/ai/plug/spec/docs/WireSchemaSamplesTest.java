@@ -27,6 +27,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module WireSchemaSamplesTest
+ * @keywords wire样例 文档样例 resultType cacheable MRTR inputRequired taskHandle
+ *           分页nextCursor 框架身份 协议样例
+ * @updated 2026-10-28 12:20
+ * @purpose 以文档样例的形式断言各协议场景的 wire JSON 形态
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Validates the wire-schema-samples.json document
  * (docs/wire-schema-samples.json) by re-producing each sample from live
  * framework code and asserting key fields are present. If the sample doc

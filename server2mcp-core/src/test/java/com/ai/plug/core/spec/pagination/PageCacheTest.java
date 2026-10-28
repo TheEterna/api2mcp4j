@@ -17,6 +17,17 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module PageCacheTest
+ * @keywords 分页缓存 包装裁剪 requestMeta游标 缺省页大小 偏移越界 空结果
+ * @updated 2026-10-28 12:20
+ * @purpose 断言分页缓存包装器的裁剪与游标/页长提取行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class PageCacheTest {
 
     @Test

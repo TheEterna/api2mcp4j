@@ -17,6 +17,18 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module CapabilityVersioningTest
+ * @keywords 能力版本化 wireVersionMap 协议版本列表 框架标识 框架版本 _meta
+ *           协议2026-07-28 版本协商
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力版本映射的协议版本、框架标识与字段完整性
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilityVersioningTest {
 
     @Test

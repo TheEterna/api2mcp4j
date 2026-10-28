@@ -14,6 +14,22 @@ import org.springframework.util.ClassUtils;
 import static com.ai.plug.common.constants.ConfigConstants.*;
 
 /**
+ * @header-start
+ * @module Conditions
+ * @keywords 条件判定 Condition 启动开关 SystemCondition IsInterfaceCondition IsSyncCondition
+ *           IsAsyncCondition ParserCondition RootCondition ToolCondition ResourceCondition
+ *           PromptCondition CompleteCondition 解析器类型装配 同步异步模式 分支激活 环境属性读取
+ * @updated 2026-10-28 12:20
+ * @purpose 承载插件全部条件判定类，按配置开关决定哪些 Bean 与解析器被激活装配
+ * @layer autoconfigure
+ * @affects 改动影响自动配置的整体装配面：总开关、作用域、同步异步模式以及每个解析器的注册与否
+ * @see ConditionalOnParser — 解析器条件注解，绑定 ParserCondition
+ * @constraint 解析器名拼写无启动校验（真实缺口 V-2），改动条件逻辑须同步 parser 名默认集合
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/12 23:38
  * des:

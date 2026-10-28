@@ -50,6 +50,22 @@ import static com.ai.plug.core.utils.GenSchemaUtils.TOOL_SCHEMA_GENERATOR;
 
 
 /**
+ * @header-start
+ * @module ToolDefinitionBuilder
+ * @keywords 工具定义构建 描述解析器链 参数解析器链 工具命名 工具描述 输入Schema
+ *           输出Schema JSON Schema 类型归一 责任链编排 AbstractStarter
+ * @updated 2026-10-28 12:20
+ * @purpose 编排描述/参数解析器链，把一个工具方法装配成完整的 ToolDefinition（名称+描述+Schema）
+ * @layer core
+ * @affects 改动影响 MCP 客户端看到的每个工具的名称、描述、入参 Schema 与出参 Schema
+ * @see AbstractDesParser — 描述解析链
+ * @see AbstractParamParser — 参数解析链
+ * @constraint 解析链编排中枢：改解析顺序等于改描述优先级（order 0-5 / 0-6）
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/1 15:40
  * des:

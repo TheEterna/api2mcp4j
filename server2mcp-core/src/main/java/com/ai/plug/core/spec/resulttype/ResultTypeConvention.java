@@ -1,6 +1,18 @@
 package com.ai.plug.core.spec.resulttype;
 
 /**
+ * @header-start
+ * @module ResultTypeConvention
+ * @keywords 结果类型约定 SEP-2322 complete input_required 协议字面量
+ *             校验 迁移常量化
+ * @updated 2026-10-28 12:20
+ * @purpose 定义 MCP 结果类型的协议字面量常量与校验，屏蔽 SDK 尚未暴露该字段的事实
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Convention for MCP result types (protocol 2026-07-28 SEP-2322).
  * <p>
  * MCP 2026-07-28 mandates that every result carries a required {@code resultType}

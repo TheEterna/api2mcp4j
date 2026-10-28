@@ -8,6 +8,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module WireSchemaExporter
+ * @keywords 协议导出 一键装配 McpSyncServerCustomizer McpAsyncServerCustomizer 能力全开
+ *           experimental扩展 tasks扩展 capabilitiesAsMap 配置映射
+ * @updated 2026-10-28 12:20
+ * @purpose 把协议能力集与服务身份打包成一键装配的 Spring AI 定制器，落地零代码接入
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Bundles {@link McpServerCustomizers}'s helpers into a single "wire everything"
  * configuration point. Designed as a Spring {@code @Bean} so a user can drop
  * it into their config and get a fully wire-compliant MCP server with zero

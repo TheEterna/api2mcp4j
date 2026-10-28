@@ -22,6 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module JsonRpcController
+ * @keywords JSON-RPC jsonrpc 端点 POST /mcp/jsonrpc SpringMVC控制器 协议2026-07-28
+ *           JsonRpcRouter 调度分发 错误信封 Servlet栈 SDK3.0回退
+ * @updated 2026-10-28 12:20
+ * @purpose 在 Servlet 栈暴露 JSON-RPC 端点，承载 SDK 2.0 缺失的协议 RPC 路由
+ * @layer starter
+ * @see JsonRpcRouter — 路由表与分发器
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring MVC controller that exposes the protocol-2026-07-28 JSON-RPC
  * endpoint at {@code POST /mcp/jsonrpc}. Accepts a single JSON-RPC
  * envelope and returns a {@link JsonRpcResponse}.

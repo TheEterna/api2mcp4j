@@ -18,6 +18,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module NotificationsPollingEndpointTest
+ * @keywords 通知轮询 环形缓冲 游标单调 事件类型校验 容量淘汰 长轮询
+ *           notifications 协议扩展
+ * @updated 2026-10-28 12:20
+ * @purpose 断言通知轮询端点的环形缓冲、游标语义与事件校验规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class NotificationsPollingEndpointTest {
 
     @Test

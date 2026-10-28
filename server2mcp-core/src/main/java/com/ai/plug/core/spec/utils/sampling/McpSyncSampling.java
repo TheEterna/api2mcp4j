@@ -7,6 +7,20 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpSyncSampling
+ * @keywords 采样 sampling createMessage 同步实现 McpSampling LLMOptions
+ *           McpSyncServerExchange LLM调用 反向采样 客户端模型
+ * @updated 2026-10-28 12:20
+ * @purpose 同步向客户端发起采样请求，反向调用客户端的 LLM 能力
+ * @layer core
+ * @see McpSampling — 采样抽象接口
+ * @see McpSamplingFactory — 采样实例工厂
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/8 18:08
  */

@@ -6,6 +6,8 @@ package com.ai.plug.core.annotation;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpArg @keywords 参数注解 工具参数标记 MCP参数 exchange注入 上下文Map 参数名 参数描述 required 必填 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Marks a method parameter as a MCP Argument.
  * 在 resource 和 prompt 功能里可以作为参数

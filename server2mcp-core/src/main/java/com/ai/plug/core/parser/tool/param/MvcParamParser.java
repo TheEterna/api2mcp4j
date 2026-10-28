@@ -6,6 +6,19 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * @header-start
+ * @module MvcParamParser
+ * @keywords 参数解析器 责任链 SpringMVC RequestParam RequestBody PathVariable RequestHeader
+ *           CookieValue MatrixVariable RequestAttribute SessionAttribute RequestPart
+ *           ModelAttribute 参数必填 AbstractParamParser
+ * @updated 2026-10-28 12:20
+ * @purpose 从 Spring MVC 绑定注解提取参数必填标记，让现有 Controller 参数语义直接复用
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/30 2:55
  */

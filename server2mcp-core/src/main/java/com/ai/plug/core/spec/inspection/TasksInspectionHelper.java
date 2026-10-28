@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module TasksInspectionHelper
+ * @keywords 任务巡检 占位报告 tasks registry 未暴露 诊断辅助
+ *           ToolsInspectionHelper 同族巡检
+ * @updated 2026-10-28 12:20
+ * @purpose 提供任务注册表的巡检占位实现，等待任务注册表落地后扩展
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Lightweight companion to {@link ToolsInspectionHelper} for tasks.
  * Tasks are not registered through the standard tool context (they're
  * managed by custom MCP server code), so this is a stub: returning an

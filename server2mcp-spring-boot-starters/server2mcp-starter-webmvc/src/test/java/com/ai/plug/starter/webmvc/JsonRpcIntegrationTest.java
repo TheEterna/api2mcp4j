@@ -36,6 +36,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(properties = {
     "spring.main.web-application-type=servlet"
 })
+/**
+ * @header-start
+ * @module JsonRpcIntegrationTest
+ * @keywords JSON-RPC集成测试 MockMvc POST /mcp/jsonrpc 能力信封 traceparent
+ *           OTel透传 错误响应 协议2026-07-28 wire形状
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 JSON-RPC 端点在真实 Servlet 栈上的信封形状与追踪透传
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class JsonRpcIntegrationTest {
 
     @Autowired private JsonRpcController jsonRpcController;

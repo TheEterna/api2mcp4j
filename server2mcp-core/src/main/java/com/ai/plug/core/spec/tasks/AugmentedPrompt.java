@@ -4,6 +4,18 @@ import java.time.Instant;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AugmentedPrompt
+ * @keywords 增强提示 record SEP-2663 tasks/augmented-prompt 任务提示
+ *              角色 内容 时间戳
+ * @updated 2026-10-28 12:20
+ * @purpose 以 record 定义挂在长任务上的增强提示，承载供客户端并入上下文的内容
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * A single augmented prompt attached to a task — protocol 2026-07-28
  * SEP-2663 {@code tasks/augmented-prompt}.
  *

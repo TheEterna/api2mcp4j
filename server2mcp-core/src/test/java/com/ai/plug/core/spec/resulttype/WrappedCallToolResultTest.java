@@ -16,6 +16,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module WrappedCallToolResultTest
+ * @keywords 包装结果 WrappedCallToolResult wireJson SDK结果 双持有 缓存提示透传
+ *           空值拒绝
+ * @updated 2026-10-28 12:20
+ * @purpose 断言包装结果对象同时持有 SDK 结果与 wire JSON 的行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WrappedCallToolResultTest {
 
     @Test

@@ -23,6 +23,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module CallbackPagingAutoSliceTest
+ * @keywords 分页自动切片 callback AbstractMcpToolMethodCallback nextCursor 游标
+ *           分页捕获 最后一页 切片重置 工具回调
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具回调在分页场景下的自动切片与游标行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests that the {@link DefaultMcpCallToolResultConverter} auto-slices a
  * returned {@link List} when the {@link McpPaging} parameter was injected,
  * surfacing the nextCursor via the result's meta map.

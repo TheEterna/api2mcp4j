@@ -18,6 +18,23 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpToolScanConfigurer
+ * @keywords 工具扫描 BeanDefinitionRegistryPostProcessor BeanFactoryPostProcessor
+ *           ClassPathToolScanner 包扫描 包含过滤器 排除过滤器 注解过滤 类过滤
+ *           DeclaredClassExcludeFilter AnnotationTypeFilter IToolContext 工具注册
+ * @updated 2026-10-28 12:20
+ * @purpose 执行 @ToolScan 的包扫描与过滤规则装配，把命中类注册进 IToolContext
+ * @layer core
+ * @affects 改动影响所有 @ToolScan 与 interface 作用域下的工具注册结果（扫描范围、类级过滤、方法级过滤、注册时点）
+ * @see ClassPathToolScanner — 实际执行类路径扫描
+ * @see ToolScan — 过滤器语义的声明方
+ * @constraint 注册链路四件套之一；过滤器语义与 @ToolScan 注解强耦合，类型分支不可随意增删
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/15 00:35
  * des: 这个是提取出来的一层, 专门实现Tool 扫描操作, 扫描的参数 即为对象上的参数, 通过scanRegistrar里注册 以及 在AutoRegistrar里注册

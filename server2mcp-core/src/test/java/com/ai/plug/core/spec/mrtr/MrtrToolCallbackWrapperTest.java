@@ -14,6 +14,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
+ * @header-start
+ * @module MrtrToolCallbackWrapperTest
+ * @keywords MRTR 工具回调包装器 首次调用inputRequired 会话启动 回答注入 终态不建会话
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MRTR 工具回调包装器的会话启动、回答注入与终态短路
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end tests for {@link MrtrToolCallbackWrapper}: an existing tool
  * callback is wrapped and the resulting decorator transparently handles
  * MRTR lifecycle — response injection, session start, requestState round-trip,

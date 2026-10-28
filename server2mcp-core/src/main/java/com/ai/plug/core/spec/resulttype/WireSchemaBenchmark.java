@@ -10,6 +10,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module WireSchemaBenchmark
+ * @keywords 性能基准 线格式序列化耗时 吞吐 ops预热 采样
+ *             McpResultWriter 开发期自检
+ * @updated 2026-10-28 12:20
+ * @purpose 对最常用的线格式序列化路径做轻量吞吐与延迟基准，供开发期快速自检
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Microbenchmark for {@link McpResultWriter#writeCallToolResultFromMeta}.
  * Measures throughput + latency for the framework's most common wire-layer
  * serialization path.

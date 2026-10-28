@@ -21,6 +21,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module MrtrCallbackHintsTest
+ * @keywords MRTR 多轮 inputResponses 注解定位 会话启动 会话终结 requestState 回答合并
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MRTR 回调的 inputResponses 定位与会话启停语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for the callback-boundary helpers that let {@link MrtrDriver} slot
  * into the existing tool method pipeline without forcing every integrator
  * to write manual session bookkeeping.

@@ -14,6 +14,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module McpRequestIdTest
+ * @keywords 请求ID of空值单例 合成ID 前缀 req 存在值 关联标识 值对象
+ * @updated 2026-10-28 12:20
+ * @purpose 断言请求 ID 值对象的空值单例、合成与前缀语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class McpRequestIdTest {
 
     @Test

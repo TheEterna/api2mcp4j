@@ -1,3 +1,15 @@
+/**
+ * @header-start
+ * @module WebMvcSseSyncServerTransportTests
+ * @keywords SSE传输 WebMvcSseServerTransportProvider 同步服务端 传输层测试 全量注释
+ *           Tomcat内嵌 AbstractMcpSyncServerTests 端到端传输 暂缓用例
+ * @updated 2026-10-28 12:20
+ * @purpose 保留 WebMvc SSE 同步传输层的端到端测试骨架（当前整体注释待启用）
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 ///*
 // * Copyright 2024-2024 the original author or authors.
 // */

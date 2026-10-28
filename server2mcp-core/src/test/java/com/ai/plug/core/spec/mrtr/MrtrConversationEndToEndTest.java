@@ -19,6 +19,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module MrtrConversationEndToEndTest
+ * @keywords MRTR 多轮会话 端到端 三轮对话 恢复 放弃 历史累积 outcome 终态
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言 MRTR 多轮会话的推进、恢复、放弃与历史累积
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end demonstration of the MRTR multi-round state machine
  * implemented by {@link MrtrSessionStore}, {@link MrtrConversation},
  * {@link InMemoryMrtrSessionStore}, and {@link MrtrDriver}.

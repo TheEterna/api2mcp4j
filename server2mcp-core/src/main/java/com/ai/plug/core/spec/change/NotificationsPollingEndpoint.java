@@ -11,6 +11,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * @header-start
+ * @module NotificationsPollingEndpoint
+ * @keywords 通知轮询端点 环形缓冲 cursor 事件记录 recordEvent handlePoll
+ *           subscriptions/listen 替代 SSE SDK3升级路径 内存事件流
+ * @updated 2026-10-28 12:20
+ * @purpose 以内存环形缓冲承载变更事件并按游标对外提供轮询，替代 SDK 缺失的 SSE 长推送
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Framework-layer HTTP polling endpoint for change notifications —
  * the protocol-2026-07-28 {@code subscriptions/listen} replacement
  * when Java SDK 2.0 lacks the SSE long-push schema.

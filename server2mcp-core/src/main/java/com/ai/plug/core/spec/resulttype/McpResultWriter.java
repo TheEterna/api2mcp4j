@@ -10,6 +10,18 @@ import tools.jackson.databind.node.ObjectNode;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module McpResultWriter
+ * @keywords 线格式写出 resultType ttlMs cacheScope _cacheable包装 ObjectNode改写
+ *             SDK2.0缺失字段 Jackson3 缓存提示 结果序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 在 SDK 之外补写协议 2026-07-28 的 resultType 与缓存提示字段
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Wire-level JSON serializer for MCP results that carries protocol 2026-07-28
  * fields SDK 2.0 cannot express: {@code resultType}, {@code ttlMs},
  * {@code cacheScope}.

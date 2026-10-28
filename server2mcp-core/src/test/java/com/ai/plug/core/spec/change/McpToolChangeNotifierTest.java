@@ -22,6 +22,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module McpToolChangeNotifierTest
+ * @keywords 变更通知器 工具数量变化 工具内容变化 无变更不通知 异常吞掉 异步通知
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具变更通知器在数量/内容变化与异常场景下的行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class McpToolChangeNotifierTest {
 
     @Test

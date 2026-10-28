@@ -5,6 +5,8 @@ import org.springframework.ai.util.ParsingUtils;
 import java.lang.reflect.Parameter;
 import java.util.function.Function;
 
+/** @header-start @module PromptConstants @keywords 提示词常量 DEFAULT_PARAM_DES CUSTOM_PARAM_DES 驼峰重连 参数描述 Function 提示参数默认值 @updated 2026-10-28 12:20 @layer common @author han @header-end */
+
 /**
  * @author: han
  * time: 2025/04/2025/4/1 23:08

@@ -25,6 +25,18 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module MrtrDemoController
+ * @keywords MRTR 多轮往返 SEP-2322 演示端点 input_required requestState
+ *           elicitation询问 会话存储 无外部依赖 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 演示端点：驱动地址→支付→下单三轮 MRTR 多轮流程
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end MRTR (Multi Round-Trip Request) demo controller — exercises
  * the protocol-2026-07-28 SEP-2322 multi-round flow without any external
  * dependencies (no MySQL, no Redis). Three rounds:

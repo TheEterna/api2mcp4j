@@ -10,6 +10,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
+ * @header-start
+ * @module JsonRpcRouter
+ * @keywords JSONRPC路由 方法名分发 handler注册 Function 异常翻译
+ *           INTERNAL_ERROR 追踪透传 dispatchRaw 路由表
+ * @updated 2026-10-28 12:20
+ * @purpose 按方法名把 JSON-RPC 请求分发给已注册处理器，并把异常翻译为标准错误响应
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Routes a {@link JsonRpcRequest} to a registered handler by method name.
  *
  * <p>Handlers are plain {@link Function}s from {@code params → result}; this

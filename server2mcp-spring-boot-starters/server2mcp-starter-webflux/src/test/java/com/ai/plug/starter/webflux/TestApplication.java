@@ -15,6 +15,18 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
+ * @header-start
+ * @module TestApplication
+ * @keywords 测试引导 SpringBootConfiguration 组件扫描 协议端点自动配置 Reactive栈
+ *           最小测试上下文
+ * @updated 2026-10-28 12:20
+ * @purpose 最小测试引导类，通过组件扫描拉起响应式栈的协议端点自动配置
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Minimal Spring Boot test configuration that pulls in the framework's
  * {@link ProtocolEndpointsAutoConfiguration} via component scan.
  */

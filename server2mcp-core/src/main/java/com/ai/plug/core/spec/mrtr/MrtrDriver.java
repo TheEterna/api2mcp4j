@@ -7,6 +7,18 @@ import java.util.UUID;
 import java.util.function.Function;
 
 /**
+ * @header-start
+ * @module MrtrDriver
+ * @keywords MRTR驱动 多轮往返 start resume Outcome RoundContext 累积回执合并
+ *               轮次上限守卫 requestState 令牌
+ * @updated 2026-10-28 12:20
+ * @purpose 驱动 MRTR 多轮会话的启动与恢复，串起处理器、会话存储与轮次上限守卫
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Helper for invoking {@link MrtrSessionStore} on behalf of a tool that
  * wants to participate in Multi Round-Trip Requests (MRTR).
  *

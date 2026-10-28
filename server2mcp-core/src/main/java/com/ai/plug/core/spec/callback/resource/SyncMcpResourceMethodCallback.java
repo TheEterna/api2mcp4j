@@ -14,6 +14,18 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module SyncMcpResourceMethodCallback
+ * @keywords 资源回调 同步 BiFunction McpSyncServerExchange ReadResourceRequest ReadResourceResult
+ *           AbstractMcpResourceMethodCallback URI模板变量 提取 参数注入 结果转换 McpResource
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpResource 方法包装成同步资源回调，处理 URI 变量提取与结果转换
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Class for creating BiFunction callbacks around resource methods.
  *
  * This class provides a way to convert methods annotated with {@link McpResource} into

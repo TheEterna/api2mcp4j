@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.cacheable;
 import java.time.Duration;
 
 /**
+ * @header-start
+ * @module CacheHints
+ * @keywords 缓存提示 SEP-2549 CacheableResult ttlMs cacheScope public private
+ *           协议缓存 默认TTL 值对象 Hint 归一化校验 Duration
+ * @updated 2026-10-28 12:20
+ * @purpose 集中承载 SEP-2549 缓存提示常量与校验助手，为结果附上 ttlMs 与 cacheScope
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Convention for MCP cacheable results (protocol 2026-07-28 SEP-2549, {@code CacheableResult}).
  * <p>
  * MCP 2026-07-28 requires {@code tools/list}, {@code prompts/list},

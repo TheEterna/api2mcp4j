@@ -15,6 +15,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
+/**
+ * @header-start
+ * @module IdempotencyMetricsTest
+ * @keywords 幂等指标 缓存命中 未命中 命中率 淘汰计数 指标重置 可观测性
+ * @updated 2026-10-28 12:20
+ * @purpose 断言幂等缓存的命中/未命中/淘汰指标统计与重置
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class IdempotencyMetricsTest {
 
     @Test

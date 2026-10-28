@@ -19,6 +19,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module TaskTypesTest
+ * @keywords 任务类型 TaskHandle TaskStatus TaskError TaskUpdate 进度 终态必带结果
+ *           构造校验 序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 tasks 协议各数据类型的状态组合与构造约束
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link TaskTypes} — verifies the Tasks extension wire schema
  * (MCP protocol 2026-07-28 SEP-2663).
  */

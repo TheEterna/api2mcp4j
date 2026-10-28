@@ -19,6 +19,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module ServerCapabilitiesPathCombinationsTest
+ * @keywords 能力组合路径 协议2026-07-28 分桶交集 tools resources prompts subscribe
+ *           listChanged 组合覆盖
+ * @updated 2026-10-28 12:20
+ * @purpose 覆盖 2026-07-28 协议要求的常见能力分桶组合，断言各桶互不串味
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies the ServerCapabilities path-combinations cover the most common
  * 8 configurations a 2026-07-28-compliant MCP server needs to advertise.
  * Each test focuses on the *intersection* of bucket flags, not the union.

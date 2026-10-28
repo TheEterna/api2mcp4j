@@ -16,6 +16,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module ElicitUrlRequestTest
+ * @keywords elicitation URL表单 请求构建 UUID生成 schema包装 对象类型 schema
+ *           表单询问 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 URL 形态 elicitation 请求的构造与 schema 包装规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpElicitation#buildElicitationUrlRequest(String, String)} and
  * {@link McpElicitation#buildElicitationUrlRequest(String, String, String)} —
  * the URL-mode elicitation support introduced for MCP protocol 2025-11-25.

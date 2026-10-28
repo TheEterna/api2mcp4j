@@ -8,6 +8,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module MrtrResponseMergeTest
+ * @keywords MRTR 回答合并 跨轮累积 最新轮覆盖 恢复注入 inputResponses 会话状态
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MRTR 恢复时跨轮回答的合并与覆盖优先级
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies the cross-round response merge semantics in
  * {@link MrtrDriver#resume}: when a multi-round conversation continues,
  * the handler's {@link MrtrDriver.RoundContext#accumulatedResponses()} must

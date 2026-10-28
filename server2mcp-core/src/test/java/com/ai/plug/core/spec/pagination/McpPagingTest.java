@@ -16,6 +16,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module McpPagingTest
+ * @keywords 分页 McpPaging offset size 上限钳制 游标解析 nextCursor 越界
+ * @updated 2026-10-28 12:20
+ * @purpose 断言分页原语的默认值、钳制规则与游标推导
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpPaging}.
  */
 class McpPagingTest {

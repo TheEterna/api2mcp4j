@@ -5,6 +5,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module ServerCapabilitiesFactory
+ * @keywords 能力集工厂 listChanged subscribe experimental ServerCapabilities构建器
+ *           动态工具通知 前置条件 协议2025-11-25
+ * @updated 2026-10-28 12:20
+ * @purpose 预置 listChanged 等标志构建服务端能力集，是变更通知能够真正生效的前置条件
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Builder for {@link McpSchema.ServerCapabilities} with {@code listChanged} flags
  * pre-set to {@code true} (matching protocol 2025-11-25 expectations that
  * clients should be informed of dynamic changes).

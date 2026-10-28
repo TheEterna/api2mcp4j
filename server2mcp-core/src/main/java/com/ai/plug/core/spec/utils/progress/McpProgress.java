@@ -3,6 +3,20 @@ package com.ai.plug.core.spec.utils.progress;
 import io.modelcontextprotocol.spec.McpSchema;
 
 /**
+ * @header-start
+ * @module McpProgress
+ * @keywords 进度上报 notifications/progress progressToken 进度接口 _meta.progressToken
+ *           no-op 协议2025-11-25 工具方法参数注入 进度百分比 抽象接口
+ * @updated 2026-10-28 12:20
+ * @purpose 定义工具执行期向上报进度的统一接口，由 callback 自动注入
+ * @layer core
+ * @see McpSyncProgress — 同步实现
+ * @see McpAsyncProgress — 异步实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * 工具方法执行期间向客户端上报进度（protocol 2025-11-25 notifications/progress，请求作用域）。
  * <p>
  * 通过让工具方法参数列表声明 {@code McpProgress} 类型，本项目 callback 自动注入本接口实例；

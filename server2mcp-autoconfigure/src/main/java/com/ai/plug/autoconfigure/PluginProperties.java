@@ -9,6 +9,19 @@ import java.util.List;
 import static com.ai.plug.common.constants.ConfigConstants.VARIABLE_PREFIX;
 
 /**
+ * @header-start
+ * @module PluginProperties
+ * @keywords 配置属性 plugin.mcp ConfigurationProperties 总开关 enabled 作用域 scope
+ *           ScopeType 解析器枚举 DesParserType ParamParserType 解析器列表 parser des param
+ *           自动配置绑定 实体开关 tool resource prompt complete root
+ * @updated 2026-10-28 12:20
+ * @purpose 承载 plugin.mcp.* 全部配置项，是插件总开关、作用域与解析器列表的唯一配置来源
+ * @layer autoconfigure
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  */
 

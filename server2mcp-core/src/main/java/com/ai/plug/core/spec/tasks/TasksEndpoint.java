@@ -8,6 +8,18 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module TasksEndpoint
+ * @keywords 任务端点 HTTP契约 handleGet handleList handleCancel JSON序列化
+ *             TaskStore 传输层挂载
+ * @updated 2026-10-28 12:20
+ * @purpose 定义任务操作的 HTTP 层端点契约，覆盖查询、列举与取消三类动作
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Framework-layer HTTP endpoint contract for {@code tasks/*}.
  *
  * <p>SDK 2.0 has no JSON-RPC schema for the Tasks extension, so the

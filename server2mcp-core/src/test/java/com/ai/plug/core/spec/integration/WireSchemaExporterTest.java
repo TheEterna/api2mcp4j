@@ -20,6 +20,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module WireSchemaExporterTest
+ * @keywords wire导出 能力Schema YAML形状 tasks扩展 experimental合并 同步异步 身份定制
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 导出器在同步/异步下的能力 Schema 输出与扩展合并
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link WireSchemaExporter}.
  */
 class WireSchemaExporterTest {

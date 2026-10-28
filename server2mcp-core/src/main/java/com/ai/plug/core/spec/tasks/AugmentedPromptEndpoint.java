@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AugmentedPromptEndpoint
+ * @keywords 增强提示端点 HTTP契约 list drain JSON序列化 任务提示拉取
+ *             AugmentedPromptStore
+ * @updated 2026-10-28 12:20
+ * @purpose 定义增强提示的 HTTP 层端点契约，支持列举与清空两种拉取模式
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Framework-layer HTTP endpoint for
  * {@code GET /mcp/tasks/&#123;id&#125;/augmented-prompts}.
  *

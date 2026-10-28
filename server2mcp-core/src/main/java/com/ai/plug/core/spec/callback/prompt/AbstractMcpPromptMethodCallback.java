@@ -21,6 +21,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AbstractMcpPromptMethodCallback
+ * @keywords 提示词回调 模板方法 抽象基类 PromptCallback 同步异步 方法验证 参数构建
+ *           提示词消息 GetPromptResult
+ * @updated 2026-10-28 12:20
+ * @purpose 提示词方法回调的抽象基类，承载方法验证与参数构建等通用逻辑
+ * @layer core
+ * @affects 改动影响全部提示词获取链（Sync/Async 两个子类）与 MCP 客户端获取提示词的参数契约
+ * @see McpPromptProvider — 回调的创建方
+ * @constraint 模板方法 SPI：新增步骤须挂到钩子方法上
+ * @author han
+ * @header-end
+ */
+
+/**
  * Abstract base class for creating callbacks around prompt methods.
  *
  * This class provides common functionality for both synchronous and asynchronous prompt

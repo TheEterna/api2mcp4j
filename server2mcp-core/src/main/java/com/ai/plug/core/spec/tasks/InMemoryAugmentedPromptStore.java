@@ -7,6 +7,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * @header-start
+ * @module InMemoryAugmentedPromptStore
+ * @keywords 增强提示内存实现 CopyOnWriteArrayList ConcurrentHashMap 索引清理
+ *               drain 线程安全 单实例部署
+ * @updated 2026-10-28 12:20
+ * @purpose 以并发容器承载任务增强提示队列，是默认的内存存储实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Default in-memory {@link AugmentedPromptStore}. Thread-safe via
  * per-task {@link CopyOnWriteArrayList} + {@link ConcurrentHashMap};
  * suitable for single-instance deployments.

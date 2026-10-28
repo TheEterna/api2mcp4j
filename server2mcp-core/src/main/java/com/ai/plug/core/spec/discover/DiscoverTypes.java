@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module DiscoverTypes
+ * @keywords 服务发现类型 DiscoverResult ServerIdentity Capabilities DiscoverRequest
+ *           SEP-2575 协议2026-07-28 线格式 record 校验 能力分桶
+ * @updated 2026-10-28 12:20
+ * @purpose 以 record 定义 server/discover 的请求与响应线格式，自持 SDK 缺失的 schema
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * {@code server/discover} RPC response schema — MCP protocol 2026-07-28 SEP-2575.
  * <p>
  * Servers MUST implement this RPC to advertise their supported protocol versions,

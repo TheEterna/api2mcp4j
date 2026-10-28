@@ -4,6 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module AugmentedPromptStore
+ * @keywords 增强提示存储契约 add list get drain 队列语义
+ *              可替换实现 客户端拉取
+ * @updated 2026-10-28 12:20
+ * @purpose 定义增强提示的服务端存储契约，支持替换为分布式实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-side storage for augmented prompts attached to running tasks.
  *
  * <p>Long-running tasks may emit prompts that the client should append to

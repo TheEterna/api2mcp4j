@@ -15,6 +15,18 @@ import reactor.core.publisher.Mono;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module SyncMcpPromptMethodCallback
+ * @keywords 提示词回调 同步 BiFunction McpSyncServerExchange GetPromptRequest GetPromptResult
+ *           AbstractMcpPromptMethodCallback 参数注入 结果转换 McpPrompt
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpPrompt 方法包装成同步提示词回调，完成参数注入与方法调用
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * 用于创建围绕提示方法的BiFunction回调的类。
  *
  * 该类提供了一种将使用{@link McpPrompt}注解的方法转换为可用于处理提示请求的回调函数的方式。

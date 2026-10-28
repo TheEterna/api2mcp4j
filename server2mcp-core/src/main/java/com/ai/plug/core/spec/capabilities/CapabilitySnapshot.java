@@ -6,6 +6,18 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * @header-start
+ * @module CapabilitySnapshot
+ * @keywords 能力快照 标志摊平 TreeMap 可比较 diff 差异检测 金丝雀回归
+ *           ServerCapabilities
+ * @updated 2026-10-28 12:20
+ * @purpose 把嵌套的服务端能力集摊平为可比较的标志快照，用于差异检测与回归比对
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Snapshot utility for {@link McpSchema.ServerCapabilities} — captures a
  * capabilities object's flag set into a comparable map for golden-file
  * testing / diff-based regression detection.

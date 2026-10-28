@@ -24,6 +24,18 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module ValidatorFullIntegrationTest
+ * @keywords 全链路校验 能力健康 严格模式 非法CallToolResult 快照差异 扩展能力
+ *           端到端 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端串联能力健康、结果校验器与严格过滤器的联动行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Full-stack integration test for the validator / filter / capabilities
  * pipeline. Exercises the wire-layer contract end-to-end.
  */

@@ -4,6 +4,19 @@ import io.modelcontextprotocol.server.McpAsyncServerExchange;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
 
 /**
+ * @header-start
+ * @module McpSamplingFactory
+ * @keywords 工厂模式 采样工厂 McpSampling McpSyncServerExchange McpAsyncServerExchange
+ *           同步异步分派 类型路由 静态工厂 采样
+ * @updated 2026-10-28 12:20
+ * @purpose 按 exchange 实际类型产出采样实现，屏蔽同步/异步差异
+ * @layer core
+ * @see McpSampling — 被创建的抽象
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/8 18:12
  */

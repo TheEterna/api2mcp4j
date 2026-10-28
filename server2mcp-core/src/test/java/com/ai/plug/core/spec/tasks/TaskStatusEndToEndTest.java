@@ -20,6 +20,18 @@ import tools.jackson.databind.ObjectMapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module TaskStatusEndToEndTest
+ * @keywords 任务状态 端到端 taskHandle wireJSON 生命周期 终态校验 任务错误码
+ *           保留码段 tasks协议
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言任务句柄、状态流转与任务错误的 wire 表达
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test demonstrating the Tasks extension wire path. Verifies:
  * - TaskHandle serialization to wire JSON
  * - TaskStatus state machine (PENDING → RUNNING → COMPLETED)

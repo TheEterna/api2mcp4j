@@ -12,6 +12,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 
+/**
+ * @header-start
+ * @module ConvertAudioUtils
+ * @keywords 音频转换 工具类 audioToBase64 Base64编码 多来源音频读取
+ *           readAudioBytes File Path URL InputStream 流读取
+ * @updated 2026-10-28 12:20
+ * @purpose 把各类音频源统一读成字节并转成 Base64 字符串，为 MCP 音频内容块提供编码能力
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
 public class ConvertAudioUtils {
 
     private static final Logger log = LoggerFactory.getLogger(ConvertAudioUtils.class);

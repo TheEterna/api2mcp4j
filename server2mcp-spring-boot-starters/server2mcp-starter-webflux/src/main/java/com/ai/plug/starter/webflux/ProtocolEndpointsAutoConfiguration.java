@@ -49,6 +49,23 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 
 /**
+ * @header-start
+ * @module ProtocolEndpointsAutoConfiguration
+ * @keywords 自动配置 starter装配 协议端点挂载 Reactive栈 ConditionalOnWebApplication
+ *           ConditionalOnMissingBean ProtocolCoreAutoConfiguration SSE心跳 Flux.interval
+ *           协议2026-07-28 HTTP契约
+ * @updated 2026-10-28 12:20
+ * @purpose 把框架的协议 HTTP 契约挂载到响应式栈的 /mcp 端点上
+ * @layer starter
+ * @affects 改动影响响应式栈暴露的全部协议端点与 SSE 心跳形态，须与 webmvc 版保持 wire 对称
+ * @see ProtocolCoreAutoConfiguration — 协议层 bean 的统一注册来源
+ * @see com.ai.plug.starter.webmvc.ProtocolEndpointsAutoConfiguration — Servlet 栈对称实现
+ * @constraint 与 Webmvc 版必须 URI 与 wire shape 完全一致，只允许返回类型 Mono/Flux 差异
+ * @author han
+ * @header-end
+ */
+
+/**
  * Auto-configuration for the MCP protocol HTTP endpoints (Reactive stack).
  *
  * <h2>Endpoints exposed</h2>

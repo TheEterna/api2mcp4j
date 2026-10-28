@@ -15,6 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module RetryPolicyTest
+ * @keywords 重试策略 幂等提示 破坏性提示 重试次数 副作用工具 注解判定
+ * @updated 2026-10-28 12:20
+ * @purpose 断言重试策略依据幂等/破坏性提示的判定与次数
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class RetryPolicyTest {
 
     @Test

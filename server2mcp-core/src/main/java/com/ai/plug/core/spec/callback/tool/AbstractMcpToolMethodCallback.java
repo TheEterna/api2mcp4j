@@ -30,6 +30,23 @@ import java.lang.reflect.Parameter;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AbstractMcpToolMethodCallback
+ * @keywords 工具回调 模板方法 抽象基类 McpToolMethodCallback ToolCallback 同步异步
+ *           参数提取 特殊参数注入 Exchange Logger Elicitation Sampling Root
+ *           McpCallToolResultConverter 结果转换 IdempotentCache 幂等
+ * @updated 2026-10-28 12:20
+ * @purpose 工具方法回调的抽象基类，以模板方法承载"取参→注入→调用→转结果"的通用流程
+ * @layer core
+ * @affects 改动影响全部工具调用链（Sync/Async 两个子类）以及 MCP 客户端看到的入参 Schema 与返回值形态
+ * @see McpCallToolResultConverter — 结果转换 SPI
+ * @see McpToolProvider — 回调的创建方
+ * @constraint 模板方法 SPI：新增步骤须挂到钩子方法上，不可打乱既有调用顺序
+ * @author han
+ * @header-end
+ */
+
+/**
  * Abstract base class for creating callbacks around tool methods.
  *
  * This class provides common functionality for both synchronous and asynchronous tool

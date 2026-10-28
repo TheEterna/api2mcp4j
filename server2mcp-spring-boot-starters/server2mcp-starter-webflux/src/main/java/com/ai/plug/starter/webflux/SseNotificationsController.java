@@ -32,6 +32,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module SseNotificationsController
+ * @keywords SSE Server-Sent-Events subscriptions/listen 协议2026-07-28 Flux Sinks多播
+ *           Last-Event-ID 断线重放 心跳ping 通知推送 Reactive栈 无阻塞
+ * @updated 2026-10-28 12:20
+ * @purpose 在响应式栈以 SSE 长连接推送通知事件，支持断线重放与心跳保活
+ * @layer starter
+ * @see NotificationsPollingEndpoint — 事件来源与重放缓冲
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-Sent Events long-poll endpoint for protocol-2026-07-28
  * {@code subscriptions/listen} on the <b>Reactive</b> stack. The wire shape:
  * clients open {@code GET /mcp/sse} and receive a stream of

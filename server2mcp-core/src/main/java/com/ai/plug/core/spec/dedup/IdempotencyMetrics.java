@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.dedup;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * @header-start
+ * @module IdempotencyMetrics
+ * @keywords 幂等指标 命中未命中计数 淘汰计数 原子计数 hitRate
+ *           Micrometer Prometheus 埋点接线
+ * @updated 2026-10-28 12:20
+ * @purpose 用原子计数器统计幂等缓存的命中、未命中与淘汰次数，供监控埋点读取
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Atomic counters for tracking {@link IdempotentCache} hit/miss rates.
  * Exposes simple getters that can be wired to Micrometer / Prometheus
  * / StatsD in the user's scheduler or actuator setup.

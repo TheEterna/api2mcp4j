@@ -16,6 +16,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module DefaultMcpReadResourceResultConverterTest
+ * @keywords 资源回调 结果转换器 ReadResourceResult 文本内容 TextResourceContents
+ *           字节数组拒绝 预置结果透传 默认转换器
+ * @updated 2026-10-28 12:20
+ * @purpose 断言默认资源读取结果转换器的分支行为与非法类型拒绝策略
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link DefaultMcpReadResourceResultConverter} — the framework's
  * resource callback produces McpSchema.ReadResourceResult which the protocol
  * can serve as-is (resource reads don't need the new 2026-07-28 wire fields).

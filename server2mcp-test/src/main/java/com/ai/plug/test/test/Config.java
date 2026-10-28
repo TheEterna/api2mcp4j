@@ -11,6 +11,18 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * @header-start
+ * @module Config
+ * @keywords 演示配置 WebMvcConfigurer 跨域 CorsFilter roots根声明 McpSchema.Root
+ *           拦截器注册 Bean装配
+ * @updated 2026-10-28 12:20
+ * @purpose 演示应用的 Web 配置：声明 roots 根、放开跨域并预留拦截器挂载点
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/23 4:17
  */

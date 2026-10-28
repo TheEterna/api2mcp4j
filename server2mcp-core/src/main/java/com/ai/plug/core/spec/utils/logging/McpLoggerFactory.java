@@ -6,6 +6,19 @@ import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
 
 /**
+ * @header-start
+ * @module McpLoggerFactory
+ * @keywords 工厂模式 工厂 日志工厂 McpLogger McpSyncServerExchange McpAsyncServerExchange
+ *           同步异步分派 类型路由 静态工厂 客户端日志
+ * @updated 2026-10-28 12:20
+ * @purpose 按 exchange 实际类型产出对应的日志实现，屏蔽同步/异步差异
+ * @layer core
+ * @see McpLogger — 被创建的抽象
+ * @author han
+ * @header-end
+ */
+
+/**
  * MCP 日志工厂
  * mcplog factory
  * @author han

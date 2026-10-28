@@ -19,6 +19,18 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module WireSchemaValidationListenerTest
+ * @keywords 校验监听器 能力健康监听 严格监听抛错 源异常吞掉 空源拒绝
+ *           能力变更联动
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 校验监听器在能力变化时的通知与异常处理
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WireSchemaValidationListenerTest {
 
     @Test

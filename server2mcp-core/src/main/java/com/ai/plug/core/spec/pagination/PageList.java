@@ -5,6 +5,18 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module PageList
+ * @keywords 分页列表 record items totalItems 下一游标 元数据提取
+ *           McpPaging 工具返回类型 分页输出
+ * @updated 2026-10-28 12:20
+ * @purpose 以 record 定义工具方法的分页返回类型，承载条目与总数并支持推导下一游标
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Generic paged-list return type for tool methods — lets the framework
  * extract pagination metadata (nextCursor, totalItems) without the tool
  * method having to manually encode it into a {@link McpSchema} type.

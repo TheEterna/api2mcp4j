@@ -17,6 +17,17 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module IdempotentCacheTest
+ * @keywords 幂等缓存 指纹计算 参数哈希 工具名隔离 读写失效 TTL 负值拒绝
+ * @updated 2026-10-28 12:20
+ * @purpose 断言幂等缓存的指纹计算、读写失效与过期语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class IdempotentCacheTest {
 
     @Test

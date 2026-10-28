@@ -22,6 +22,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpServerCustomizersTest
+ * @keywords 定制器 委托校验 能力定制 服务端信息定制 allOf组合 顺序执行 标准请求头
+ * @updated 2026-10-28 12:20
+ * @purpose 断言各服务端定制器的委托行为与组合执行顺序
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpServerCustomizers}. Most customizers produce spec changes
  * that we can't easily inspect without a real transport (SDK 2.0 doesn't
  * expose a getter for capabilities / serverInfo on the abstract spec types).

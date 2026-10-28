@@ -15,6 +15,21 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * @header-start
+ * @module McpCompletionProvider
+ * @keywords 补全暴露 桥接模式 CompletionSpecification SyncCompletionSpecification
+ *           AsyncCompletionSpecification 补全注解 补全回调创建 补全清单
+ * @updated 2026-10-28 12:20
+ * @purpose 把补全对象转成 MCP SDK 的 CompletionSpecification，是补全注册面到暴露面的桥
+ * @layer core
+ * @affects 改动影响 MCP 客户端看到的全部补全清单与补全引用
+ * @see ICompleteContext — 补全注册定义的容器
+ * @constraint 注册纪律「利器 A」：暴露清单须与注册面同源，不得另开数据源
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/19 18:09
  */

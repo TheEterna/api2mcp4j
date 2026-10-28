@@ -9,6 +9,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * @header-start
+ * @module Swagger3ParamParser
+ * @keywords 参数解析器 责任链 Swagger3 OpenAPI3 Parameter Schema RequestBody Parameters
+ *           参数必填 参数描述 RequiredMode AbstractParamParser 方法级参数声明
+ * @updated 2026-10-28 12:20
+ * @purpose 从 Swagger3 参数与 Schema 注解提取参数必填标记与描述
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/30 2:56
  */

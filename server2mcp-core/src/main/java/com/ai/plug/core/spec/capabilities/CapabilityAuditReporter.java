@@ -8,6 +8,18 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * @header-start
+ * @module CapabilityAuditReporter
+ * @keywords 能力审计 周期快照 差异比对 CapabilitySnapshot 可插拔sink Consumer
+ *           基线重置 能力变更留痕
+ * @updated 2026-10-28 12:20
+ * @purpose 周期快照服务端能力并把与上次的差异推送到可插拔 sink，形成能力变更留痕
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Periodic capabilities audit reporter. Snapshots the current
  * {@link McpSchema.ServerCapabilities} via {@link CapabilitySnapshot} and
  * logs a diff against the previous snapshot — operators get a clear audit

@@ -41,6 +41,18 @@ import static org.springframework.test.web.reactive.server.WebTestClient.bindToC
 @TestPropertySource(properties = {
     "spring.main.web-application-type=reactive"
 })
+/**
+ * @header-start
+ * @module ProtocolEndpointsIntegrationTest
+ * @keywords 端点集成测试 WebTestClient Reactive栈 协议端点挂载 JSON-RPC分发
+ *           错误信封 能力形状 wire兼容 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 断言响应式栈的协议端点经真实 HTTP 均可触达且 wire 形状正确
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ProtocolEndpointsIntegrationTest {
 
     @Autowired private DiscoverEndpoint discoverEndpoint;

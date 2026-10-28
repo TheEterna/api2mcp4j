@@ -1,6 +1,18 @@
 package com.ai.plug.core.spec.mrtr;
 
 /**
+ * @header-start
+ * @module MrtrSafetyLimits
+ * @keywords 安全上限 最大轮次 系统属性 plugin.mcp.mrtr.maxRounds 测试覆写
+ *              无限循环防护 运行期旋钮
+ * @updated 2026-10-28 12:20
+ * @purpose 定义 MRTR 会话的运行期安全上限，防止客户端无限重试拖垮服务端
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Operational safety knobs for MRTR (Multi Round-Trip Request) sessions.
  *
  * <p>Loaded once at startup from system properties; downstream code should

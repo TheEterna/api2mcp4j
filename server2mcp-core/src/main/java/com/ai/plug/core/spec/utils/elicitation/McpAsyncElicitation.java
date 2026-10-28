@@ -5,6 +5,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import reactor.core.publisher.Mono;
 
 /**
+ * @header-start
+ * @module McpAsyncElicitation
+ * @keywords elicitation 异步实现 McpAsyncServerExchange Mono ElicitFormRequest
+ *               客户端表单收集 阻塞兼容
+ * @updated 2026-10-28 12:20
+ * @purpose 以异步 exchange 发起 elicitation 请求，把结果以 Mono 形式回传
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/4 17:40
  */

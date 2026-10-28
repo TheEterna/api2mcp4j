@@ -8,6 +8,18 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * @header-start
+ * @module InMemoryTaskStore
+ * @keywords 任务存储内存实现 ConcurrentHashMap 注册 进度更新 取消幂等
+ *             TaskStore 单实例部署 可替换实现
+ * @updated 2026-10-28 12:20
+ * @purpose 以并发映射承载任务状态，是默认的内存任务存储实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Default in-memory {@link TaskStore}. Thread-safe via
  * {@link ConcurrentHashMap}; suitable for single-instance deployments.
  *

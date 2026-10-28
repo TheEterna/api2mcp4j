@@ -7,6 +7,18 @@ import reactor.util.annotation.Nullable;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module ServerAnnounce
+ * @keywords 服务公告 serverInfo capabilities extensions 公告负载 Builder
+ *           toJson 启动通告 结构
+ * @updated 2026-10-28 12:20
+ * @purpose 组装服务端公告负载，把服务身份、声明能力与扩展信息合并为单一结构
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Announce helper — assemble a server announcement payload that combines
  * server identity + advertised capabilities + optional extensions into a
  * single structure. Designed to be sent as a single JSON-RPC

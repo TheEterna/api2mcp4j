@@ -20,6 +20,17 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module CapabilitiesHealthAllScenariosTest
+ * @keywords 能力健康度 capabilities健康 listChanged 必填标志 扩展能力 experimental 全场景
+ * @updated 2026-10-28 12:20
+ * @purpose 穷举能力组合场景，断言健康度判定与必填标志的对应关系
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end coverage of {@link CapabilitiesHealth} across multiple required
  * flag sets, custom caps, and edge cases.
  */

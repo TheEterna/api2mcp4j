@@ -7,6 +7,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module CapabilitiesJsonExporterTest
+ * @keywords 能力导出 JSON capabilitiesAsMap 空logging省略 experimental往返 自定义透传
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力集合导出为 JSON 时的形状、空段省略与 experimental 往返
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Validates that the {@link CapabilitiesJsonExporter} produces a wire
  * tree that matches the protocol-2026-07-28 {@code ServerCapabilities}
  * schema, with every 2026-07-28-only field present and at its

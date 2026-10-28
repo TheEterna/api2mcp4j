@@ -24,6 +24,17 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module ValidatorIntegrationTest
+ * @keywords 校验器集成 健康与wire互锁 自定义必填标志 扩展能力 组件契约 协议校验
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康与 wire 校验器之间的契约互锁与标志传递
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Validator integration test — exercises the full path of
  * {@link WireSchemaValidator}, {@link WireSchemaValidationFilter}, and
  * {@link CapabilitiesHealth} together, ensuring their contracts interlock.

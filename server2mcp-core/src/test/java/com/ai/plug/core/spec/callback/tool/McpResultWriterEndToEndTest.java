@@ -24,6 +24,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpResultWriterEndToEndTest
+ * @keywords 结果写出 resultType 端到端 complete inputRequired taskHandle cacheHint
+ *           wire _meta 工具回调 协议写出
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言工具结果写出器把 resultType 与 cacheHint 落到 wire meta
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test for the converter → writer chain.
  * Verifies that a tool method marked with {@link McpTool} resultType/ttlMs
  * hints, OR returning an MRTR InputRequiredResult / TaskHandle, is correctly

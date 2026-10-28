@@ -22,6 +22,18 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpServerCustomizersEndToEndTest
+ * @keywords 定制器 端到端 SyncSpecification capabilitiesSetter serverInfoSetter composeAll
+ *           能力注入 服务端定制
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言服务端定制器把能力与服务端信息真正写入 Specification
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies that {@link McpServerCustomizers}'s customizers invoke the
  * correct SDK methods on a {@code McpServer.SyncSpecification} (the
  * pre-build configuration object that Spring AI 2.0 uses to assemble an

@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.pagination;
 import org.jspecify.annotations.Nullable;
 
 /**
+ * @header-start
+ * @module McpPaging
+ * @keywords 分页上下文 注入参数 offset size 游标 nextCursor 页大小钳制
+ *             PaginatedLists PageList 分页契约
+ * @updated 2026-10-28 12:20
+ * @purpose 定义注入到工具方法的分页上下文，承载偏移与页大小并推导下一游标
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Paging context injected into tool methods as a parameter of type
  * {@code McpPaging} — lets a tool method enumerate over a page-bounded slice
  * of a larger dataset without the caller (typically an LLM agent) needing to

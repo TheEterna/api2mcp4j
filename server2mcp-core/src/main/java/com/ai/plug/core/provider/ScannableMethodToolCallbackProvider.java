@@ -26,6 +26,21 @@ import static com.ai.plug.common.utils.AssetUtils.isFunctionalType;
 
 
 /**
+ * @header-start
+ * @module ScannableMethodToolCallbackProvider
+ * @keywords 工具回调提供者 ToolCallbackProvider Builder 可扫描方法 工具回调数组
+ *           Spring AI 集成 getToolCallbacks
+ * @updated 2026-10-28 12:20
+ * @purpose 以 Builder 装配方式产出 Spring AI 侧的 ToolCallback 数组，对接 Spring AI 的工具调用通道
+ * @layer core
+ * @affects 改动影响 Spring AI 侧可见的工具回调集合（与 MCP Specification 暴露面是两条并行通道）
+ * @see ToolDefinitionBuilder — 工具定义装配器
+ * @constraint 与 McpToolProvider 是两条独立暴露通道，改其一不会自动同步另一条
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/1 11:59
  * des:

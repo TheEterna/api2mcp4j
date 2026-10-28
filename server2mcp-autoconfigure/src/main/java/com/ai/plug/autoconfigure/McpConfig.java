@@ -51,6 +51,23 @@ import static com.ai.plug.core.annotation.ToolScan.FilterType.ANNOTATION;
 import static com.ai.plug.core.annotation.ToolScan.ToolFilterType.META_ANNOTATION;
 
 /**
+ * @header-start
+ * @module McpConfig
+ * @keywords 配置装配 Root Tool Resource Prompt Complete Specification Bean
+ *           Conditions 条件装配 interface作用域 自动扫描 AutoConfiguredToolScannerRegistrar
+ *           ImportBeanDefinitionRegistrar IRootContext Root变更订阅
+ * @updated 2026-10-28 12:20
+ * @purpose 装配各类 MCP 实体在容器内的 Specification Bean，并在 interface 作用域下自动挂载扫描注册器
+ * @layer autoconfigure
+ * @affects 改动影响 MCP 四类实体在容器中的 Bean 形态与 interface 作用域的自动扫描行为
+ * @see Conditions — 全部条件判定逻辑的来源
+ * @see Server2McpAutoConfiguration — 自动配置入口
+ * @constraint 非侵入式卖点所在：interface 作用域下用户 Controller 零改动即成工具
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  */
 @Configuration

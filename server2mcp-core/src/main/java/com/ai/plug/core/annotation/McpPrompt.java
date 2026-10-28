@@ -6,6 +6,8 @@ package com.ai.plug.core.annotation;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpPrompt @keywords 提示词注解 MCP Prompt 提示名称 描述信息 方法标记 LLM提示 提示模板 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Marks a method as a MCP Prompt.
  *

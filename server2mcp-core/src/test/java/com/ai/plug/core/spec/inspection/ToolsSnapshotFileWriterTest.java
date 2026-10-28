@@ -23,6 +23,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ToolsSnapshotFileWriterTest
+ * @keywords 快照落盘 工具快照文件 时间戳命名 目录创建 JSON美化 往返一致 空上下文拒绝
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具快照写盘的路径策略、目录创建与 JSON 往返
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ToolsSnapshotFileWriterTest {
 
     @Test

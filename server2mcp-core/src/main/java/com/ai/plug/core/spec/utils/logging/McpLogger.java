@@ -3,6 +3,20 @@ package com.ai.plug.core.spec.utils.logging;
 import reactor.core.publisher.Mono;
 
 /**
+ * @header-start
+ * @module McpLogger
+ * @keywords MCP日志 日志接口 notifications/message 日志级别 debug info notice warning
+ *           error critical alert emergency 协议日志能力 客户端日志通知 抽象接口
+ * @updated 2026-10-28 12:20
+ * @purpose 定义 MCP 八级日志通知的统一抽象，供工具方法注入使用
+ * @layer core
+ * @see McpSyncLogger — 同步实现
+ * @see McpAsyncLogger — 异步实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * 通过 exchange 向客户端发送日志消息
  * Sends log messages to the client via exchange
  * @author han

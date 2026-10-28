@@ -31,6 +31,21 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * @header-start
+ * @module McpPromptProvider
+ * @keywords 提示词暴露 桥接模式 PromptSpecification SyncPromptSpecification AsyncPromptSpecification
+ *           提示词注解 提示词回调创建 提示词清单
+ * @updated 2026-10-28 12:20
+ * @purpose 把提示词对象转成 MCP SDK 的 PromptSpecification，是提示词注册面到暴露面的桥
+ * @layer core
+ * @affects 改动影响 MCP 客户端看到的全部提示词清单与提示词元数据
+ * @see IPromptContext — 提示词注册定义的容器
+ * @constraint 注册纪律「利器 A」：暴露清单须与注册面同源，不得另开数据源
+ * @author han
+ * @header-end
+ */
+
+/**
  */
 public class McpPromptProvider {
 

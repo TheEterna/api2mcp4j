@@ -14,6 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module DefaultMcpReadResourceResultConverter
+ * @keywords 资源结果转换器 默认实现 McpReadResourceResultConverter ReadResourceResult
+ *           TextResourceContents BlobResourceContents ContentType TEXT BLOB MIME类型推断
+ * @updated 2026-10-28 12:20
+ * @purpose 把资源方法的多种返回类型归一化为标准 ReadResourceResult 内容集合
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Default implementation of {@link McpReadResourceResultConverter}.
  * <p>
  * This class provides a standard implementation for converting various return types from

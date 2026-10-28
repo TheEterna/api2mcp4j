@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module SnapshotCompareTool
+ * @keywords 快照比对 结构化差异 added removed changed Diff Change JSON输出
+ *           CapabilitySnapshot CI审计 回归比对
+ * @updated 2026-10-28 12:20
+ * @purpose 比对两份能力快照并产出结构化差异，支撑 CI 审计与能力回归检测
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tool for comparing two {@link CapabilitySnapshot}s and producing a
  * structured diff (added / changed / removed) suitable for CI / dev
  * audits. Builds on {@link CapabilitySnapshot#diff(CapabilitySnapshot)}

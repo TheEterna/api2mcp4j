@@ -15,6 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module McpToolChangeNotifierListChangedTest
+ * @keywords 变更通知 listChanged 注解默认值 显式false跳过 工具清单变更 通知抑制
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具变更通知器的 listChanged 判定与通知抑制规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class McpToolChangeNotifierListChangedTest {
 
     @Test

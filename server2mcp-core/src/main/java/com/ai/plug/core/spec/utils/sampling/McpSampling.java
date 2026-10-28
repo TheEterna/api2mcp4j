@@ -7,6 +7,20 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpSampling
+ * @keywords 采样 sampling createMessage 抽象接口 LLMOptions LLM参数 Builder
+ *           温度 maxTokens systemPrompt stopSequences contextInclusion 客户端模型 反向调用
+ * @updated 2026-10-28 12:20
+ * @purpose 定义向客户端发起采样请求的接口与可复用的 LLM 参数载体
+ * @layer core
+ * @see McpSyncSampling — 同步实现
+ * @see McpAsyncSampling — 异步实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/8 18:08
  */

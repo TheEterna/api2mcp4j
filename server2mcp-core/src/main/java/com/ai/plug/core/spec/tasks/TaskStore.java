@@ -4,6 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module TaskStore
+ * @keywords 任务存储契约 register get list update cancel 生命周期
+ *             SEP-2663 传输无关 可替换实现
+ * @updated 2026-10-28 12:20
+ * @purpose 定义任务状态的服务端存储契约，支持替换为分布式实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-side storage for Tasks (protocol 2026-07-28 SEP-2663).
  *
  * <p>When a tool returns {@link TaskTypes.TaskHandle}, the framework

@@ -14,6 +14,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module CapabilitySnapshotTest
+ * @keywords 能力快照 不可变 差异比对 新增标志 变更标志 快照对比 能力状态
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力快照的字段采集、不可变性与差异比对语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilitySnapshotTest {
 
     @Test

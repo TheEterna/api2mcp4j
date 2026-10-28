@@ -1,6 +1,18 @@
 package com.ai.plug.core.spec.capabilities;
 
 /**
+ * @header-start
+ * @module CapabilitiesHealthSpringActuator
+ * @keywords Spring健康适配器 health details UP DOWN Health 信封
+ *           CapabilitiesHealthReportActuator 契约 core保持Spring无关
+ * @updated 2026-10-28 12:20
+ * @purpose 把能力健康报告适配成 Spring 风格的 status/details 信封而不引入 Spring 依赖
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring-style bridge contract for {@link CapabilitiesHealthReport} into
  * a Spring Boot Actuator health indicator. Avoids the spring-boot-actuator
  * dependency in core; the downstream server-boot-actuator module provides

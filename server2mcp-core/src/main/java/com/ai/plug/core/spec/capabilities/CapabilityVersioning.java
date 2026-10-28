@@ -6,6 +6,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module CapabilityVersioning
+ * @keywords 版本标识 框架版本 协议版本 PROTOCOL_VERSIONS wireFields 框架身份映射
+ *           experimental ServerCapabilities
+ * @updated 2026-10-28 12:20
+ * @purpose 承载框架版本与支持协议版本，并生成 wire 层的框架身份映射
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Versions and identity for the framework's wire-layer metadata.
  *
  * <h2>组成</h2>

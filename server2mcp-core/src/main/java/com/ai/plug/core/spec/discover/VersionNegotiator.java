@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.discover;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module VersionNegotiator
+ * @keywords 协议版本协商 SEP-2575 精确匹配 主次版本匹配 stripPatch 不兼容返回null
+ *           SUPPORTED_VERSIONS PREFERRED_VERSION 版本降级
+ * @updated 2026-10-28 12:20
+ * @purpose 实现 server/discover 的协议版本协商规则，挑选客户端与服务端的最佳兼容版本
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Implements the protocol 2026-07-28 server/discover version negotiation
  * (SEP-2575).
  *

@@ -20,6 +20,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpResultWriterMetaTest
+ * @keywords 结果写出 meta解析 resultType默认complete cacheHint TTL scope非法回退
+ *           列表结果 工具结果写出
+ * @updated 2026-10-28 12:20
+ * @purpose 断言结果写出器从 _meta 解析 resultType 与 cacheHint 的规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpResultWriter#writeCallToolResultFromMeta(McpSchema.CallToolResult)}.
  * Verifies that the meta fields written by {@code DefaultMcpCallToolResultConverter}
  * (via @McpTool hints) are correctly read back and applied to the wire payload.

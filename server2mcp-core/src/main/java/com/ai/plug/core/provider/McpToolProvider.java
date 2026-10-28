@@ -33,6 +33,23 @@ import java.util.stream.Stream;
 import static com.ai.plug.common.utils.AssetUtils.isFunctionalType;
 
 /**
+ * @header-start
+ * @module McpToolProvider
+ * @keywords 工具暴露 桥接模式 ToolSpecification SyncToolSpecification AsyncToolSpecification
+ *           IToolContext getRawTools ToolDefinitionBuilder 工具回调创建 工具注解
+ *           ToolAnnotations 图标 icons meta listChanged 转换器选择
+ * @updated 2026-10-28 12:20
+ * @purpose 把注册进 IToolContext 的工具转成 MCP SDK 的 ToolSpecification，是"注册面→暴露面"的桥
+ * @layer core
+ * @affects 改动影响 MCP 客户端看到的全部工具清单、描述、Schema、注解与图标
+ * @see IToolContext — 工具注册定义的唯一取数出口
+ * @see ToolDefinitionBuilder — 工具定义装配器
+ * @constraint 注册纪律「利器 A」：必须只从 IToolContext.getRawTools() 取数，不得另开数据源
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/29 21:02
  */

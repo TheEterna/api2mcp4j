@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.request;
 import org.jspecify.annotations.Nullable;
 
 /**
+ * @header-start
+ * @module McpRequestId
+ * @keywords 请求标识 注入参数 _meta.requestId 日志关联 合成ID
+ *           McpPaging 工具入参 关联追踪
+ * @updated 2026-10-28 12:20
+ * @purpose 定义注入到工具方法的请求标识，让工具能识别调用来源并做日志关联
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Request identity injected into tool methods as a parameter of type
  * {@code McpRequestId} — gives a tool method the ability to identify the
  * calling request (for logging, response correlation, or downstream API

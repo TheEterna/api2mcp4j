@@ -10,6 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module RootContext
+ * @keywords 根目录上下文 IRootContext McpServerSession ConcurrentReferenceHashMap roots快照
+ *           getRoots updateRoots setRoots 会话级隔离 弱引用
+ * @updated 2026-10-28 12:20
+ * @purpose 按 MCP 会话保存客户端 roots 快照，提供根目录的读取、设置与热更新
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * TODO 本想要使用服务器存储root的方式来减少 roots/list 请求 , 再配合 roots/list_changed, 完成对root的热更新, 服务端只需要通过简单的bean注入即可使用roots
  * 但由于 mcp-sdk 对 连接建立时, 并未开放接入点, 所以导致服务器无法第一时间不能获取客户端的roots, 只能通过resource, tool等接入点来获取 roots
  * 先通过 tool, resource, prompt 接入点来获取 roots, 为避免重复获取, 使用 null 判断 结合 changed 功能完成替代

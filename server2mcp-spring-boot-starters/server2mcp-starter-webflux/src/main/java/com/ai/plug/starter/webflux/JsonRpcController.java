@@ -29,6 +29,19 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module JsonRpcController
+ * @keywords JSON-RPC jsonrpc 端点 POST /mcp/jsonrpc WebFlux控制器 Mono 协议2026-07-28
+ *           JsonRpcRouter 调度分发 错误信封 Reactive栈 零block无阻塞
+ * @updated 2026-10-28 12:20
+ * @purpose 在响应式栈暴露 JSON-RPC 端点，用 Mono 包裹路由分发避免阻塞事件循环
+ * @layer starter
+ * @see JsonRpcRouter — 路由表与分发器
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring WebFlux controller that exposes the protocol-2026-07-28 JSON-RPC
  * endpoint at {@code POST /mcp/jsonrpc}. Accepts a single JSON-RPC
  * envelope and returns a {@link JsonRpcResponse}.

@@ -21,6 +21,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * @header-start
+ * @module CustomToolUtil
+ * @keywords 工具类 静态工具 ToolCallback 查询 名称过滤 结果转换器 ToolCallResultConverter
+ *           roots注入 McpServerSession反射获取 基础包名推导 bean名生成
+ * @updated 2026-10-28 12:20
+ * @purpose 汇集工具回调检索、结果转换器选择、roots 注入等散落辅助逻辑
+ * @layer core
+ * @see CustomToolCallResultConverter — 默认结果转换器
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/5/14 0:28
  */

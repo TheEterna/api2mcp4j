@@ -19,6 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module NotificationsController
+ * @keywords 通知轮询 subscriptions/listen 协议2026-07-28 SpringMVC控制器 游标since
+ *           NotificationsPollingEndpoint SSE长推替身 环形缓冲 Servlet栈
+ * @updated 2026-10-28 12:20
+ * @purpose 在 Servlet 栈暴露通知轮询端点，替身 SDK 缺失的 subscriptions/listen
+ * @layer starter
+ * @see NotificationsPollingEndpoint — 端点背后的协议层实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring MVC controller exposing {@code GET /mcp/notifications} —
  * HTTP polling substitute for protocol-2026-07-28
  * {@code subscriptions/listen} SSE long-push (Java SDK 2.0 lacks schema).

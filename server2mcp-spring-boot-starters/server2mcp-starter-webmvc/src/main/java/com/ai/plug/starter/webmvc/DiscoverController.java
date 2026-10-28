@@ -18,6 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module DiscoverController
+ * @keywords 发现 server/discover 协议2026-07-28 SpringMVC控制器 DiscoverEndpoint
+ *           协议版本协商 HTTP替身 Servlet栈
+ * @updated 2026-10-28 12:20
+ * @purpose 在 Servlet 栈暴露服务发现端点，替身 SDK 缺失的 server/discover RPC
+ * @layer starter
+ * @see DiscoverEndpoint — 端点背后的协议层实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring MVC controller exposing {@code GET /mcp/discover} — the
  * framework-layer HTTP substitute for the protocol-2026-07-28
  * {@code server/discover} JSON-RPC method (which Java SDK 2.0 lacks).

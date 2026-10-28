@@ -17,6 +17,23 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpToolScanRegistrar
+ * @keywords 工具扫描 注册链路 ImportBeanDefinitionRegistrar BeanFactoryAware ToolScan ToolScans
+ *           basePackages includeFilters excludeFilters includeToolFilters excludeToolFilters
+ *           注解属性读取 注解转数组 IToolContext McpToolScanConfigurer Bean定义注册
+ * @updated 2026-10-28 12:20
+ * @purpose 读取 @ToolScan/@ToolScans 注解属性并注册 McpToolScanConfigurer 的 Bean 定义
+ * @layer core
+ * @affects 改动影响 @ToolScan 全部属性（包范围与四级过滤器）的读取与向 Configurer 的装配，改名会静默丢配置
+ * @see McpToolScanConfigurer — 被注册的执行体
+ * @see IToolContext — 工具注册定义的容器
+ * @constraint 注册链路四件套之一；属性名与 @ToolScan 注解定义强耦合，须同步修改
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/15 00:35
  * des: ToolScan注解上import的注册类

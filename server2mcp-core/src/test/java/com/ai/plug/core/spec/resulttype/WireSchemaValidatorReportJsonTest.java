@@ -15,6 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module WireSchemaValidatorReportJsonTest
+ * @keywords 校验报告 JSON 健康报告 问题列表 Jackson可解析 报告序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 校验报告的 JSON 形状与问题承载
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WireSchemaValidatorReportJsonTest {
 
     @Test

@@ -15,6 +15,22 @@
  */
 
 /**
+ * @header-start
+ * @module ProtocolCoreAutoConfiguration
+ * @keywords 协议装配 单一装配源 协议2026-07-28 TaskStore AugmentedPromptStore
+ *           NotificationsPollingEndpoint 能力快照 JSON-RPC路由 @ConditionalOnMissingBean
+ *           @Primary 覆盖 内存存储 Redis JDBC starter共享
+ * @updated 2026-10-28 12:20
+ * @purpose 装配与 Web 栈无关的协议层共享契约对象，使 Servlet 与 Reactive 两个 starter 行为一致
+ * @layer autoconfigure
+ * @affects 改动同时影响 webmvc 与 webflux 两个 starter 的协议能力面；新增 bean 会被两端共享
+ * @see TaskStore — 协议任务存储契约
+ * @constraint 单一装配源：同一份协议契约不得在两个 starter 里各建一套（注册面与暴露面脱钩禁令）
+ * @author han
+ * @header-end
+ */
+
+/**
  * @file: ProtocolCoreAutoConfiguration.java
  * @module: server2mcp-autoconfigure
  * @layer: autoconfigure

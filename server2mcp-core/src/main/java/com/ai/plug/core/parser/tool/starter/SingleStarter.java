@@ -11,6 +11,18 @@ import java.util.Objects;
 
 
 /**
+ * @header-start
+ * @module SingleStarter
+ * @keywords 解析编排 首个命中即用 runDesParse runParamRequiredParse runParamDesParse
+ *           AbstractStarter 解析器链 兜底默认解析 findFirst
+ * @updated 2026-10-28 12:20
+ * @purpose 按解析器 order 顺序取首个命中结果，全不命中时回退默认解析
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/29 17:03
  */

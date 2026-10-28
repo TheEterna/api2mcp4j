@@ -11,6 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module ToolsInspectionHelper
+ * @keywords 工具巡检 注解状态导出 McpTool hint resultType ttlMs cacheScope
+ *           反射读取 注册容器 只读诊断
+ * @updated 2026-10-28 12:20
+ * @purpose 导出已注册工具及其 McpTool 注解状态，供启动日志与开发期诊断使用
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tool enumeration helper — dumps every tool registered in an
  * {@link IToolContext} along with its {@link McpTool} annotation state
  * (name, title, description, hints, ttlMs, cacheScope, resultType).

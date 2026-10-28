@@ -17,6 +17,23 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpResourceScanConfigurer
+ * @keywords 资源扫描 BeanDefinitionRegistryPostProcessor 包扫描 ClassPathResourceScanner
+ *           包含过滤器 排除过滤器 注解过滤 类过滤 DeclaredClassExcludeFilter
+ *           AnnotationTypeFilter IResourceContext 资源注册
+ * @updated 2026-10-28 12:20
+ * @purpose 执行 @McpResourceScan 的包扫描与过滤规则装配，把命中类注册进 IResourceContext
+ * @layer core
+ * @affects 改动影响所有 @McpResourceScan 作用域下的资源注册结果（扫描范围与类级过滤）
+ * @see ClassPathResourceScanner — 实际执行类路径扫描
+ * @see McpResourceScan — 过滤器语义的声明方
+ * @constraint 注册链路四件套之一；与 Tool 版本同构但过滤器层级较少，改动勿照抄 tool 的工具级过滤分支
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/6/3 11:29
  */

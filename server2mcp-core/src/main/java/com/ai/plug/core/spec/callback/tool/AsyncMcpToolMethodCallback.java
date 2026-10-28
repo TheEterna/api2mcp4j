@@ -15,6 +15,18 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module AsyncMcpToolMethodCallback
+ * @keywords 工具回调 异步 BiFunction McpAsyncServerExchange CallToolRequest CallToolResult
+ *           AbstractMcpToolMethodCallback 参数注入 幂等去重 IdempotentCache boundedElastic 结果转换
+ * @updated 2026-10-28 12:20
+ * @purpose 把工具方法包装成异步调用回调，负责参数注入、方法调用与结果转换并支持幂等去重
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  *
  * @author han
  * @time 2025/6/25 22:31

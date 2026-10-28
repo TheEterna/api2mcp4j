@@ -19,6 +19,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AbstractMcpResourceMethodCallback
+ * @keywords 资源回调 模板方法 抽象基类 ResourceCallback 同步异步 方法验证 参数构建
+ *           资源读取 ReadResourceResult
+ * @updated 2026-10-28 12:20
+ * @purpose 资源方法回调的抽象基类，承载方法验证与参数构建等通用逻辑
+ * @layer core
+ * @affects 改动影响全部资源读取链（Sync/Async 两个子类）与 MCP 客户端读取资源的参数契约
+ * @see McpReadResourceResultConverter — 资源结果转换 SPI
+ * @see McpResourceProvider — 回调的创建方
+ * @constraint 模板方法 SPI：新增步骤须挂到钩子方法上
+ * @author han
+ * @header-end
+ */
+
+/**
  * 资源方法回调的抽象基类。
  * 该类为同步和异步资源方法回调提供了公共功能。
  * 包含方法验证、参数构建等通用操作的实现。

@@ -19,6 +19,17 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module TasksInspectionHelperTest
+ * @keywords 任务巡检 辅助工具 占位报告 空上下文不抛异常 工具上下文 巡检
+ * @updated 2026-10-28 12:20
+ * @purpose 断言任务巡检辅助方法在空上下文下的健壮行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class TasksInspectionHelperTest {
 
     @Test

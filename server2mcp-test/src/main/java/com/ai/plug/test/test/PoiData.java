@@ -2,6 +2,17 @@ package com.ai.plug.test.test;
 
 import java.io.Serializable;
 
+/**
+ * @header-start
+ * @module PoiData
+ * @keywords 数据载体 POJO POI点位 经纬度 门店销量 可序列化 演示数据
+ * @updated 2026-10-28 12:20
+ * @purpose 演示用 POI 点位数据载体，含经纬度与门店销量字段
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 public class PoiData implements Serializable {
     private static final long serialVersionUID = 1L;
     

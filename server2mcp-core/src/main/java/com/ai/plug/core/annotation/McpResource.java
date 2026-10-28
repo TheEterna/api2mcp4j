@@ -6,6 +6,8 @@ package com.ai.plug.core.annotation;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpResource @keywords 资源注解 MCP Resource uri 资源地址 mimeType MIME类型 size 字节大小 资源描述 方法标记 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Marks a method as a MCP Resource.
  *

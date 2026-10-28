@@ -4,6 +4,18 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
+ * @header-start
+ * @module Yizi
+ * @keywords 数据载体 MyBatis-Plus实体 @TableName full_store_data 门店数据 覆盖率字段
+ *           经纬度 演示数据
+ * @updated 2026-10-28 12:20
+ * @purpose 演示用 MyBatis-Plus 实体，映射门店全量数据表
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/3 13:13
  */

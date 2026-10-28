@@ -5,6 +5,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module ServerInfoFactory
+ * @keywords 服务身份构建 Implementation serverInfo title description icons SEP-973
+ *           websiteUrl parseIcon 竖线分隔图标解析
+ * @updated 2026-10-28 12:20
+ * @purpose 便捷构建 MCP 服务端身份对象，支持标题、描述、图标与站点地址等扩展字段
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Builder helper for {@link McpSchema.Implementation} — the SDK 2.0
  * server-identity record passed to {@code McpSyncSpecification.serverInfo(...)}.
  * <p>

@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.mrtr;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module MrtrSessionStore
+ * @keywords MRTR会话存储契约 start append get complete abandon 生命周期
+ *                传输无关 可替换实现 不透明令牌
+ * @updated 2026-10-28 12:20
+ * @purpose 定义 MRTR 多轮会话的服务端存储契约，支持替换为分布式实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-side storage for Multi Round-Trip Request (MRTR) sessions.
  * <p>
  * When a tool returns {@link MrtrTypes.InputRequiredResult} the framework

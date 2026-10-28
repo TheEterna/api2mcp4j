@@ -17,6 +17,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module TasksEndpointTest
+ * @keywords 任务端点 注册任务 查询任务 列举任务 取消任务 幂等取消 JSON序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 断言任务端点的注册、查询、列举与取消语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class TasksEndpointTest {
 
     @Test

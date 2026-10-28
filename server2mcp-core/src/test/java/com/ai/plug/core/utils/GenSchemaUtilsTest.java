@@ -14,6 +14,18 @@ import static com.ai.plug.core.utils.GenSchemaUtils.TOOL_SCHEMA_GENERATOR;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+/**
+ * @header-start
+ * @module GenSchemaUtilsTest
+ * @keywords Schema生成 MCP_SCHEMA_GENERATOR TOOL_SCHEMA_GENERATOR @McpArg描述
+ *           required 单例行为 JSON Schema 测试
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MCP 语义下的 Schema 生成结果与生成器单例行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 public class GenSchemaUtilsTest {
 
 

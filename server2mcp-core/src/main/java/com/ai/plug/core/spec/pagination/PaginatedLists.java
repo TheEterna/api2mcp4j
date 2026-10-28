@@ -5,6 +5,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module PaginatedLists
+ * @keywords 列表分页 游标解析 parseOffset formatOffset 切片 slice
+ *           ListToolsResult nextCursor 页大小钳制 路由策略
+ * @updated 2026-10-28 12:20
+ * @purpose 提供 MCP 列表响应的游标解析、切片与结果装配工具，分页策略交由集成方决定
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Pagination support for MCP list responses (tools/list, resources/list, prompts/list,
  * resource-templates/list).
  * <p>

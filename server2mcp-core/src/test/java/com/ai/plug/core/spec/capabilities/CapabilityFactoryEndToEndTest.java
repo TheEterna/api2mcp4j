@@ -20,6 +20,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module CapabilityFactoryEndToEndTest
+ * @keywords 能力工厂 端到端 withListChangedAll experimental不被覆盖 注解listChanged
+ *           快照往返 capabilitiesAsMap
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言能力工厂的构造语义、注解默认值与快照往返一致性
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test for the capability factory pipeline. Validates:
  * - Each preset factory produces the right flag combination
  * - The listChanged flag maps to McpTool.listChanged() correctly

@@ -3,6 +3,18 @@ package com.ai.plug.common.constants;
 import java.util.regex.Pattern;
 
 /**
+ * @header-start
+ * @module MineTypeConstants
+ * @keywords MIME类型 常量 文本类型 图片类型 音频类型 JSON类型 通配符 MIME_TYPE_PATTERN
+ *           isTextMimeType isImageMimeType isAudioMimeType isJsonMimeType 格式合法性校验 正则
+ * @updated 2026-10-28 12:20
+ * @purpose 集中定义 MCP 资源内容的 MIME 类型常量，并提供类型判定与格式合法性校验
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/28 1:34
  */

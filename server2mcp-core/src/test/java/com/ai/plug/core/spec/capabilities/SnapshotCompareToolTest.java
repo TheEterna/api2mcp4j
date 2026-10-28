@@ -19,6 +19,17 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module SnapshotCompareToolTest
+ * @keywords 快照对比工具 差异分类 新增 移除 变更 摘要 JSON序列化 experimental变更
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力快照对比工具的差异分类、摘要与序列化输出
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class SnapshotCompareToolTest {
 
     @Test

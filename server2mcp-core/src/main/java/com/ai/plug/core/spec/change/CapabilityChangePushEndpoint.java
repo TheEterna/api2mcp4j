@@ -1,6 +1,18 @@
 package com.ai.plug.core.spec.change;
 
 /**
+ * @header-start
+ * @module CapabilityChangePushEndpoint
+ * @keywords 推送端点 契约 HTTP绑定 能力变更通知 diffAndNotify notifyNow
+ *           运维手动触发 webhook 强制推送
+ * @updated 2026-10-28 12:20
+ * @purpose 定义触发能力变更推送的端点契约，支持差异推送与强制推送两种模式
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * HTTP endpoint contract for triggering capability-change notifications
  * (e.g. {@code POST /admin/mcp/push-change}). Avoids Spring Web dependency in
  * the core module — downstream modules implement actual HTTP binding.

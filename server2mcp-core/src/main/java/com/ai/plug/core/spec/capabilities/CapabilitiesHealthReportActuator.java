@@ -3,6 +3,18 @@ package com.ai.plug.core.spec.capabilities;
 import io.modelcontextprotocol.spec.McpSchema;
 
 /**
+ * @header-start
+ * @module CapabilitiesHealthReportActuator
+ * @keywords 健康报告供给器 Actuator桥接 Supplier ServerCapabilities 惰性获取
+ *           CapabilitiesHealthReport 启动期降级 契约
+ * @updated 2026-10-28 12:20
+ * @purpose 以惰性 Supplier 获取服务端能力并生成健康报告，规避 core 对 Actuator 的依赖
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring Boot Actuator integration for {@link CapabilitiesHealth}.
  *
  * <h2>用法</h2>

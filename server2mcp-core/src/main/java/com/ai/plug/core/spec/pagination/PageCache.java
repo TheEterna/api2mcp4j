@@ -4,6 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module PageCache
+ * @keywords 分页包装 一次性助手 wrap 切片裁剪 totalItems nextCursor
+ *           McpPaging PageList 惰性工具作者
+ * @updated 2026-10-28 12:20
+ * @purpose 一站式把分页输入与分页输出组装成 PageList，替工具作者完成裁剪与游标计算
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * One-shot helper that wires {@link McpPaging} (input) + {@link PageList}
  * (output) into a single result type for tool methods.
  *

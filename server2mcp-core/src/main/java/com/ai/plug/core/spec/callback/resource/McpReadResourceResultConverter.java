@@ -7,6 +7,8 @@ package com.ai.plug.core.spec.callback.resource;
 import com.ai.plug.core.spec.callback.resource.AbstractMcpResourceMethodCallback.ContentType;
 import io.modelcontextprotocol.spec.McpSchema.ReadResourceResult;
 
+/** @header-start @module McpReadResourceResultConverter @keywords 结果转换接口 convertToReadResourceResult ReadResourceResult 资源返回类型归一化 SPI 极简接口 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Interface for converting method return values to {@link ReadResourceResult}.
  * <p>

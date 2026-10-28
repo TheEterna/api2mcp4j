@@ -6,6 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module JsonRpcRequest
+ * @keywords JSONRPC请求信封 jsonrpc2.0 method params id 自由方法名
+ *           绕过SDK 协议2026-07-28 路由分发 record 校验
+ * @updated 2026-10-28 12:20
+ * @purpose 以 record 定义 JSON-RPC 2.0 请求信封，自持 SDK 缺失的协议层线格式
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * JSON-RPC 2.0 request envelope — the wire shape every MCP method MUST
  * accept. Authoritative spec: <a
  * href="https://www.jsonrpc.org/specification">jsonrpc.org/specification</a>.

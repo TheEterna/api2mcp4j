@@ -9,6 +9,18 @@ import reactor.util.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
+ * @header-start
+ * @module ServerAnnounceEventBridge
+ * @keywords 公告事件桥 ContextRefreshedEvent EventListener Consumer 启动时机
+ *           ServerAnnounce 事件驱动
+ * @updated 2026-10-28 12:20
+ * @purpose 在应用上下文就绪时把服务端公告投递给用户指定的消费者
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring event bridge for {@link ServerAnnounce} — emits the announce
  * payload to a sink when the application context is ready.
  *

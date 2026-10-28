@@ -5,6 +5,18 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * @header-start
+ * @module MetaUtils
+ * @keywords _meta 元数据 常量 traceparent tracestate baggage SEP-414 OpenTelemetry
+ *           追踪透传 mintTraceparent 客户端能力键 合并工具
+ * @updated 2026-10-28 12:20
+ * @purpose 集中定义 MCP 的 _meta 保留键，并提供追踪上下文透传与生成工具
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Helpers for the {@code _meta} field carried on every MCP request / response /
  * notification (MCP protocol 2025-11-25). Centralizes the agreed-upon reserved
  * keys so that user code doesn't have to repeat string literals.

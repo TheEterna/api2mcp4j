@@ -22,6 +22,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module MrtrTypesTest
+ * @keywords MRTR 类型 elicitation sampling roots 保留kind inputRequired inputResponses
+ *           结果写出 wire
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MRTR 协议类型的序列化形状、保留 kind 与构造约束
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link MrtrTypes} and the MRTR writer hook in {@link McpResultWriter}.
  * Validates wire-shape fidelity against protocol 2026-07-28 SEP-2322.
  */

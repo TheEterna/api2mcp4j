@@ -21,6 +21,18 @@ import tools.jackson.databind.JacksonModule;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module JacksonUtils
+ * @keywords Jackson3 tools.jackson JacksonModule instantiateAvailableModules 模块实例化
+ *           SpringAI委托 重构去重 适配Jackson3 序列化模块注册
+ * @updated 2026-10-28 12:20
+ * @purpose 委托 Spring AI 官方实现实例化 Jackson3 可用模块，规避旧版按类名反射的失效问题
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
+/**
  * Utility methods for Jackson.
  * <p>
  * 本类原为 Spring AI {@code org.springframework.ai.util.JacksonUtils} 的复制品。自 Spring AI

@@ -11,6 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module PromptAdaptor
+ * @keywords 提示词适配 Prompt PromptArgument McpPrompt注解 @McpArg 参数提取
+ *           特殊参数跳过 工具类 静态适配 提示模板 参数描述
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpPrompt 注解与方法签名转成 SDK 的 Prompt 定义及参数列表
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Utility class for adapting between McpPrompt annotations and McpSchema.Prompt objects.
  *
  * @author Christian Tzolov

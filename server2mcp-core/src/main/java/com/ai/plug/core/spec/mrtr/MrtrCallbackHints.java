@@ -10,6 +10,18 @@ import java.lang.reflect.Parameter;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module MrtrCallbackHints
+ * @keywords MRTR接线助手 回调集成 输入回执解析 会话启停 标记注解
+ *               MrtrInputResponses requestState 累积响应
+ * @updated 2026-10-28 12:20
+ * @purpose 提供把 MRTR 驱动接入既有工具回调链路的低侵入辅助方法与参数标记注解
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Helpers for plugging {@link MrtrDriver} into the existing tool callback
  * pipeline without forcing every integrator to learn the driver API.
  *

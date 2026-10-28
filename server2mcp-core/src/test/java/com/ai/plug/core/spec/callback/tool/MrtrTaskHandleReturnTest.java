@@ -21,6 +21,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module MrtrTaskHandleReturnTest
+ * @keywords MRTR 多轮工具返回 inputRequired taskHandle requestState 结果包装 meta
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 inputRequired / taskHandle 返回值被包装出正确的 resultType meta
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests verifying that {@link DefaultMcpCallToolResultConverter} recognizes
  * {@link MrtrTypes.InputRequiredResult} and {@link TaskTypes.TaskHandle} return
  * values from tool methods and converts them into well-formed CallToolResults.

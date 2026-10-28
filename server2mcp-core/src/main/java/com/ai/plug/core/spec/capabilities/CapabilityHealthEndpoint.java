@@ -4,6 +4,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module CapabilityHealthEndpoint
+ * @keywords 健康端点 HTTP契约 Map响应 CapacitiesHealthReportActuator 运维看板
+ *           transport适配 core不含Web依赖
+ * @updated 2026-10-28 12:20
+ * @purpose 提供 HTTP 风格的健康端点契约，输出可序列化的能力健康 Map
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Minimal HTTP-style endpoint contract for exposing
  * {@link CapabilitiesHealthReport} to ops dashboards / Actuator / REST.
  *

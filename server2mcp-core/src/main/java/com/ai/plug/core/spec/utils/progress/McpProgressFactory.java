@@ -6,6 +6,19 @@ import io.modelcontextprotocol.spec.McpSchema;
 import reactor.util.annotation.Nullable;
 
 /**
+ * @header-start
+ * @module McpProgressFactory
+ * @keywords 工厂模式 进度工厂 McpProgress progressToken CallToolRequest.meta 同步异步分派
+ *           no-op 实例 静态工厂 类型路由
+ * @updated 2026-10-28 12:20
+ * @purpose 从请求 _meta 取 progressToken 并按 exchange 类型造出进度实例
+ * @layer core
+ * @see McpProgress — 被创建的抽象
+ * @author han
+ * @header-end
+ */
+
+/**
  * 根据同步/异步 exchange 派生 {@link McpProgress} 实例。
  * <p>
  * progressToken 优先从 {@code CallToolRequest.meta().progressToken} 读取（SDK 2.0 协议

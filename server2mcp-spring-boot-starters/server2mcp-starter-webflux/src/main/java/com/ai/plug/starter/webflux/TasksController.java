@@ -28,6 +28,19 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module TasksController
+ * @keywords 任务端点 tasks/get tasks/list tasks/cancel 协议2026-07-28 WebFlux控制器 Mono
+ *           TasksEndpoint 任务生命周期 JSON-RPC替身 Reactive栈
+ * @updated 2026-10-28 12:20
+ * @purpose 在响应式栈暴露任务的列举/查询/取消端点，替身 SDK 缺失的 tasks RPC
+ * @layer starter
+ * @see TasksEndpoint — 端点背后的协议层实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring WebFlux controller exposing {@code /mcp/tasks} endpoints —
  * substitutes for protocol-2026-07-28 {@code tasks/get}, {@code tasks/list},
  * {@code tasks/cancel} JSON-RPC methods (Java SDK 2.0 lacks schemas).

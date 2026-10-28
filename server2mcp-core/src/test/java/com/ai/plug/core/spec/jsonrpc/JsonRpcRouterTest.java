@@ -7,6 +7,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module JsonRpcRouterTest
+ * @keywords JSON-RPC 路由 方法分发 方法未找到 内部错误 解析错误 注册覆盖 注销
+ *           jsonrpc 协议信封
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 JSON-RPC 路由器的分发、错误映射与处理器注册生命周期
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Pure-Java tests for {@link JsonRpcRouter}: register / dispatch /
  * error-translation semantics, with no Spring or SDK involvement.
  *

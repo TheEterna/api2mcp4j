@@ -18,6 +18,17 @@ import java.lang.reflect.Method;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpPromptProviderConsistencyTest
+ * @keywords 提示词 一致性 @McpPrompt注解 name description 注解契约 反射断言 提示模板
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 @McpPrompt 注解字段语义与默认值保持稳定
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Smoke tests for {@link McpPromptProvider}'s @McpPrompt annotation
  * processing. Prompt tools follow the same @McpTool meta/annotations
  * pattern — we just verify the annotation contract is consistent.

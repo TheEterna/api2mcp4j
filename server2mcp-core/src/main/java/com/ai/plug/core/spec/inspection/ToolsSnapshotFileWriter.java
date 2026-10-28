@@ -11,6 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module ToolsSnapshotFileWriter
+ * @keywords 工具快照落盘 JSON文件 时间戳命名 审计留痕
+ *           ToolsInspectionHelper 目录创建 格式化输出
+ * @updated 2026-10-28 12:20
+ * @purpose 把工具巡检结果写成带时间戳的 JSON 快照文件，供审计与问题定位
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * File writer for tool snapshot — dumps
  * {@link ToolsInspectionHelper#inspect(IToolContext)} output to a JSON file
  * for audit / debugging purposes.

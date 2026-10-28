@@ -21,6 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module AbstractMcpCompleteMethodCallback
+ * @keywords 补全回调 模板方法 抽象基类 CompleteCallback 同步异步 方法验证 参数构建
+ *           补全结果 Completion
+ * @updated 2026-10-28 12:20
+ * @purpose 补全方法回调的抽象基类，承载方法验证与参数构建等通用逻辑
+ * @layer core
+ * @affects 改动影响全部补全链（Sync/Async 两个子类）与 MCP 客户端补全请求的参数契约
+ * @see McpCompletionProvider — 回调的创建方
+ * @constraint 模板方法 SPI：新增步骤须挂到钩子方法上
+ * @author han
+ * @header-end
+ */
+
+/**
  * Abstract base class for creating callbacks around complete methods.
  *
  * This class provides common functionality for both synchronous and asynchronous complete

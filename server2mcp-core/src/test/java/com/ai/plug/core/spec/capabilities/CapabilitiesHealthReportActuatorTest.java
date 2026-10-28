@@ -17,6 +17,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CapabilitiesHealthReportActuatorTest
+ * @keywords Actuator 健康指示器 capabilities健康 source异常兜底 空source 依赖降级
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康报告在 Actuator 场景下的健壮性与降级行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilitiesHealthReportActuatorTest {
 
     @Test

@@ -5,6 +5,18 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * @header-start
+ * @module InMemoryMrtrSessionStore
+ * @keywords MRTR会话存储 内存实现 ConcurrentHashMap 多轮对话状态
+ *               start append complete abandon 分布式替换契约
+ * @updated 2026-10-28 12:20
+ * @purpose 以内存并发映射承载 MRTR 多轮会话状态，单实例部署的默认存储实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * In-memory {@link MrtrSessionStore}. Thread-safe via
  * {@link ConcurrentHashMap}; suitable for single-instance deployments.
  *

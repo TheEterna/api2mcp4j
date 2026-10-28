@@ -12,6 +12,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * @header-start
+ * @module IdempotentCache
+ * @keywords 幂等缓存 TTL 指纹 SHA-256 fingerprint 命中复用 过期淘汰
+ *           ConcurrentHashMap 单进程内存 IdempotencyMetrics
+ * @updated 2026-10-28 12:20
+ * @purpose 按 TTL 缓存工具调用结果，以「工具名+参数」指纹实现幂等调用去重
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tiny TTL-bounded cache for idempotent tool call deduplication.
  * <p>
  * When {@link com.ai.plug.core.annotation.McpTool#idempotentHint()} is true,

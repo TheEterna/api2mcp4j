@@ -13,6 +13,18 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module AsyncMcpResourceMethodCallback
+ * @keywords 资源回调 异步 BiFunction McpAsyncServerExchange ReadResourceRequest Mono
+ *           AbstractMcpResourceMethodCallback URI模板变量 提取 参数注入 结果转换 McpResource
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpResource 方法包装成异步资源回调，处理 URI 变量提取与结果转换
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Class for creating BiFunction callbacks around resource methods with asynchronous
  * processing.
  *

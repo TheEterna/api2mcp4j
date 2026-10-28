@@ -15,6 +15,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module EndpointsSmokeTest
+ * @keywords 冒烟测试 类路径可达性 依赖装配校验 控制器可达 基线检查
+ * @updated 2026-10-28 12:20
+ * @purpose 冒烟校验 starter 的控制器与自动配置在测试类路径上可解析
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Trivial smoke test — verifies the framework core classes (and the
  * starter's controllers) are reachable on the test classpath. The
  * full MockMvc integration test lives in

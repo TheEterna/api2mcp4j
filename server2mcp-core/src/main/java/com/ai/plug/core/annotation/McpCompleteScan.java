@@ -6,6 +6,8 @@ import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpCompleteScan @keywords 补全扫描注解 包扫描 basePackages includeFilters excludeFilters FilterType CLASS ANNOTATION Import Registrar 可重复注解 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * @author han
  * @time 2025/6/16 17:04

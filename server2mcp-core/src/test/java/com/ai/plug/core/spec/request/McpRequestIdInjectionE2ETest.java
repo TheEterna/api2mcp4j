@@ -23,6 +23,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpRequestIdInjectionE2ETest
+ * @keywords 请求ID 注入 _meta 端到端 多参数组合 结果meta不泄漏 工具回调 关联标识
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言请求 ID 从 _meta 注入方法参数且不回写结果 meta
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test for the McpRequestId injection path. Verifies that a tool
  * method declaring a parameter of type {@link McpRequestId} receives the
  * request id the client passed via {@code _meta.requestId} (or

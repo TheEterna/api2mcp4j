@@ -9,6 +9,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * @header-start
+ * @module Swagger2ParamParser
+ * @keywords 参数解析器 责任链 Swagger2 ApiParam ApiImplicitParam ApiImplicitParams 参数必填
+ *           参数描述 AbstractParamParser 方法级参数声明
+ * @updated 2026-10-28 12:20
+ * @purpose 从 Swagger2 参数注解（含方法级声明）提取参数必填标记与描述
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/30 2:56
  */

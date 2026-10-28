@@ -18,6 +18,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CapabilityHealthEndpointTest
+ * @keywords 健康端点 HTTP处理器 问题列表 JSON序列化 空问题省略 健康响应
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康端点的响应内容、问题省略与 JSON 可序列化性
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilityHealthEndpointTest {
 
     @Test

@@ -13,6 +13,18 @@ import java.util.Objects;
 
 
 /**
+ * @header-start
+ * @module JavaDocDesParser
+ * @keywords 描述解析器 责任链 Javadoc解析 JavaParser StaticJavaParser 源码加载 已废弃
+ *           AbstractDesParser 类路径资源 源代码目录 @Deprecated
+ * @updated 2026-10-28 12:20
+ * @purpose 解析方法 Javadoc 注释作为工具描述，jar 运行时无源码故已标记废弃
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: 韩
  * time: 2025/03/2025/3/27
  * des: sorry, i have a major mistake of the class, because i forget the javaParser can only parse Java file, but the desParser can still be used in IDE enironments

@@ -28,6 +28,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * @header-start
+ * @module SseNotificationsController
+ * @keywords SSE Server-Sent-Events subscriptions/listen 协议2026-07-28 SseEmitter
+ *           Last-Event-ID 断线重放 心跳ping 通知推送 Servlet栈 订阅者注册表
+ * @updated 2026-10-28 12:20
+ * @purpose 在 Servlet 栈以 SSE 长连接推送通知事件，支持断线重放与心跳保活
+ * @layer starter
+ * @see NotificationsPollingEndpoint — 事件来源与重放缓冲
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-Sent Events long-poll endpoint for protocol-2026-07-28
  * {@code subscriptions/listen}. The wire shape: clients open
  * {@code GET /mcp/sse} and receive a stream of {@code data: <json>}

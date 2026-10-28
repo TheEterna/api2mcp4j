@@ -17,6 +17,18 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CacheHintsTest
+ * @keywords 缓存提示 cacheable CacheHints TTL换算 scope规范化 private public 缓存契约
+ *           构造校验 record不变量
+ * @updated 2026-10-28 12:20
+ * @purpose 断言缓存提示的常量、TTL 换算、scope 规范化与构造校验规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CacheHintsTest {
 
     @Test

@@ -8,6 +8,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * @header-start
+ * @module WireSchemaValidator
+ * @keywords 线格式校验 必填元键 resultType取值 ttlMs非负 cacheScope枚举
+ *             校验报告 开发期自检
+ * @updated 2026-10-28 12:20
+ * @purpose 校验结果元数据中缺失或畸形的协议字段，产出可读可序列化的校验报告
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Validator for wire-layer metadata in {@link McpSchema.CallToolResult} /
  * {@link McpSchema.ListToolsResult} / etc. Catches missing or malformed
  * entries that would cause downstream clients to choke on our 2026-07-28

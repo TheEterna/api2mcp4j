@@ -18,6 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module McpRequestHeadersTest
+ * @keywords 请求头 协议头 X-MCP-* 常量 键值对 顺序保持 空白拒绝 jsonrpc调用头
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MCP 协议请求头的常量、构造规则与插入顺序
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link McpRequestHeaders}.
  */
 class McpRequestHeadersTest {

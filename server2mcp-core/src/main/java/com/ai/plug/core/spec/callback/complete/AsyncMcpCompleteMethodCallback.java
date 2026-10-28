@@ -17,6 +17,18 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module AsyncMcpCompleteMethodCallback
+ * @keywords 补全回调 异步 BiFunction McpAsyncServerExchange CompleteRequest Mono
+ *           AbstractMcpCompleteMethodCallback 参数注入 结果转换 McpComplete URI模板补全 提示词补全
+ * @updated 2026-10-28 12:20
+ * @purpose 把 @McpComplete 方法包装成异步补全回调，完成参数注入与方法调用
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Class for creating BiFunction callbacks around complete methods with asynchronous
  * support.
  *

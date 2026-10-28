@@ -6,6 +6,18 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.*;
 
 /**
+ * @header-start
+ * @module McpSyncElicitation
+ * @keywords elicitation 同步实现 McpSyncServerExchange ElicitFormRequest
+ *               客户端表单收集 boundedElastic 异步包装
+ * @updated 2026-10-28 12:20
+ * @purpose 以同步 exchange 发起 elicitation 请求，并把同步调用包装成 Mono 适配异步链路
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/4 17:40
  */

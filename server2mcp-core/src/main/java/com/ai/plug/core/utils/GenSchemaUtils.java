@@ -30,6 +30,19 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
+ * @header-start
+ * @module GenSchemaUtils
+ * @keywords JSON Schema 生成 victools SchemaGenerator McpSchemaModule Jackson注解
+ *           Swagger注解 Jakarta校验 @McpArg描述 required判定 DRAFT_2020_12 ObjectNode转Map
+ *           inputSchema 出参Schema 工具参数Schema
+ * @updated 2026-10-28 12:20
+ * @purpose 按 MCP 语义生成工具出入参 JSON Schema，并把 JSON 树转回 Map
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/7 11:15
  */

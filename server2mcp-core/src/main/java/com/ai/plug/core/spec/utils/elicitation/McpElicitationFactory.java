@@ -4,6 +4,18 @@ import io.modelcontextprotocol.server.McpAsyncServerExchange;
 import io.modelcontextprotocol.server.McpSyncServerExchange;
 
 /**
+ * @header-start
+ * @module McpElicitationFactory
+ * @keywords 工厂方法 exchange类型分派 同步异步适配 getElicitation
+ *             McpSyncElicitation McpAsyncElicitation
+ * @updated 2026-10-28 12:20
+ * @purpose 按 exchange 的同步异步类型分派出对应的 elicitation 实现
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/7/4 17:55
  */

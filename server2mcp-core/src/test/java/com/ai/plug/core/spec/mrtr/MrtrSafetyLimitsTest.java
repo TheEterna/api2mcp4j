@@ -10,6 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module MrtrSafetyLimitsTest
+ * @keywords MRTR 安全上限 最大轮次 默认八轮 越限中止 会话放弃 属性回退
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 MRTR 多轮的最大轮次安全上限与越限中止行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies the round-limit guard in {@link MrtrDriver#resume}:
  * a misbehaving client that retries indefinitely must not be able to
  * grow the session unbounded. After the limit is exceeded the session

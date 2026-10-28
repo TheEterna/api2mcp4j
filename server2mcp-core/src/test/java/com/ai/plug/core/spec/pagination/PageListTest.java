@@ -23,6 +23,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module PageListTest
+ * @keywords 分页列表 PageList nextCursor totalItems 末页无游标 转换器分支 构造校验
+ * @updated 2026-10-28 12:20
+ * @purpose 断言分页列表载体与结果转换器分支的游标与总数行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class PageListTest {
 
     @Test

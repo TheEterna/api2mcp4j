@@ -14,6 +14,18 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 
 /**
+ * @header-start
+ * @module JsonParser
+ * @keywords JSON解析 工具类 ObjectMapper fromJson toJson toTypedObject 泛型反序列化
+ *           Jackson3 tools.jackson JacksonException 结构化输出 类型转换 统一入口
+ * @updated 2026-10-28 12:20
+ * @purpose 封装 Jackson3 的 JSON 序列化与反序列化，为参数绑定与结果转换提供统一入口
+ * @layer common
+ * @author han
+ * @header-end
+ */
+
+/**
  * Utilities to perform parsing operations between JSON and Java.
  * <p>
  * Jackson 3 迁移说明（2026-07-30）：Spring AI 2.0 / MCP SDK 2.0 要求 Jackson 3，包根由

@@ -18,6 +18,18 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ServerInfoFactoryTest
+ * @keywords 服务端信息 实现信息 ServerInfo title description 图标 网站URL
+ *           图标解析 空白拒绝
+ * @updated 2026-10-28 12:20
+ * @purpose 断言服务端实现信息的构造、完整形态与图标解析规则
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ServerInfoFactoryTest {
 
     @Test

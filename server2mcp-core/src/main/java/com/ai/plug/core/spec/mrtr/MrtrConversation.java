@@ -6,6 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module MrtrConversation
+ * @keywords MRTR会话 record requestState 轮次 round 响应历史
+ *               handlerSnapshot 不可变状态 next续轮
+ * @updated 2026-10-28 12:20
+ * @purpose 以不可变 record 承载单场 MRTR 多轮对话的服务端状态
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Server-side state of a single Multi Round-Trip Request (MRTR) conversation.
  *
  * <p>A conversation accumulates:

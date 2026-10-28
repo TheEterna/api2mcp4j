@@ -12,6 +12,18 @@ import com.ai.plug.core.spec.tasks.TasksEndpoint;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module JsonRpcRoutes
+ * @keywords 路由注册表 server/discover tasks/create tasks/get tasks/list tasks/cancel
+ *           augmented-prompt subscriptions/listen input_required/respond 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 一站式把协议 2026-07-28 的 JSON-RPC 方法名注册到框架各端点实现上
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * One-stop registry that wires the protocol-2026-07-28 JSON-RPC method
  * names to the framework's existing endpoint implementations. Each
  * registration takes raw {@code params} (a JSON object) and returns the

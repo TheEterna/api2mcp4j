@@ -18,6 +18,17 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module IdempotentCacheEvictionE2ETest
+ * @keywords 幂等缓存 过期淘汰 端到端 TTL 内存有界 过期后写入 缓存生命周期
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言幂等缓存的过期淘汰行为与内存有界性
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test for IdempotentCache TTL eviction:
  * - mixed expiry / non-expiry entries
  * - periodic eviction via evictExpired()

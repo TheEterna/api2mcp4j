@@ -6,6 +6,8 @@ package com.ai.plug.core.annotation;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpComplete @keywords 补全注解 completion 资源URI模板补全 提示词参数补全 prompt uri 二选一 补全方法标记 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Annotates a method used for completion functionality in the MCP framework. This
  * annotation can be used in two mutually exclusive ways: 1. To complete an expression

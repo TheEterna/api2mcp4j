@@ -20,6 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AugmentedPromptsController
+ * @keywords 增强提示 tasks/augmented-prompt 协议2026-07-28 SpringMVC控制器
+ *           AugmentedPromptEndpoint 列举 drain排空 JSON-RPC替身 Servlet栈
+ * @updated 2026-10-28 12:20
+ * @purpose 在 Servlet 栈暴露增强提示的列举与排空端点，替身 SDK 缺失的 RPC 方法
+ * @layer starter
+ * @see AugmentedPromptEndpoint — 端点背后的协议层实现
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring MVC controller exposing {@code /mcp/tasks/{id}/augmented-prompts}
  * endpoints — substitutes for protocol-2026-07-28
  * {@code tasks/augmented-prompt} JSON-RPC method (Java SDK 2.0 lacks schema).

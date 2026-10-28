@@ -20,6 +20,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
+ * @header-start
+ * @module DiscoverTypesTest
+ * @keywords 发现类型 DiscoverResult ServerIdentity 首选版本 服务端身份 capabilities
+ *           扩展能力tasks 序列化
+ * @updated 2026-10-28 12:20
+ * @purpose 断言发现响应各数据类型的构造约束与序列化形状
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests for {@link DiscoverTypes} — verifies the server/discover wire schema
  * (MCP protocol 2026-07-28 SEP-2575).
  */

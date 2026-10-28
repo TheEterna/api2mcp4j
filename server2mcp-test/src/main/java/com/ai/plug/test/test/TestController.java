@@ -37,6 +37,18 @@ import java.util.Map;
 @Api(tags="用户模块")
 @Slf4j
 
+/**
+ * @header-start
+ * @module TestController
+ * @keywords 演示控制器 @McpResource @McpPrompt @McpComplete 补全 elicitation询问
+ *           roots读取 @ToolNotScanForAuto 工具参数 Swagger注解 非侵入式扫描验证
+ * @updated 2026-10-28 12:20
+ * @purpose 演示控制器：同一批方法上验证资源/提示/补全注册与特殊参数注入
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 public class TestController {
 
     private IRootContext rootContext;

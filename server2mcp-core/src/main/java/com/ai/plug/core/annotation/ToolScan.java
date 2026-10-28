@@ -7,6 +7,8 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 
+/** @header-start @module ToolScan @keywords 工具扫描注解 包扫描 basePackages includeFilters excludeFilters includeToolFilters excludeToolFilters ToolFilter FilterType CLASS ANNOTATION META_ANNOTATION Import Registrar 两级过滤 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * @author: han
  * time: 2025/04/2025/4/2 22:29

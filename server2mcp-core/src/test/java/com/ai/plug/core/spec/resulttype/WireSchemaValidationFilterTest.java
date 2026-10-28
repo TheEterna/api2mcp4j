@@ -19,6 +19,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module WireSchemaValidationFilterTest
+ * @keywords 校验过滤器 严格模式 非严格模式 仅日志 异常携带报告 空结果透传
+ *           wire校验 过滤器链
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 校验过滤器的严格/非严格模式行为与异常内容
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WireSchemaValidationFilterTest {
 
     @Test

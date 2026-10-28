@@ -25,6 +25,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module FullWireJsonDemoTest
+ * @keywords 完整wire JSON 端到端 demo resultType inputRequired MRTR 缓存提示 协议样例
+ * @updated 2026-10-28 12:20
+ * @purpose 演示并断言工具结果的完整 wire JSON（协议 2026-07-28 全字段）
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Full-stack end-to-end test demonstrating the framework's wire protocol
  * coverage. A single tool method:
  * <ol>

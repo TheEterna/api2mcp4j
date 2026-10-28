@@ -6,6 +6,18 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Method;
 
 /**
+ * @header-start
+ * @module Swagger2DesParser
+ * @keywords 描述解析器 责任链 Swagger2 ApiOperation 工具描述 summary notes 拼装
+ *           AbstractDesParser 解析器优先级 order
+ * @updated 2026-10-28 12:20
+ * @purpose 从 Swagger2 的 ApiOperation 注解拼装工具描述，是描述解析链的一环
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/4/23 10:54
  */

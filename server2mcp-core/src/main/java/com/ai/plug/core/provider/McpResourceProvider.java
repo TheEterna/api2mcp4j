@@ -16,6 +16,21 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * @header-start
+ * @module McpResourceProvider
+ * @keywords 资源暴露 桥接模式 ResourceSpecification SyncResourceSpecification AsyncResourceSpecification
+ *           资源注解 资源回调创建 资源清单
+ * @updated 2026-10-28 12:20
+ * @purpose 把资源对象转成 MCP SDK 的 ResourceSpecification，是资源注册面到暴露面的桥
+ * @layer core
+ * @affects 改动影响 MCP 客户端看到的全部资源清单与资源元数据
+ * @see IResourceContext — 资源注册定义的容器
+ * @constraint 注册纪律「利器 A」：暴露清单须与注册面同源，不得另开数据源
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/19 17:48
  */

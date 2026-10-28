@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/** @header-start @module CapabilitiesHealthReport @keywords 健康报告 record JSON可序列化 healthy issueCount issues Actuator DTO 数据载体 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * JSON-serializable health report for {@link CapabilitiesHealth}. Wraps the
  * internal {@link CapabilitiesHealth.Report} so it can be exposed via

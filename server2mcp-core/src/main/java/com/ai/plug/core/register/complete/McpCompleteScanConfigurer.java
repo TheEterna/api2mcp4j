@@ -15,6 +15,23 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
+ * @header-start
+ * @module McpCompleteScanConfigurer
+ * @keywords 补全扫描 BeanDefinitionRegistryPostProcessor 包扫描 ClassPathCompleteScanner
+ *           包含过滤器 排除过滤器 注解过滤 类过滤 DeclaredClassExcludeFilter
+ *           AnnotationTypeFilter ICompleteContext 补全注册
+ * @updated 2026-10-28 12:20
+ * @purpose 执行 @McpCompleteScan 的包扫描与过滤规则装配，把命中类注册进 ICompleteContext
+ * @layer core
+ * @affects 改动影响所有 @McpCompleteScan 作用域下的补全注册结果（扫描范围与类级过滤）
+ * @see ClassPathCompleteScanner — 实际执行类路径扫描
+ * @see McpCompleteScan — 过滤器语义的声明方
+ * @constraint 注册链路四件套之一；无工具级过滤（与 Tool 版本的结构差异点）
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/16 17:07
  */

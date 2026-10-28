@@ -14,6 +14,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module WireSchemaBenchmarkTest
+ * @keywords wire基准 校验器基准 性能基准 报告字段 toString 校验开销
+ * @updated 2026-10-28 12:20
+ * @purpose 断言 wire 校验基准测试的输出字段与结果形态
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class WireSchemaBenchmarkTest {
 
     @Test

@@ -1,5 +1,7 @@
 package com.ai.plug.common.constants;
 
+/** @header-start @module ConfigConstants @keywords 配置常量 plugin.mcp 前缀 VARIABLE_PREFIX SPRING_AI_VARIABLE_PREFIX 解析器配置key PARSER_PREFIX VARIABLE_PARAM VARIABLE_DES 实体开关key @updated 2026-10-28 12:20 @layer common @author han @header-end */
+
 /**
  * @author: han
  * time: 2025/03/20 14:22

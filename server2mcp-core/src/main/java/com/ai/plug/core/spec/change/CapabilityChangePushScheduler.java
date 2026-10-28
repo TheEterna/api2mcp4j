@@ -1,6 +1,18 @@
 package com.ai.plug.core.spec.change;
 
 /**
+ * @header-start
+ * @module CapabilityChangePushScheduler
+ * @keywords 调度包装 Runnable 定时任务 diffAndNotify notifyNow 强制推送
+ *           McpToolChangeNotifier 调度器无关
+ * @updated 2026-10-28 12:20
+ * @purpose 把能力变更通知包装成可交给任意调度器执行的 Runnable
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Runnable wrapper for scheduled capability-change notification. Designed
  * to be invoked from any scheduler (Spring {@code @Scheduled}, custom
  * thread pool, test loop, etc).

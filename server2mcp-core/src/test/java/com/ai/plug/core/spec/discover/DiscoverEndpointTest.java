@@ -19,6 +19,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module DiscoverEndpointTest
+ * @keywords 发现 discover 端点 协议版本协商 客户端偏好 必需字段 JSON 输出
+ * @updated 2026-10-28 12:20
+ * @purpose 断言发现端点的必填字段输出与协议版本协商逻辑
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class DiscoverEndpointTest {
 
     @Test

@@ -21,6 +21,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpToolWireHintsTest
+ * @keywords wire提示 _meta 注解提示字段 cacheScope TTL负值 工具回调 列表结果 默认回退
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具回调在 _meta 中写出的各类提示字段与缺省处理
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies that {@link McpTool#resultType() / ttlMs() / cacheScope() /
  * cacheWrapperKey()} propagate into every {@link McpSchema.CallToolResult}
  * produced by {@link DefaultMcpCallToolResultConverter}.

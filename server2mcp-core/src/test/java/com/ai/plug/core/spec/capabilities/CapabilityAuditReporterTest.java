@@ -17,6 +17,17 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module CapabilityAuditReporterTest
+ * @keywords 能力审计 基线快照 差异比对 resetBaseline 能力漂移 审计上报
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力审计器的基线快照、差异检出与基线重置行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilityAuditReporterTest {
 
     @Test

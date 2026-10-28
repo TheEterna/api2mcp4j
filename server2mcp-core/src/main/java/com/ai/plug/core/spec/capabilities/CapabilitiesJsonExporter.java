@@ -4,6 +4,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module CapabilitiesJsonExporter
+ * @keywords 能力序列化 wire形状 Map树 tools resources prompts completions experimental
+ *           WireServerCapabilities Jackson无关 发现端点 导出缝
+ * @updated 2026-10-28 12:20
+ * @purpose 把 wire 能力集序列化为协议 2026-07-28 形状的 Map 树，作为统一导出缝
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Serialises a {@link WireServerCapabilities} to a plain
  * {@code Map<String,Object>} tree matching the protocol-2026-07-28 wire
  * shape. The exporter is intentionally Jackson-free so it can live in

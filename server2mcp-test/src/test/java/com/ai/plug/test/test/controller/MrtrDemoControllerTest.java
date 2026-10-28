@@ -23,6 +23,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
+ * @header-start
+ * @module MrtrDemoControllerTest
+ * @keywords MRTR端到端测试 MockMvc 三轮对话 input_required requestState
+ *           未知会话 错误分支 协议2026-07-28
+ * @updated 2026-10-28 12:20
+ * @purpose 端到端断言 MRTR 演示端点的三轮对话流程与未知会话错误分支
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * End-to-end test of the MRTR demo controller — drives the full 3-round
  * conversation (address → payment → confirmation) via standalone MockMvc,
  * verifying the wire shape a real MCP client would see.

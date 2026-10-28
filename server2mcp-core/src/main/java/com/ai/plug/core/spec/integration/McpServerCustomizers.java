@@ -10,6 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module McpServerCustomizers
+ * @keywords SpringAI定制器 McpSyncServerCustomizer McpAsyncServerCustomizer 链式组合
+ *           listChanged能力 服务身份 请求头 规范模板
+ * @updated 2026-10-28 12:20
+ * @purpose 提供 Spring AI 定制器模板，把本框架的能力集与身份助手接到用户的 MCP 服务上
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring AI 2.0 customizer templates — bridges this framework's spec helpers
  * (ServerInfoFactory / ServerCapabilitiesFactory / McpRequestHeaders) into the
  * user's MCP server without requiring them to wire SDK builders by hand.

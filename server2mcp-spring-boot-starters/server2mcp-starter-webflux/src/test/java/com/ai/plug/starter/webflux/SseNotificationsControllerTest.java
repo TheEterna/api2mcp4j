@@ -23,6 +23,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module SseNotificationsControllerTest
+ * @keywords SSE测试 StepVerifier Flux Sink广播 断线重放 Last-Event-ID 非法游标
+ *           无订阅者不抛异常 Reactive栈
+ * @updated 2026-10-28 12:20
+ * @purpose 断言响应式 SSE 控制器的广播、重放与游标解析行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Unit tests for the Reactive SSE notifications controller.
  *
  * <p>Mirrors {@code com.ai.plug.starter.webmvc.SseNotificationsControllerTest}:

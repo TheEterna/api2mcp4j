@@ -36,6 +36,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module AsyncMcpAnnotationProvider
+ * @keywords 异步Provider工厂 SpringAI集成 AsyncToolSpecification AsyncResourceSpecification
+ *           AsyncPromptSpecification AsyncCompletionSpecification 桥接模式
+ * @updated 2026-10-28 12:20
+ * @purpose 为 Spring AI 的异步通道派生四类 Provider 子类，产出异步 Specification 清单
+ * @layer core
+ * @affects 改动影响 Spring AI 异步通道下可见的工具/资源/提示/补全清单
+ * @see McpToolProvider — 被派生的基类
+ * @constraint 派生自 MCP 侧 Provider，改基类行为会同步传导至此
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author Christian Tzolov
  */
 public class AsyncMcpAnnotationProvider {

@@ -9,6 +9,21 @@ import org.jspecify.annotations.Nullable;
 import reactor.core.publisher.Mono;
 
 /**
+ * @header-start
+ * @module McpAsyncLogger
+ * @keywords MCP日志 logging notifications/message 异步实现 McpLogger Reactive Mono
+ *           McpAsyncServerExchange 日志级别 debug info notice warning error critical
+ *           alert emergency 客户端日志通知 同步包装 block
+ * @updated 2026-10-28 12:20
+ * @purpose 以异步 exchange 向客户端投递八级日志消息，同步方法内部阻塞订阅
+ * @layer core
+ * @see McpLogger — 日志抽象接口
+ * @see McpLoggerFactory — 按 exchange 类型派生日志实例
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author han
  * @time 2025/6/24 3:05
  */

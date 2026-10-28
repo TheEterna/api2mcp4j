@@ -23,6 +23,22 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 /**
+ * @header-start
+ * @module Server2McpAutoConfiguration
+ * @keywords 自动配置 入口 AutoConfiguration.imports Conditions.SystemCondition
+ *           Server2McpAutoConfiguration Spring Boot 装配 MCP 服务端
+ * @updated 2026-10-28 12:20
+ * @purpose 框架自动配置入口，由 META-INF/spring 自动装配清单加载，串联注册链路与暴露链路
+ * @layer autoconfigure
+ * @affects 改动影响整个框架在用户应用中的装配时机与生效范围
+ * @see McpConfig — 具体 Specification Bean 的装配体
+ * @see ProtocolCoreAutoConfiguration — 协议层共享契约的单一装配源
+ * @constraint 自动配置入口类：改动会波及所有使用本 starter 的下游应用
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 她也曾美如画
  * @time: 2025/04
  */

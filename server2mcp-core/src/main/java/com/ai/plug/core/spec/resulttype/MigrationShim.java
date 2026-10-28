@@ -5,6 +5,18 @@ import io.modelcontextprotocol.spec.McpSchema;
 import java.lang.reflect.Method;
 
 /**
+ * @header-start
+ * @module MigrationShim
+ * @keywords SDK能力探测 反射检测 resultType ttlMs cacheScope extensions
+ *             版本迁移垫片 元映射回退 字节码实证
+ * @updated 2026-10-28 12:20
+ * @purpose 反射探测 SDK 是否已暴露协议新字段，为元映射回退与原生 Builder 双路径做切换依据
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Migration shim — switches the framework's wire-layer hint delivery
  * between (a) meta-map-based wrapping (current SDK 2.0 path) and
  * (b) direct SDK Builder field access (Java SDK ≥ 2.1 future path).

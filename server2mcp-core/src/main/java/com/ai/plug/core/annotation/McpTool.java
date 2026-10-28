@@ -7,6 +7,8 @@ import com.ai.plug.core.spec.callback.tool.McpCallToolResultConverter;
 
 import java.lang.annotation.*;
 
+/** @header-start @module McpTool @keywords 工具注解 MCP Tool 工具名 描述 mineType 行为注解 readOnlyHint idempotentHint listChanged converter 结果转换器 icons metaJson resultType ttlMs cacheScope 缓存 @updated 2026-10-28 12:20 @layer core @author han @header-end */
+
 /**
  * Marks a method as a MCP Tool.
  * @author han

@@ -20,6 +20,17 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @header-start
+ * @module ToolsInspectionHelperTest
+ * @keywords 工具巡检 巡检条目 注解字段透出 wire提示 空上下文返回空列表 工具上下文
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具巡检辅助方法对注解字段与 wire 提示的采集
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ToolsInspectionHelperTest {
 
     @Test

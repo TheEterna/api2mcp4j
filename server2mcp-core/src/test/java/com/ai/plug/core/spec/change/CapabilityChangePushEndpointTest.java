@@ -19,6 +19,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CapabilityChangePushEndpointTest
+ * @keywords 能力变更推送 HTTP端点 变更触发 强制推送 未变更不触发 通知器
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力变更推送端点的触发时机与强制推送语义
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilityChangePushEndpointTest {
 
     @Test

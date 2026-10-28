@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * @header-start
+ * @module CapabilitiesHealth
+ * @keywords 能力健康检查 ServerCapabilities listChanged 必需标志 健康报告 Report
+ *           CapabilitySnapshot 协议2026-07-28 运维可观测 校验
+ * @updated 2026-10-28 12:20
+ * @purpose 校验服务端能力集是否满足协议最小必需标志，产出可读的健康报告
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Capabilities health check — verifies that the configured
  * {@link McpSchema.ServerCapabilities} carry the protocol-2026-07-28
  * minimum viable set of listChanged flags + produce a human-readable

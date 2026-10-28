@@ -20,6 +20,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpToolChangeNotifierPushTest
+ * @keywords 变更推送 notifyNow 应用就绪触发 二次变更 工具清单变化 通知器
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具变更通知器在应用就绪与后续变更时的推送次数
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies the McpToolChangeNotifier notifyNow() / onApplicationReady() path.
  */
 class McpToolChangeNotifierPushTest {

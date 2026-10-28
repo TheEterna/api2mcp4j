@@ -16,6 +16,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * @header-start
+ * @module JavaDocParamParser
+ * @keywords 参数解析器 责任链 Javadoc @param 参数描述 JavaParser StaticJavaParser 源码加载
+ *           AbstractParamParser 方法签名匹配 类路径资源 源代码目录
+ * @updated 2026-10-28 12:20
+ * @purpose 从方法 Javadoc 的 @param 标签提取参数描述，jar 运行时需源码在类路径
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author 韩
  * time: 2025/5/13 2:05
  * JAVADOC 还是一种很有用的注解方式, 不能够废弃, 后面会给他提供一种可用的方式改造

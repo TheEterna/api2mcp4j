@@ -21,6 +21,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpTelemetryForwardTest
+ * @keywords 遥测透传 traceparent traceId spanId _meta OTel链路追踪 工具回调 请求头
+ * @updated 2026-10-28 12:20
+ * @purpose 断言链路追踪上下文从请求头透传到工具结果的 _meta
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Verifies OpenTelemetry trace context propagation per SEP-414. When a
  * {@code tools/call} request carries traceparent / tracestate / baggage in its
  * {@code _meta}, the framework forwards these to the response's {@code _meta}.

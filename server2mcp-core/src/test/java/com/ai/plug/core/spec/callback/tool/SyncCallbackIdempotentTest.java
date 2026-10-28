@@ -23,6 +23,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module SyncCallbackIdempotentTest
+ * @keywords 幂等 同步回调 缓存命中 IdempotentCache 重试策略 工具回调 副作用保护
+ * @updated 2026-10-28 12:20
+ * @purpose 断言同步工具回调在幂等提示开启/关闭时是否走缓存
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Tests verifying that {@link SyncMcpToolMethodCallback} correctly applies
  * the {@link IdempotentCache} when the underlying method is annotated
  * {@code @McpTool(idempotentHint=true)}.

@@ -6,6 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
+ * @header-start
+ * @module JsonRpcResponse
+ * @keywords JSONRPC响应信封 result error id回显 _meta traceparent
+ *           标准错误码 PARSE_ERROR METHOD_NOT_FOUND INTERNAL_ERROR record
+ * @updated 2026-10-28 12:20
+ * @purpose 以 record 定义 JSON-RPC 2.0 响应信封与标准错误码，并承载追踪元数据
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * JSON-RPC 2.0 response envelope. Exactly one of {@code result} or
  * {@code error} is populated per response; the wire format mandates
  * {@code id} echo (with {@code null} for parse-error notifications).

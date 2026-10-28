@@ -9,6 +9,18 @@ import org.springframework.context.event.EventListener;
 import java.util.function.Supplier;
 
 /**
+ * @header-start
+ * @module WireSchemaValidationListener
+ * @keywords 启动校验监听 ContextRefreshedEvent EventListener 能力集校验
+ *             严格模式 早期暴露问题
+ * @updated 2026-10-28 12:20
+ * @purpose 在应用上下文就绪时校验服务端能力集的线格式元数据，把问题提前到启动期暴露
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Spring ApplicationListener — runs {@link WireSchemaValidator} on the
  * current {@link McpSchema.ServerCapabilities} when the application context
  * is ready. In dev mode this surfaces missing/malformed wire-layer fields

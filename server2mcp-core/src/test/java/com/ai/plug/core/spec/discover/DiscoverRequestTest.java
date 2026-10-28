@@ -16,6 +16,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module DiscoverRequestTest
+ * @keywords 发现请求 协议版本字段 构造校验 空值拒绝 已知协议版本兼容
+ * @updated 2026-10-28 12:20
+ * @purpose 断言发现请求对象对协议版本字段的校验与兼容范围
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class DiscoverRequestTest {
 
     @Test

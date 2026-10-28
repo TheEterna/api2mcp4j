@@ -22,6 +22,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module ConverterValidatorIntegrationTest
+ * @keywords 转换器校验 ResultTypeConvention DEV_MODE_PROPERTY 开发模式 meta校验
+ *           大小写不敏感 非法resultType 集成测试 工具结果转换
+ * @updated 2026-10-28 12:20
+ * @purpose 断言结果转换器在开发模式开关下对 meta.resultType 的校验行为
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class ConverterValidatorIntegrationTest {
 
     @AfterEach

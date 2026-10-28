@@ -16,6 +16,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * @header-start
+ * @module CapabilitiesHealthSpringActuatorTest
+ * @keywords Spring Actuator HealthIndicator UP DOWN 能力健康 内层委托 健康端点
+ * @updated 2026-10-28 12:20
+ * @purpose 断言能力健康指标在 Spring Actuator 下的 UP/DOWN 映射
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
 class CapabilitiesHealthSpringActuatorTest {
 
     @Test

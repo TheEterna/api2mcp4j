@@ -9,6 +9,21 @@ import static com.ai.plug.common.constants.PromptConstants.CUSTOM_PARAM_DES;
 import static com.ai.plug.common.constants.PromptConstants.DEFAULT_PARAM_DES;
 
 /**
+ * @header-start
+ * @module AbstractParamParser
+ * @keywords 参数解析 责任链 抽象基类 doParamRequiredParse doParamDesParse 参数必填
+ *           Nullable 参数描述 JSON Schema AbstractParamParser 解析器SPI 参数解析器链
+ * @updated 2026-10-28 12:20
+ * @purpose 参数解析器责任链的抽象基类，定义"参数必填性"与"参数描述"的统一解析契约
+ * @layer core
+ * @affects 改动影响全部 8 个参数解析器（McpTool/Jackson/JavaDoc/Mvc/Swagger3/Swagger2/Tool）的实现契约与生成的 Schema
+ * @see McpToolParamParser — order=0 的最高优先级实现
+ * @constraint 责任链 SPI：新增/改名抽象方法会波及所有子类与工具入参 Schema 生成
+ * @author han
+ * @header-end
+ */
+
+/**
  * @author: han
  * time: 2025/04/2025/4/1 23:18
  * des:

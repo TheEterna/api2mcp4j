@@ -12,6 +12,18 @@ import java.util.Map;
 import static com.ai.plug.core.utils.GenSchemaUtils.MCP_SCHEMA_GENERATOR;
 
 /**
+ * @header-start
+ * @module McpElicitation
+ * @keywords elicitation 接口 form模式 url模式 ElicitFormRequest ElicitUrlRequest
+ *             JSONSchema包装 GenSchemaUtils requestedSchema 协议2025-11-25
+ * @updated 2026-10-28 12:20
+ * @purpose 定义向客户端发起 elicitation 的统一契约，并封装表单与 URL 两种请求构造
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * 通过 exchange 向客户端发起 elicitation 请求。
  * <p>
  * MCP 协议 2025-11-25 起 elicitation 分为两种模式：

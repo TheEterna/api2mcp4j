@@ -14,6 +14,18 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 
 /**
+ * @header-start
+ * @module MrtrToolCallbackWrapper
+ * @keywords 回调装饰器 MRTR感知 requestState提取 回执注入 会话生命周期
+ *               input_required 透传包装 非MRTR工具无感
+ * @updated 2026-10-28 12:20
+ * @purpose 以装饰器方式把既有同步工具回调改造成 MRTR 感知，无需改动工具源码
+ * @layer core
+ * @author han
+ * @header-end
+ */
+
+/**
  * Decorator that turns any existing sync tool callback into an MRTR-aware one
  * without touching its source code.
  *

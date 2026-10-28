@@ -22,6 +22,18 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * @header-start
+ * @module McpToolProviderConsistencyTest
+ * @keywords 工具一致性 ToolAnnotations 提示字段 listChanged 服务端信息 ServerInfoFactory
+ *           McpRootFactory 工厂方法 注解契约 反射断言
+ * @updated 2026-10-28 12:20
+ * @purpose 断言工具注解提示字段、listChanged 默认值与服务端信息工厂的一致性
+ * @layer test
+ * @author han
+ * @header-end
+ */
+
+/**
  * Integration test verifying that McpToolProvider's
  * {@code McpToolProvider.getToolAnnotations} and {@code buildIcons}
  * correctly reflect @McpTool annotation state into McpSchema.ToolAnnotations.

@@ -1,6 +1,7 @@
 package com.ai.plug.autoconfigure;
 
 import com.ai.plug.autoconfigure.conditional.Conditions;
+import com.ai.plug.autoconfigure.conditional.ParserNameValidator;
 import com.ai.plug.autoconfigure.spec.AsyncSpecMcpConfig;
 import com.ai.plug.autoconfigure.spec.SyncSpecMcpConfig;
 import com.ai.plug.core.context.complete.CompleteContextFactory;
@@ -18,6 +19,7 @@ import io.modelcontextprotocol.spec.McpSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -52,6 +54,16 @@ import java.util.function.BiConsumer;
 public class Server2McpAutoConfiguration {
     public static final Logger logger = LoggerFactory.getLogger(Server2McpAutoConfiguration.class);
 
-
+    /**
+     * 启动期解析器名校验器（注册纪律 R2）。
+     *
+     * <p>配置的解析器名拼错时，该解析器会静默不激活且零提示。此校验器在容器就绪后
+     * 比对已知名集合，把这类错误变成启动期可见信号：默认 WARN 不阻断，
+     * 设置 {@code plugin.mcp.parser.strict=true} 则拒绝启动。
+     */
+    @Bean
+    public ParserNameValidator parserNameValidator(Environment environment) {
+        return new ParserNameValidator(environment);
+    }
 
 }

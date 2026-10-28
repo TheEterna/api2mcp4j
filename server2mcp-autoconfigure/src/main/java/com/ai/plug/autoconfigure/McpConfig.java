@@ -2,6 +2,7 @@ package com.ai.plug.autoconfigure;
 
 import com.ai.plug.autoconfigure.annotation.ToolNotScanForAuto;
 import com.ai.plug.autoconfigure.conditional.ConditionalOnParser;
+import com.ai.plug.autoconfigure.conditional.ParserNames;
 import com.ai.plug.autoconfigure.conditional.Conditions;
 import com.ai.plug.core.annotation.McpCompleteScan;
 import com.ai.plug.core.annotation.McpPromptScan;
@@ -56,7 +57,7 @@ import static com.ai.plug.core.annotation.ToolScan.ToolFilterType.META_ANNOTATIO
  * @keywords 配置装配 Root Tool Resource Prompt Complete Specification Bean
  *           Conditions 条件装配 interface作用域 自动扫描 AutoConfiguredToolScannerRegistrar
  *           ImportBeanDefinitionRegistrar IRootContext Root变更订阅
- * @updated 2026-10-28 12:50
+ * @updated 2026-10-28 13:45
  * @purpose 装配各类 MCP 实体在容器内的 Specification Bean，并在 interface 作用域下自动挂载扫描注册器
  * @layer autoconfigure
  * @affects 改动影响 MCP 四类实体在容器中的 Bean 形态与 interface 作用域的自动扫描行为
@@ -240,38 +241,38 @@ public class McpConfig {
             return new SingleStarter();
         }
         @Bean
-        @ConditionalOnParser(value = "MCPTOOL", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.MCPTOOL, type = AbstractDesParser.class)
         @Order(0)
         public AbstractDesParser mcpToolDesParser() {
             return new McpToolDesParser();
         }
         @Bean
-        @ConditionalOnParser(value = "TOOL", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.TOOL, type = AbstractDesParser.class)
         @Order(1)
         public AbstractDesParser toolDesParser() {
             return new ToolDesParser();
         }
 
         @Bean
-        @ConditionalOnParser(value = "JACKSON", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.JACKSON, type = AbstractDesParser.class)
         @Order(2)
         public AbstractDesParser jacksonDesParser() {
             return new JacksonDesParser();
         }
         @Bean
-        @ConditionalOnParser(value = "JAVADOC", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.JAVADOC, type = AbstractDesParser.class)
         @Order(3)
         public AbstractDesParser javaDocDesParser() {
             return new JavaDocDesParser();
         }
         @Bean
-        @ConditionalOnParser(value = "SWAGGER3", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.SWAGGER3, type = AbstractDesParser.class)
         @Order(4)
         public AbstractDesParser swagger3DesParser() {
             return new Swagger3DesParser();
         }
         @Bean
-        @ConditionalOnParser(value = "SWAGGER2", type = AbstractDesParser.class)
+        @ConditionalOnParser(value = ParserNames.SWAGGER2, type = AbstractDesParser.class)
         @Order(5)
         public AbstractDesParser swagger2DesParser() {
             return new Swagger2DesParser();
@@ -282,47 +283,47 @@ public class McpConfig {
 
 
         @Bean
-        @ConditionalOnParser(value = "MCPTOOL", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.MCPTOOL, type = AbstractParamParser.class)
         @Order(0)
         public McpToolParamParser mcpToolParamParser() {
             return new McpToolParamParser();
         }
 
         @Bean
-        @ConditionalOnParser(value = "TOOL", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.TOOL, type = AbstractParamParser.class)
         @Order(1)
         public ToolParamParser toolParamParser() {
             return new ToolParamParser();
         }
 
         @Bean
-        @ConditionalOnParser(value = "SPRINGMVC", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.SPRINGMVC, type = AbstractParamParser.class)
         @Order(2)
         public AbstractParamParser mvcParamParser() {
             return new MvcParamParser();
         }
         @Bean
-        @ConditionalOnParser(value = "JACKSON", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.JACKSON, type = AbstractParamParser.class)
         @Order(3)
         public AbstractParamParser jacksonParamParser() {
             return new JacksonParamParser();
         }
 
         @Bean
-        @ConditionalOnParser(value = "JAVADOC", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.JAVADOC, type = AbstractParamParser.class)
         @Order(4)
         public AbstractParamParser javaDocParamParser() {
             return new JavaDocParamParser();
         }
         @Bean
-        @ConditionalOnParser(value = "SWAGGER3", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.SWAGGER3, type = AbstractParamParser.class)
         @Order(5)
         public AbstractParamParser swagger3ParamParser() {
             return new Swagger3ParamParser();
         }
 
         @Bean
-        @ConditionalOnParser(value = "SWAGGER2", type = AbstractParamParser.class)
+        @ConditionalOnParser(value = ParserNames.SWAGGER2, type = AbstractParamParser.class)
         @Order(6)
         public AbstractParamParser swagger2ParamParser() {
             return new Swagger2ParamParser();

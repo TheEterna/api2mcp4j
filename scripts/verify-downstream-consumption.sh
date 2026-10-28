@@ -236,6 +236,45 @@ if [ "${RUN_APP}" = "1" ]; then
 
   kill "${APP_PID}" 2>/dev/null
   wait "${APP_PID}" 2>/dev/null
+
+  # ---------------------------------------------------------------- 6. 解析器名校验（注册纪律 R2）
+  sec "6. 解析器名拼错时 strict 模式必须拒绝启动"
+  cat > "${WORK_DIR}/src/main/resources/application.yml" <<'YAML'
+server:
+  port: 18098
+plugin:
+  mcp:
+    enabled: true
+    scope: interface
+    parser:
+      des: MCPTOOL, JAVADOCS
+      strict: true
+YAML
+  mvn -q -f "${WORK_DIR}/pom.xml" spring-boot:run > "${WORK_DIR}/run-strict.log" 2>&1 &
+  STRICT_PID=$!
+  STRICT_EXITED=0
+  for _ in $(seq 1 60); do
+    sleep 1
+    if ! kill -0 "${STRICT_PID}" 2>/dev/null; then
+      STRICT_EXITED=1
+      break
+    fi
+  done
+
+  if [ "${STRICT_EXITED}" = "1" ]; then
+    if grep -q "JAVADOCS" "${WORK_DIR}/run-strict.log"; then
+      ok "strict 模式：拼错的解析器名被拒绝启动，且提示中含未知名 JAVADOCS"
+      grep -oE "plugin\.mcp\.parser 配置中存在未知的解析器名：[^\"]*" "${WORK_DIR}/run-strict.log" | head -1 | sed 's/^/      /'
+    else
+      bad "strict 模式：应用已退出，但日志中未见未知名提示"
+      tail -20 "${WORK_DIR}/run-strict.log" | sed 's/^/      /'
+    fi
+  else
+    bad "strict 模式：应用未按预期退出（应因未知名解析器而拒绝启动）"
+    kill "${STRICT_PID}" 2>/dev/null
+  fi
+  kill "${STRICT_PID}" 2>/dev/null
+  wait "${STRICT_PID}" 2>/dev/null
 fi
 
 # ---------------------------------------------------------------- 汇总

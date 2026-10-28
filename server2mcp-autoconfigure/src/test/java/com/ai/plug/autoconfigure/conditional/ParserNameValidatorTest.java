@@ -20,13 +20,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.mock.env.MockEnvironment;
-import org.springframework.util.ReflectionUtils;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -144,31 +145,17 @@ class ParserNameValidatorTest {
     @Test
     @DisplayName("McpConfig 中每个 @ConditionalOnParser 声明的名字都必须在已知名集合内")
     void everyDeclaredParserMustBeRegistered() {
-        Set<String> declared = new LinkedHashSet<>();
-        ReflectionUtils.doWithMethods(McpConfig.class, method -> {
-            ConditionalOnParser annotation = AnnotationUtils.findAnnotation(method, ConditionalOnParser.class);
-            if (annotation != null) {
-                declared.add(annotation.value());
-            }
-        });
+        Set<String> declared = new LinkedHashSet<>(collectDeclaredParserNames());
 
         assertThat(declared)
                 .as("McpConfig 应当声明了若干解析器 Bean")
                 .isNotEmpty();
-        assertThat(ParserNames.DES_NAMES)
+
+        Set<String> known = new LinkedHashSet<>(ParserNames.DES_NAMES);
+        known.addAll(ParserNames.PARAM_NAMES);
+        assertThat(known)
                 .as("声明的解析器名未登记进已知名集合 —— 新增解析器时必须同步 ParserNames 与 PluginProperties 枚举")
                 .containsAll(declared);
-    }
-
-    @Test
-    @DisplayName("解析器 Bean 声明数量应与已知名集合规模相符（防漏登记）")
-    void declaredParserCountShouldMatchKnownNames() {
-        long declaredCount = Arrays.stream(McpConfig.class.getDeclaredMethods())
-                .filter(m -> AnnotationUtils.findAnnotation(m, ConditionalOnParser.class) != null)
-                .count();
-
-        // des 6 个 + param 7 个 = 13 处声明；已知名集合 des 6 + param 7 = 13
-        assertThat(declaredCount).isEqualTo(ParserNames.DES_NAMES.size() + ParserNames.PARAM_NAMES.size());
     }
 
     @Test
@@ -179,18 +166,39 @@ class ParserNameValidatorTest {
         }
     }
 
-    /** 反射工具未覆盖到的兜底：确保 McpConfig 里没有遗漏的非 public 解析器声明方法。 */
+    /**
+     * 解析器声明处数应与已知名集合规模相符（防漏登记）。
+     *
+     * <p>注意：解析器 Bean 声明位于 {@code McpConfig} 的【内部嵌套配置类】中
+     * （Tool / Resource / Prompt / Complete 的 Specification 配置），
+     * 因此必须同时扫描外层与全部嵌套类，只扫外层会得到 0。
+     *
+     * <p>另一注意：同名解析器会跨链重复声明（如 MCPTOOL 在 des 与 param 各一处），
+     * 故「声明处数」与「唯一名数」不同 —— 前者 13（des 6 + param 7），后者 7。
+     */
     @Test
-    void noParserDeclarationHiddenInNestedClasses() {
-        long inOuter = Arrays.stream(McpConfig.class.getDeclaredMethods())
-                .filter(m -> AnnotationUtils.findAnnotation(m, ConditionalOnParser.class) != null)
-                .count();
-        long inNested = Arrays.stream(McpConfig.class.getDeclaredClasses())
-                .flatMap(c -> Arrays.stream(c.getDeclaredMethods()))
-                .filter(m -> AnnotationUtils.findAnnotation(m, ConditionalOnParser.class) != null)
-                .count();
+    void declaredParserCountShouldMatchKnownNames() {
+        List<String> declarations = collectDeclaredParserNames();
 
-        assertThat(inOuter + inNested)
-                .isEqualTo(ParserNames.DES_NAMES.size() + ParserNames.PARAM_NAMES.size());
+        // des 6 处 + param 7 处 = 13 处声明；已知名集合 des 6 + param 7 = 13
+        assertThat(declarations).hasSize(ParserNames.DES_NAMES.size() + ParserNames.PARAM_NAMES.size());
+
+        // 唯一名集合必须恰等于已知名集合的并集（既不漏登记，也不多登记）
+        Set<String> unique = new LinkedHashSet<>(declarations);
+        Set<String> known = new LinkedHashSet<>(ParserNames.DES_NAMES);
+        known.addAll(ParserNames.PARAM_NAMES);
+        assertThat(unique).hasSize(known.size());
+    }
+
+    /** 收集 McpConfig 外层与全部内部嵌套类中声明的解析器名（保留重复，按声明处计）。 */
+    private static List<String> collectDeclaredParserNames() {
+        return Stream.concat(
+                        Stream.of(McpConfig.class),
+                        Arrays.stream(McpConfig.class.getDeclaredClasses()))
+                .flatMap(type -> Arrays.stream(type.getDeclaredMethods()))
+                .map(method -> AnnotationUtils.findAnnotation(method, ConditionalOnParser.class))
+                .filter(Objects::nonNull)
+                .map(ConditionalOnParser::value)
+                .toList();
     }
 }

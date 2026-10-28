@@ -19,7 +19,7 @@ import static com.ai.plug.common.constants.ConfigConstants.*;
  * @keywords 条件判定 Condition 启动开关 SystemCondition IsInterfaceCondition IsSyncCondition
  *           IsAsyncCondition ParserCondition RootCondition ToolCondition ResourceCondition
  *           PromptCondition CompleteCondition 解析器类型装配 同步异步模式 分支激活 环境属性读取
- * @updated 2026-10-28 12:20
+ * @updated 2026-10-28 13:45
  * @purpose 承载插件全部条件判定类，按配置开关决定哪些 Bean 与解析器被激活装配
  * @layer autoconfigure
  * @affects 改动影响自动配置的整体装配面：总开关、作用域、同步异步模式以及每个解析器的注册与否
@@ -89,12 +89,12 @@ public class Conditions {
 
             if (ClassUtils.isAssignable(parserType, AbstractParamParser.class)) {
                 types = env.getProperty(VARIABLE_PREFIX +'.' + PARSER_PREFIX + '.' + VARIABLE_PARAM, String[].class, new String[0]);
-                types = types.length == 0 ? new String[]{"MCPTOOL", "TOOL", "JACKSON", "SPRINGMVC", "JAVADOC", "SWAGGER2", "SWAGGER3"} : types;
+                types = types.length == 0 ? ParserNames.PARAM_NAMES.toArray(new String[0]) : types;
 
             }
             else if (ClassUtils.isAssignable(parserType, AbstractDesParser.class)) {
                 types = env.getProperty(VARIABLE_PREFIX +'.' + PARSER_PREFIX + '.' + VARIABLE_DES, String[].class, new String[0]);
-                types = types.length == 0 ? new String[]{"MCPTOOL", "TOOL", "JACKSON", "JAVADOC", "SWAGGER2", "SWAGGER3"} : types;
+                types = types.length == 0 ? ParserNames.DES_NAMES.toArray(new String[0]) : types;
             } else {
                 log.warn("not have the parserType");
                 return false;

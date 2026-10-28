@@ -82,6 +82,18 @@
             <version>${mcp-sdk.version}</version>
         </dependency>
 
+        <!--
+          本模块的测试依赖（2026-10-28 引入）。
+          此前本模块 src/test 为空、零测试覆盖 —— 自动配置层的条件判定与解析器名校验
+          全靠下游应用的启动日志间接验证，回归风险高。
+          test scope，不进发布件，不影响下游用户的依赖树。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
 
 

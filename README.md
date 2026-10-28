@@ -103,6 +103,7 @@ plugin:
     parser:
       des:    MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2
       param:  MCPTOOL, JAVADOC, TOOL, SpringMVC, JACKSON, SWAGGER2, SWAGGER3
+      strict: false   # true = a misspelled parser name aborts startup (default: warn only)
 ```
 
 ### 4. Start & test

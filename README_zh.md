@@ -101,6 +101,7 @@ plugin:
     parser:
       des:    MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2
       param:  MCPTOOL, JAVADOC, TOOL, SpringMVC, JACKSON, SWAGGER2, SWAGGER3
+      strict: false   # true = 解析器名拼错时直接拒绝启动（默认仅告警）
 ```
 
 ### 4. 启动 & 测试

@@ -51,6 +51,18 @@ MCP Java SDK 2.0 仅实现到协议 `2025-11-25`，本版本以自建 wire 层�
 - `release` profile 插件链：enforcer · source · javadoc · gpg · central-publishing 0.12.0
 - `scripts/pre-release-check.sh`（8 组前置断言）· `scripts/publish-to-central.sh`（`--dry-run` / `--publish` 双模式）· `settings.xml.example` 凭据模板
 
+### Added — 注册纪律 R2 启动断言
+
+`plugin.mcp.parser.param` / `.des` 中若把解析器名拼错（如 `JAVADOC` → `JAVADOCS`），该解析器此前**静默不激活、启动零告警**，要到运行时才发现工具描述缺失或参数 Schema 退化。
+
+- 新增 `ParserNames`：解析器名的编译期常量与已知名集合（`@ConditionalOnParser` 的 value 必须是编译期常量，`Enum.name()` 不满足，故需此层）
+- 新增 `ParserNameValidator`（`ApplicationRunner`）：启动期比对已知名集合
+  - 默认 **WARN 不阻断**（对既有用户逐字节兼容），提示含未知名与合法名清单
+  - `plugin.mcp.parser.strict=true` 时抛 `IllegalStateException` **拒绝启动**（供 CI 与严格生产环境）
+  - 匹配规则与 `Conditions.ParserCondition` 的 `equalsIgnoreCase` 一致，避免「校验器说不合法、条件判定却能命中」的矛盾
+- 权威源：`PluginProperties.DesParserType` / `ParamParserType` 两个枚举（本就属于配置契约），`ParserNames` 是其注解侧镜像，一致性由单测断言把关
+- 消除散落定义：`McpConfig` 13 处 `@ConditionalOnParser` 字面量与 `Conditions` 两处默认数组改引用常量（此前同一批名字在 3 处各写一遍，任一处漏改即漂移）
+
 ### Added — AI 可读性基线
 
 - 全仓 317 个 `.java` 文件补齐 `@header-start` / `@header-end` 文件头（`@module` / `@keywords` / `@updated` / `@layer`，L2+ 含 `@purpose`，L3 含 `@affects`）

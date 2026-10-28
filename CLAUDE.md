@@ -84,13 +84,14 @@ cd server2mcp-test && mvn clean package
 ## 模块架构
 
 ```
-server2mcp-parent (根 pom, v1.1.4-SNAPSHOT)
+server2mcp-parent (根 pom, v1.2.0)
 ├── server2mcp-common          → 常量、工具类（ConvertUtil, JacksonUtils, GenSchemaUtils）
 ├── server2mcp-core            → 核心引擎：注解、解析器、扫描器、回调、Provider
-├── server2mcp-autoconfigure   → Spring Boot 自动配置（Server2McpAutoConfiguration）
+│                                + spec/ 协议兼容层（协议 2026-07-28 自建 wire，见 docs/reference/architecture.md §六）
+├── server2mcp-autoconfigure   → Spring Boot 自动配置（Server2McpAutoConfiguration / ProtocolCoreAutoConfiguration）
 ├── server2mcp-spring-boot-starters/
-│   ├── server2mcp-starter-webmvc    → Spring MVC 应用的 Starter
-│   └── server2mcp-starter-webflux   → WebFlux 应用的 Starter
+│   ├── server2mcp-starter-webmvc    → Spring MVC 应用的 Starter（Servlet 端点装配）
+│   └── server2mcp-starter-webflux   → WebFlux 应用的 Starter（响应式端点装配，与 WebMVC 协议面对齐）
 └── server2mcp-test            → 演示应用（不在根 pom 的 modules 中，需单独构建）
 ```
 
@@ -100,13 +101,13 @@ server2mcp-parent (根 pom, v1.1.4-SNAPSHOT)
 
 | 依赖 | 版本 | 用途 |
 |---|---|---|
-| Spring Boot | 3.4.4 | 基础框架 |
-| Spring AI | 1.1.0-SNAPSHOT | MCP 集成层 |
-| MCP Java SDK | 0.14.0-SNAPSHOT | MCP 协议实现 |
+| Spring Boot | 4.1.0 | 基础框架 |
+| Spring AI | 2.0.0 | MCP 集成层 |
+| MCP Java SDK | 2.0.0 | MCP 协议实现 |
 | JavaParser | 3.25.5 | Javadoc 注释解析 |
-| VicTools JsonSchema | 4.37.0 | JSON Schema 生成（Swagger 支持） |
+| VicTools JsonSchema | 5.0.0 | JSON Schema 生成（Swagger 支持） |
 
-全部使用 SNAPSHOT 版本，来源于 Spring 仓库，必须本地 `mvn clean install`。
+外部依赖已于 2026-07-30 全部落到 Maven Central 正式版，**不再是 SNAPSHOT**。但本项目自身的 5 个模块之间仍靠本地仓库互相引用（common ← core ← autoconfigure ← starters），故 clone 后首次使用仍需在根目录执行一次 `mvn clean install`。
 
 ## 核心设计模式与处理链路
 
@@ -165,6 +166,7 @@ plugin:
     parser:
       param: MCPTOOL, JAVADOC, TOOL, SpringMVC, JACKSON, SWAGGER2, SWAGGER3   # 注意：键为单数 param（对应 PluginProperties.Parser.param 字段）
       des: MCPTOOL, JAVADOC, TOOL, JACKSON, SWAGGER3, SWAGGER2
+      strict: false                # 解析器名拼错时是否拒绝启动（false=仅告警，见下）
     tool:
       enabled: true
     resource:
@@ -188,6 +190,7 @@ plugin:
 - **Javadoc 解析器限制**：需要通过 `maven-resources-plugin` 将 `.java` 源文件复制到 classpath（字节码不含 Javadoc）
 - **作用域模式**：`interface` 自动注册 `@Controller` 类的 `@RequestMapping` 方法；`custom` 需显式 `@ToolScan`
 - **排除机制**：`@Deprecated` 和 `@ToolNotScanForAuto` 注解可将类/方法排除出自动扫描
+- **解析器名校验（R2）**：`plugin.mcp.parser.param` / `.des` 中的解析器名若拼错，该解析器**静默不激活且零提示**。`ParserNameValidator` 在启动期比对 `ParserNames` 已知名集合并给出告警；设置 `plugin.mcp.parser.strict=true` 则直接拒绝启动。已知名权威源为 `PluginProperties.DesParserType` / `ParamParserType` 两个枚举，`ParserNames` 是其注解侧镜像，一致性由单测断言把关
 
 ## 扩展点
 
@@ -198,9 +201,9 @@ plugin:
 
 ## 架构注意事项
 
-- `OutputSchema` 已解析但**当前未发送**至 MCP（在 `McpToolProvider` 中被注释掉）——MCP SDK 可能尚未支持
+- `OutputSchema` **已实装并真实发送**（`McpToolProvider` 中 `.outputSchema(outputSchema)` 生效，出口为 `ToolDefinitionBuilder.buildToolOutputSchema()`）
 - `server2mcp-test` 模块**不在**根 pom 的 `<modules>` 中，必须单独构建
-- Spring AI 和 MCP SDK 均为 SNAPSHOT 版本，预期会有 API 破坏性变更
+- Spring AI 与 MCP SDK 已落到正式版（2.0.0）；升级正式版仍可能有 API 破坏性变更，须走下表的破坏性变更红线
 - `ToolRegisterDefinition` 在注册链路中携带过滤器元数据，使得在 Specification 创建时可按扫描组进行过滤
 
 ---
@@ -219,8 +222,8 @@ plugin:
 | 新增解析器用散落 `if/else`/`switch` 判类型，绕过 `@ConditionalOnParser` + `@Order` 责任链 | 违反注册纪律 R1/R5，新增类型必改散落判断、必漏 | 套用「利器 A」：继承 `AbstractXxxParser` + `@ConditionalOnParser` Bean + `@Order`，见 `docs/specs/REGISTRATION_DISCIPLINE_SPEC.md` |
 | 同类 MCP 资源散落多个 Context / 多张 Map；或 Provider 绕过 `IXxxContext` 另开数据源读注册定义 | 违反 R1 极高内聚；注册面与暴露面脱钩（注册了却不暴露 / 暴露了未注册） | 收口单一 `IXxxContext` + 单一 `getRawXxx()` 出口，Provider 只从此取数 |
 | 新增一类 MCP 实体扫描，注解/Registrar/Configurer/`IXxxContext` 四件套不齐 | 破坏注册链路完整性，半成品孤儿 | 「利器 B」四件套齐全，缺一不合并 |
-| 启用/修改 `OutputSchema` 发送逻辑（`McpToolProvider` 中当前被注释）未确认 MCP SDK 版本支持 | MCP SDK 为 SNAPSHOT，可能尚未支持 | 先验证 SDK 当前版本支持，再启用并加测试 |
-| 升级 Spring AI / MCP SDK SNAPSHOT 版本未评估 API 破坏性变更 | SNAPSHOT 预期破坏性变更，牵一发动全身 | 升级前全模块 `mvn clean install` + 跑测试，记录破坏点（红线·跨系统协议变更，须事前请示） |
+| 修改 `OutputSchema` 发送逻辑未确认 MCP SDK 当前版本支持 | SDK record 字段随版本变化，可能不被支持 | 先验证 SDK 当前版本支持，再改并加测试 |
+| 升级 Spring AI / MCP SDK 版本未评估 API 破坏性变更 | 跨大版本升级预期破坏性变更，牵一发动全身 | 升级前全模块 `mvn clean install` + 跑测试，记录破坏点（红线·跨系统协议变更，须事前请示） |
 | webflux starter 响应式链路中使用 `.block()` | 阻塞 Reactor 线程模型 | 用 `flatMap` / `flatMapMany` |
 | `@ConditionalOnParser.value` / parser 名（`plugin.mcp.parser.param`·`.des`）拼写无启动校验即依赖 | R2 启动断言缺失，漏配/拼错静默不激活、零告警（真实缺口 V-2） | parser 名须与默认集合核对；启动断言补齐为限期项（改协议层须董事长批准） |
 | 逆转模块依赖流向（`common ← core ← autoconfigure ← starters`） | 破坏分层，starter 应只做装配 | 注册逻辑单一权威源在 core，starter 仅引 core + autoconfigure |
@@ -257,7 +260,7 @@ plugin:
 
 - [ ] 删除/重命名公开 API 跑了破坏性删除多源验证（grep 多形式 + LSP + 跨模块/下游评估）？
 - [ ] 公开 API 破坏在版本号（MAJOR）+ CHANGELOG 中体现？
-- [ ] SNAPSHOT 依赖升级评估了破坏性变更并跑全模块构建？
+- [ ] 依赖升级评估了破坏性变更并跑全模块构建？
 - [ ] webflux starter 响应式链路无 `.block()`？
 
 ### 工程纪律

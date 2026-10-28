@@ -28,16 +28,16 @@ api2mcp4j（server2mcp）做的唯一一件事，就是把"散落在用户工程
 |--------|---------|-----------|
 | **极高内聚** | 同类资源只有一个家——一张注册表、一个查询出口 | ✅ 每类 MCP 实体只有一个 `I{Type}Context`，工具只有 `IToolContext.getRawTools()` 单一出口 |
 | **强制注册** | "用之前必先注册"是编译期/启动期的物理约束 | ⚠️ 解析器靠 `@ConditionalOnParser` + Spring `List<T>` 自动收集（强），但**无启动断言**（漏配静默生效） |
-| **绝不遗漏** | 新增资源自动被收集，遗漏会主动报错拒绝运行 | ✅ R5 满分（`List<AbstractDesParser>` 自动注入）；⚠️ R2 弱（漏注册不报错） |
+| **绝不遗漏** | 新增资源自动被收集，遗漏会主动报错拒绝运行 | ✅ R5 满分（`List<AbstractDesParser>` 自动注入）；✅ R2 已具备（`ParserNameValidator` 启动期校验，strict 模式可拒绝启动） |
 
-> **诚实声明**：本框架的 R5（自动发现）已是金标准范式，但 R2（启动断言）目前缺失——这是真实的可改进项，本宪法如实标注，不假装已有断言。详见 §五违规清单 V-2。
+> **诚实声明**：本框架的 R5（自动发现）已是金标准范式。R2（启动断言）于 2026-10-28 补齐：`ParserNameValidator` 在启动期比对解析器已知名集合，默认 WARN 不阻断、`plugin.mcp.parser.strict=true` 时拒绝启动。详见 §五违规清单 V-2（已修复）。
 
 ---
 
 ## 二、六维成熟度 Rubric [ENFORCED]
 
 > 任何"MCP 运行时资源"（解析器 / Tool / Resource / Prompt / Complete / Context / 结果转换器）新增或重构时，CR 必须按本 Rubric 逐维打分（每维 0-5，满分 30）。
-> **硬底线**：R1+R5+R6 三维（本框架 R2 暂为限期补齐项，见 §四）。
+> **硬底线**：R1+R5+R6 三维（R2 已于 2026-10-28 补齐，见 §四与 §五 V-2）。
 
 ### 2.1 六维定义与判分标尺（本框架语境）
 
@@ -131,7 +131,7 @@ public AbstractDesParser myCustomDesParser() {
 - R5 ✅ `ToolDefinitionBuilder(List<AbstractDesParser>, List<AbstractParamParser>, ...)` 构造注入自动收集（`ToolDefinitionBuilder.java:65`）
 - R6 ✅ `AbstractDesParser` / `AbstractParamParser` 在 core 层单一权威源
 - R4 🟡 `@ConditionalOnParser.value` 是裸 `String`（如 `"MYCUSTOM"`），拼错不报错（限期可改枚举）
-- R2 🔴 漏配 / 拼错 parser 名，`Conditions.ParserCondition`（`autoconfigure/.../Conditions.java`）静默不激活，**无告警**（见 V-2）
+- R2 ✅ 漏配 / 拼错 parser 名，`ParserNameValidator`（`autoconfigure/.../conditional/ParserNameValidator.java`）在启动期识别并告警；`plugin.mcp.parser.strict=true` 时拒绝启动（V-2 已修复，见 §五）
 
 **适用场景**：所有描述解析器（`AbstractDesParser` 子类）、参数解析器（`AbstractParamParser` 子类）、任何"一组同类策略按 @Order 组成责任链"的资源。**新增解析器一律走此范式，禁止散落判断。**
 
@@ -223,7 +223,7 @@ Q3: 这是"某类资源的注册定义需要一个家"吗？
 - **R5 自动发现**——新增的会被 `List<T>` 自动收（解析器范式）或扫描器自动发现
 - **R6 契约立宪**——接口/抽象基类在 core 层，单一权威源
 
-R2（启动断言）/ R4（禁硬编码 string）为 🟡 限期补齐项，**本框架当前普遍缺 R2，不阻断合并但须挂 TODO**。
+R2（启动断言）已于 2026-10-28 补齐（`ParserNameValidator` + `ParserNames` 已知名集合 + 11 个单测）。R4（禁硬编码 string）仍为 🟡 限期补齐项。
 
 ---
 
@@ -234,7 +234,7 @@ R2（启动断言）/ R4（禁硬编码 string）为 🟡 限期补齐项，**�
 | 编号 | 违规反例 | file:line / 机制 | 违反维度 | 正确做法 |
 |------|---------|------------------|---------|---------|
 | **V-1** | 新增描述解析器时写 `switch(parserType)` 散落判断，不继承 `AbstractDesParser`、不走 `@ConditionalOnParser` | 应有范式 `McpConfig.java:225-260` | R1 ❌ R5 ❌ | 利器 A：继承基类 + `@ConditionalOnParser` Bean + `@Order` |
-| **V-2** ⚠️当前缺口 | `plugin.mcp.parser.des` 配错/拼错 parser 名（如把 `JAVADOC` 拼成 `JAVADOCS`），`Conditions.ParserCondition` 静默不激活该解析器，启动零告警，运行时描述缺失才发现 | `autoconfigure/.../Conditions.java`（`ParserCondition.matches` 仅遍历比对，无"已知名集合"校验） | R2 ❌（无启动断言） | 🟡 限期补：对配置的 parser 名做"是否在已知集合内"启动校验，未知名 WARN/抛异常 |
+| **V-2** ✅已修复（2026-10-28） | `plugin.mcp.parser.des` 配错/拼错 parser 名（如把 `JAVADOC` 拼成 `JAVADOCS`），`Conditions.ParserCondition` 静默不激活该解析器，启动零告警，运行时描述缺失才发现 | `autoconfigure/.../conditional/ParserNameValidator.java`（启动期比对 `ParserNames` 已知名集合）+ `autoconfigure/.../conditional/ParserNames.java`（单一权威源） | R2 ✅（默认 WARN；`plugin.mcp.parser.strict=true` 拒绝启动） | ✅ 已补：单测 11 个 + 下游端到端断言（strict 模式因未知名而拒绝启动） |
 | **V-3** | 新增一类 MCP 实体扫描（假设 `@McpXxxScan`），只建注解不建 `McpXxxScanRegistrar` / 不建 `IXxxContext`，或绕过 Context 往别处塞注册定义 | 应有四件套 `ToolScan.java` + `McpToolScanRegistrar` + `IToolContext` | R1 ❌ R3 ❌ | 利器 B 四件套齐全，注册统一入 `IXxxContext` |
 | **V-4** | 同一类工具注册定义散落在 `IToolContext` 之外的第二张 Map，Provider 从那张读 | 应唯一源 `IToolContext.getRawTools()` | R1 ❌ R3 ❌ | 收口单一 Context；Provider 只读 `getRawTools()` |
 | **V-5** | 自定义 `McpCallToolResultConverter` 在 `@McpTool(converter=X.class)` 引用，但 X 是空壳/未实现接口契约 | `McpToolProvider` 转换链 | R6 ❌ | 实现接口契约，加测试覆盖 |
@@ -262,7 +262,7 @@ CR 时凡见以下模式即按违规处理：
 - [ ] 是否继承统一抽象基类（`AbstractDesParser` / `AbstractParamParser`），而非另起炉灶？（R6）
 - [ ] 是否用 `@ConditionalOnParser(value=..., type=...)` 注册为 Bean，由 `ToolDefinitionBuilder(List<T>)` 自动收集？（R1+R5）
 - [ ] 是否用 `@Order(N)` 显式声明责任链优先级，且与现有解析器（des 0-5 / param 0-6）不冲突？（R4 优先级）
-- [ ] parser 名是否同步登记进默认集合 + 文档（防 V-2 漏激活）？
+- [x] parser 名是否同步登记进默认集合 + 文档？（防 V-2 漏激活 —— 已由 `ParserNames` 常量化 + 单测断言 `ParserNames` 与 `PluginProperties` 枚举一致锁死）
 - [ ] 是否新增对应 `XxxParserTest`（见 [TEST_SPEC.md](./TEST_SPEC.md)）？
 
 ### 6.2 扫描类 MCP 实体（新增 @XxxScan）
@@ -285,7 +285,7 @@ CR 时凡见以下模式即按违规处理：
 
 ### 6.5 启动断言（限期补齐项 · 当前挂 TODO）
 
-- [ ] 漏配/拼错 parser 名时，是否有启动校验告警？（R2，当前缺，记 TODO）
+- [x] 漏配/拼错 parser 名时，是否有启动校验告警？（R2 —— 已具备：`ParserNameValidator` 默认 WARN，`plugin.mcp.parser.strict=true` 拒绝启动）
 
 ---
 
@@ -304,7 +304,7 @@ CR 时凡见以下模式即按违规处理：
 
 1. ✅ **本宪法立宪 [ENFORCED]**（董事长 2026-06-24 批准）
 2. ✅ **解析器域已达金标准**（利器 A：`ToolDefinitionBuilder.java:65` List 自动注入 + `McpConfig.java:225-260` `@ConditionalOnParser`+`@Order`）——列为强制模板，新增解析器一律遵循
-3. 🚧 **R2 启动断言补齐**（限期项，非红线）：对 `plugin.mcp.parser.param/des` 配置的 parser 名做启动校验，未知名告警/抛异常（消灭 V-2）。属"全局规范/协议层改动"，动工前向董事长申请
+3. ✅ **R2 启动断言补齐**（2026-10-28 完成 · 董事长批准）：新增 `ParserNames`（已知名集合单一权威源）与 `ParserNameValidator`（`ApplicationRunner`），对 `plugin.mcp.parser.param/des` 做启动校验 —— 默认 WARN、`plugin.mcp.parser.strict=true` 拒绝启动。TDD 双 commit `36a1019` / `ae9cfa7`，方案见 `docs/plan-R2启动断言-2026-10-28.md`
 4. 🚧 **R4 枚举化**（限期项）：`@ConditionalOnParser.value` 裸 string → 枚举（消灭 V-7）。属 SDK 公开 API 破坏性变更，须董事长批准协议变更
 
 ---
@@ -315,6 +315,8 @@ CR 时凡见以下模式即按违规处理：
 - `server2mcp-core/.../builder/ToolDefinitionBuilder.java:65` · 利器 A `List<T>` 自动注入（R5 金标准）
 - `server2mcp-autoconfigure/.../McpConfig.java:225-260` · 利器 A `@ConditionalOnParser`+`@Order` 注册
 - `server2mcp-autoconfigure/.../conditional/Conditions.java` · `ParserCondition` 配置驱动激活（R2 缺口 V-2 现场）
+- `server2mcp-autoconfigure/.../conditional/ParserNameValidator.java` · R2 启动断言实现（V-2 修复点）
+- `server2mcp-autoconfigure/.../conditional/ParserNames.java` · 解析器已知名集合单一权威源
 - `server2mcp-core/.../annotation/ToolScan.java` · 利器 B 唯一入口（`@Import`）
 - `server2mcp-core/.../register/tool/McpToolScanRegistrar.java` · 利器 B 注册器
 - `server2mcp-core/.../context/tool/IToolContext.java` · 利器 C 单一查询出口（R1+R3）

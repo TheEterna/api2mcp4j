@@ -1,4 +1,36 @@
 import { defineConfig } from 'vitepress'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const HERE = path.dirname(fileURLToPath(import.meta.url))
+const SITE_ROOT = path.resolve(HERE, '..')
+
+/**
+ * Build a nav list from a directory of Markdown files, newest first.
+ *
+ * Work logs and plans used to be listed by hand — which meant every new
+ * document had to be added manually, and the site silently went stale
+ * (2026-08-04 → 2026-10-28: seven logs and three plans never appeared).
+ * Generating them from the filesystem removes that second source of truth.
+ *
+ * @param {string} dir   absolute directory to scan
+ * @param {string} base  URL prefix for the generated links
+ */
+function buildNavFrom(dir, base) {
+  if (!fs.existsSync(dir)) return []
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => {
+      const slug = f.replace(/\.md$/, '')
+      const parts = slug.split('_')
+      const date = /^\d{4}-\d{2}-\d{2}$/.test(parts[0]) ? parts[0] : ''
+      const topic = parts.length > 2 ? parts.slice(2).join('_') : slug
+      return { text: date ? `${date} — ${topic}` : topic, link: `${base}/${slug}` }
+    })
+    .sort((a, b) => b.text.localeCompare(a.text))
+}
 
 /**
  * VitePress config for the api2mcp4j documentation site.
@@ -22,6 +54,20 @@ export default defineConfig({
   // treated as an unclosed Vue template tag.
   markdown: {
     html: false,
+    // 技术文档里大量出现 GitHub Actions 的 `${{ secrets.* }}` 语法。
+    // VitePress 把 Markdown 渲染结果当作 Vue 模板编译，Vue 模板编译器会扫描
+    // 文本节点里的 '{{' 并尝试当作插值表达式求值 → "Error parsing JavaScript expression"
+    // → 整站构建失败（2026-10-28 首次触发：同步进 08-05 隐私审计日志后）。
+    //
+    // 1.6.4 没有关闭 Vue 插值的官方开关（插值规则挂在 core 的 'text' 上，无独立规则名）。
+    // 本项目文档站不需要任何 Vue 插值，故给行内代码加 Vue 的 `v-pre` 指令 ——
+    // 它让该元素内的插值解析整体跳过，代码内容原样呈现。
+    config: (md) => {
+      md.renderer.rules.code_inline = (tokens, idx) => {
+        const token = tokens[idx];
+        return `<code v-pre>${md.utils.escapeHtml(token.content)}</code>`;
+      };
+    },
   },
 
   // The mirrored Markdown sources contain many relative links to
@@ -65,11 +111,13 @@ export default defineConfig({
       },
       {
         text: 'Work Logs',
-        items: [
-          { text: '2026-08-03 — Protocol 100% Compat', link: '/logs/2026-08-03_ceo_protocol-2026-07-28-100pct-compat' },
-          { text: '2026-08-03 — Demo E2E 21/21', link: '/logs/2026-08-03_ceo_demo-end-to-end-21of21' },
-          { text: '2026-08-03 — MRTR Wrapper + Safety', link: '/logs/2026-08-03_ceo_mrtr-callback-wrapper-safety-limits' },
-        ],
+        items: buildNavFrom(path.join(SITE_ROOT, 'logs'), '/logs'),
+      },
+      {
+        text: 'Plans',
+        items: buildNavFrom(path.join(SITE_ROOT, 'docs'), '/docs').filter(
+          (item) => item.link.includes('/plan-'),
+        ),
       },
       {
         text: '🔗',

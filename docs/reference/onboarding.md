@@ -41,14 +41,17 @@ cd /Users/ls/code/api2mcp4j/server2mcp-core && mvn test
 cd /Users/ls/code/api2mcp4j/server2mcp-core && mvn test -Dtest=GenSchemaUtilsTest
 ```
 
-现有测试类（位于 `server2mcp-core/src/test`）：
+现有测试位于 `server2mcp-core/src/test`：**92 个测试类 / 583 个 `@Test`**，
+分布在 `parser` / `provider` / `spec` / `utils` 四个能力域。新人按能力域定位：
 
-| 测试类 | 验证内容 |
-|---|---|
-| `GenSchemaUtilsTest` | JSON Schema 生成工具 |
-| `ElicitationTests` | Elicitation（客户端追问）能力 |
-| `WebMvcSseSyncServerTransportTests` | WebMVC SSE 同步传输 |
-| `TestClass` | 通用测试夹具 |
+| 能力域 | 验证内容 | 代表性测试 |
+|---|---|---|
+| `spec/` | 协议 2026-07-28 wire 层（20 个子域：jsonrpc / mrtr / tasks / capabilities / pagination / dedup / meta …） | `spec/jsonrpc/JsonRpcRouterTest` · `spec/mrtr/MrtrConversationEndToEndTest` · `spec/tasks/TasksEndpointTest` |
+| `provider/` | 注册面 → 暴露面的桥接 | `provider/McpToolProviderConsistencyTest` · `provider/McpToolProviderIconMetaTest` |
+| `parser/` | 描述/参数解析器责任链 | `parser/tool/des/JavaDocDesParserTest` · `parser/tool/starter/SingleStarterFallbackLoggingTest` |
+| `utils/` | Schema 生成等工具 | `utils/GenSchemaUtilsTest` |
+
+`TestClass` 为通用测试夹具，非测试类。
 
 ### Step 3 · 读懂一条处理链路
 

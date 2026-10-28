@@ -29,7 +29,7 @@
 | `spring-boot-starter-test` | `server2mcp-core/pom.xml:83`（`scope=test`） | JUnit 5 + Mockito + AssertJ + Spring Test（传递引入，开箱即用） |
 | `mcp-test` | `server2mcp-core/pom.xml`（`scope=test`） | MCP Java SDK 官方测试支持，用于集成层验证 |
 
-> **现状诚实声明**：当前 `server2mcp-core/src/test` 有 3 个测试类——`GenSchemaUtilsTest`（2 个 `@Test`）/ `ElicitationTests` / `WebMvcSseSyncServerTransportTests`（另有 `TestClass` 为夹具，非测试类）。部分仍使用 JUnit 原生 `Assertions` + `System.out` 打印式验证（探索性写法）。本规范确立**目标标准**（AssertJ 断言 + 无 `System.out` 断言），存量探索性测试渐进式补强，新增测试一律遵循本规范。
+> **现状诚实声明**（2026-10-28 实测）：`server2mcp-core/src/test` 现有 **92 个测试类、583 个 `@Test`**（另有 `TestClass` 为夹具，非测试类），分布在 `parser` / `provider` / `spec` / `utils` 四个能力域。其中 **88 个类已用 AssertJ 断言**、仅 1 个仍用 JUnit 原生 `Assertions`；**3 个类残留 `System.out` 打印式验证**（探索性写法）。本规范确立**目标标准**（AssertJ 断言 + 无 `System.out` 断言），存量探索性测试渐进式补强，新增测试一律遵循本规范。
 
 ---
 

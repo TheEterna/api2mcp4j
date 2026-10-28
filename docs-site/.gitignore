@@ -3,3 +3,15 @@ node_modules/
 .vitepress/cache/
 *.log
 .DS_Store# Build output — Cloudflare Pages builds in their CI, not from this repo
+
+# Mirrored content — build artifacts, NOT sources.
+# Canonical sources live in ../docs/ and ../README*.md; `scripts/build-docs.sh`
+# mirrors them here before every build. Tracking them created a second source
+# of truth that silently drifted for four months (2026-08-04 → 2026-10-28).
+docs/
+logs/
+reference/
+rules/global/
+specs/
+index.md
+zh-cn/

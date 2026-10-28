@@ -220,6 +220,15 @@ if [ "${RUN_APP}" = "1" ]; then
       bad "SDK 启动日志未见 Registered tools 计数 —— 工具未真正挂到 MCP Server"
       grep -iE "Registered tools|No tool methods" "${WORK_DIR}/run.log" 2>/dev/null | head -3 | sed 's/^/      /'
     fi
+
+    # 断言 3 · 启动日志不得出现框架引发的噪声告警
+    NOISE=$(grep -cE "Cannot enhance @Configuration bean definition|parsing module you specified|JavaDoc解析失败" "${WORK_DIR}/run.log" 2>/dev/null || true)
+    if [ "${NOISE}" = "0" ]; then
+      ok "启动日志无框架引发的噪声告警（配置类增强 / 解析兜底 / Javadoc 跳过）"
+    else
+      bad "启动日志出现 ${NOISE} 条框架噪声告警："
+      grep -E "Cannot enhance @Configuration bean definition|parsing module you specified|JavaDoc解析失败" "${WORK_DIR}/run.log" 2>/dev/null | head -3 | sed 's/^/      /'
+    fi
   else
     bad "下游应用未能在 60s 内就绪"
     tail -30 "${WORK_DIR}/run.log" | sed 's/^/      /'

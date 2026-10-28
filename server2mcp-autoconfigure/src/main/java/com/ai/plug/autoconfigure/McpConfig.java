@@ -56,7 +56,7 @@ import static com.ai.plug.core.annotation.ToolScan.ToolFilterType.META_ANNOTATIO
  * @keywords 配置装配 Root Tool Resource Prompt Complete Specification Bean
  *           Conditions 条件装配 interface作用域 自动扫描 AutoConfiguredToolScannerRegistrar
  *           ImportBeanDefinitionRegistrar IRootContext Root变更订阅
- * @updated 2026-10-28 12:20
+ * @updated 2026-10-28 12:50
  * @purpose 装配各类 MCP 实体在容器内的 Specification Bean，并在 interface 作用域下自动挂载扫描注册器
  * @layer autoconfigure
  * @affects 改动影响 MCP 四类实体在容器中的 Bean 形态与 interface 作用域的自动扫描行为
@@ -74,7 +74,7 @@ import static com.ai.plug.core.annotation.ToolScan.ToolFilterType.META_ANNOTATIO
 public class McpConfig {
 
 
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @Conditional(Conditions.RootCondition.class)
     static class RootSpecificationConfiguration {
         /**
@@ -99,7 +99,7 @@ public class McpConfig {
     }
 
 
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @Conditional(Conditions.ToolCondition.class)
     @Import(ToolSpecificationConfiguration.AutoConfiguredToolScannerRegistrar.class)
     static class ToolSpecificationConfiguration {
@@ -331,7 +331,7 @@ public class McpConfig {
 
     }
 
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @Conditional(Conditions.ResourceCondition.class)
     @Import(ResourceSpecificationConfiguration.AutoConfiguredResourceScannerRegistrar.class)
     static class ResourceSpecificationConfiguration {
@@ -393,7 +393,7 @@ public class McpConfig {
         }
     }
 
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @Conditional(Conditions.PromptCondition.class)
     @Import(PromptSpecificationConfiguration.AutoConfiguredPromptScannerRegistrar.class)
     static class PromptSpecificationConfiguration {
@@ -452,7 +452,7 @@ public class McpConfig {
     }
 
 
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @Conditional(Conditions.CompleteCondition.class)
     @Import(CompleteSpecificationConfiguration.AutoConfiguredCompleteScannerRegistrar.class)
     static class CompleteSpecificationConfiguration {

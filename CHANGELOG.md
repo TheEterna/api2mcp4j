@@ -94,9 +94,12 @@ MCP Java SDK 2.0 仅实现到协议 `2025-11-25`，本版本以自建 wire 层�
 - **下游启动日志降噪**（经真实下游工程实测发现并修复）：
   - 解析链全部落空走默认兜底时，`SingleStarter` 原以 WARN 打印「parsing module you specified resulted in ... not parsing the X」——措辞暗示用户配错了解析器，实为框架的常规兜底。改为 `debug` 并如实描述行为
   - `JavaDocDesParser` 在 jar 部署时找不到 `.java` 源码属预期状态（该解析器已 `@Deprecated`），原以 WARN 打印「JavaDoc解析失败」，改为 `debug`
-  - `McpConfig` 的 5 个内部 `@Configuration` 类改声明 `proxyBeanMethods = false`。
+  - `McpConfig` 的 5 个内部 `@Configuration` 类改声明 `proxyBeanMethods = false`。根因：`McpToolScanRegistrar` 在配置类解析阶段即 `getBean(IToolContext.class)`，导致承载该 bean 定义的内部配置类被提前实例化，Spring 无法对其做 CGLIB 增强 → 每个下游用户启动刷 4 条 `Cannot enhance @Configuration bean definition` 警告
 - **文档站构建修复**（此前必然失败）：08-05 隐私审计日志含 GitHub Actions 语法 `${{ secrets.* }}`，VitePress 把 Markdown 渲染结果当 Vue 模板编译 → Vue 模板编译器把 `{{` 当插值表达式求值 → `Error parsing JavaScript expression` → 整站构建失败。改用 Vue 的 `v-pre` 指令跳过行内代码内的插值解析
-- **文档站两处定义根治**：`docs-site/` 下的镜像副本（`docs/` `logs/` `reference/` `rules/global/` `specs/` `index.md` `zh-cn/`）此前被 git 跟踪，与 `../docs/` 形成同一文档两处定义 —— 2026-08-04 至 2026-10-28 期间 `docs/` 的全部更新都没进站点（七篇日志、三份计划、架构总览的协议层章节缺席）。镜像产物改为构建时生成并移出版本库；站点导航改为从目录动态生成根因：`McpToolScanRegistrar` 在配置类解析阶段即 `getBean(IToolContext.class)`，导致承载该 bean 定义的内部配置类被提前实例化，Spring 无法对其做 CGLIB 增强 → 每个下游用户启动刷 4 条 `Cannot enhance @Configuration bean definition` 警告
+- **发布配置两处缺陷**（2026-10-28 对照 Sonatype 官方文档新发现；此前从未实测过 deploy 路径）：
+  - `settings.xml.example` 把 Sonatype User Token 的 username 与 password 共用 `${env.CENTRAL_PORTAL_TOKEN}`。官方 `settings.xml` 片段是两段独立值，共用一个变量必然鉴权失败 → 拆为 `CENTRAL_PORTAL_USERNAME` / `CENTRAL_PORTAL_PASSWORD`
+  - 根 pom `central-publishing-maven-plugin` 的 `autoPublish=false` 与 `waitUntil=published` 互相冲突（官方对后者的描述是「requires Automatic Publishing」）→ `waitUntil` 改 `validated`（官方默认值），保留 `autoPublish=false` 的人工发布闸
+- **文档站两处定义根治**：`docs-site/` 下的镜像副本（`docs/` `logs/` `reference/` `rules/global/` `specs/` `index.md` `zh-cn/`）此前被 git 跟踪，与 `../docs/` 形成同一文档两处定义 —— 2026-08-04 至 2026-10-28 期间 `docs/` 的全部更新都没进站点（七篇日志、三份计划、架构总览的协议层章节缺席）。镜像产物改为构建时生成并移出版本库；站点导航改为从目录动态生成
 
 ### Security
 

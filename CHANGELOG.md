@@ -69,6 +69,10 @@ MCP Java SDK 2.0 仅实现到协议 `2025-11-25`，本版本以自建 wire 层�
 - 根 pom 两个重复 `<compilerArgs>` 导致 `-parameters` 可能失效，已合并
 - `maven-enforcer-plugin` 的 `requireProperty` 被误用于非 String 属性，已修正断言对象
 - `McpElicitation` 生产代码路径中 3 处 `System.out.println("[DEBUG] …")` 已清零
+- **下游启动日志降噪**（经真实下游工程实测发现并修复）：
+  - 解析链全部落空走默认兜底时，`SingleStarter` 原以 WARN 打印「parsing module you specified resulted in ... not parsing the X」——措辞暗示用户配错了解析器，实为框架的常规兜底。改为 `debug` 并如实描述行为
+  - `JavaDocDesParser` 在 jar 部署时找不到 `.java` 源码属预期状态（该解析器已 `@Deprecated`），原以 WARN 打印「JavaDoc解析失败」，改为 `debug`
+  - `McpConfig` 的 5 个内部 `@Configuration` 类改声明 `proxyBeanMethods = false`。根因：`McpToolScanRegistrar` 在配置类解析阶段即 `getBean(IToolContext.class)`，导致承载该 bean 定义的内部配置类被提前实例化，Spring 无法对其做 CGLIB 增强 → 每个下游用户启动刷 4 条 `Cannot enhance @Configuration bean definition` 警告
 
 ### Security
 
